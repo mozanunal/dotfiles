@@ -1,4 +1,5 @@
 
+source ~/.fzf_keybindings.bash
 # --- aliases
 alias jan='cal -m 01'
 alias feb='cal -m 02'
@@ -13,6 +14,8 @@ alias oct='cal -m 10'
 alias nov='cal -m 11'
 alias dec='cal -m 12'
 alias dict='dict -d wn'
+alias fzv='vim $(fzf)'
+
 
 # --- functions
 function fd_largest_files() {

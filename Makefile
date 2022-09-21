@@ -5,6 +5,7 @@ sync:
 	cp confs/.gitconfig ~/.gitconfig
 	cp confs/.tmux.conf ~/.tmux.conf
 	cp confs/.bash_aliases ~/.bash_aliases
+	cp confs/fzf/keybindings.bash ~/.fzf_keybindings.bash
 	. ~/.bashrc
 
 install:
@@ -18,4 +19,4 @@ vim_install:
     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
-default: install
+default: sync
