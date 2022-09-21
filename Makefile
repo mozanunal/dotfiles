@@ -11,4 +11,5 @@ vim_install:
 
 sync:
 	cp confs/.vimrc ~/.vimrc
+	cp confs/.gitconfig ~/.gitconfig
 	cp confs/.tmux.conf ~/.tmux.conf
