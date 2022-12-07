@@ -5,7 +5,7 @@ sync: apt_install vim_install copy
 copy:
 	cp confs/.vimrc ~/.vimrc
 	mkdir -p ~/.config/nvim
-   	cp confs/.vimrc ~/.config/nvim/init.vim
+	cp confs/.vimrc ~/.config/nvim/init.vim
 	cp confs/.gitconfig ~/.gitconfig
 	cp confs/.tmux.conf ~/.tmux.conf
 	cp confs/.bash_aliases ~/.bash_aliases
