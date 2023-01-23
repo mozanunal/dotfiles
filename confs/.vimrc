@@ -1,14 +1,15 @@
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'sickill/vim-monokai'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
+  Plug 'vim-airline/vim-airline'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+  Plug 'sickill/vim-monokai'
+" Plug 'tpope/vim-surround'
+" Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-fugitive'
 call plug#end()
 
-
+syntax on                       " Enable syntax highlight
+set mouse=a                     " Enable mouse support
 set number                      " Show line numbers
 set noswapfile
 set nocompatible
@@ -42,11 +43,27 @@ let g:netrw_liststyle=3         " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-set path+=**
+set path=**                     " Use with :find
 set wildmenu
 set wildmode=longest:full,full
 set laststatus=2
-set guifont=Monaco:h12          " Use Monaco as default font
-colorscheme monokai
-nnoremap <C-p> :GFiles<Cr>
-nnoremap <C-g> :Rg<Cr>
+set guifont=Monaco:h8          " Use Monaco as default font
+set termguicolors
+colorscheme pablo
+
+"tags
+command! MakeTags !ctags -R .
+
+" Keybindings
+nnoremap <C-p> :find
+"nnoremap <C-g> :Rg<Cr>
+
+" Cheatsheet
+" hjkl         : for left up down
+" <C-o>        : is back
+" gd           : go to definition
+" <C-]>        : go to tag definition
+" <C-x C-n>    : auto complete (only I mode)  
+" <C-n>        : auto complete (only I mode)
+" <C-V>        : visual block mode
+
