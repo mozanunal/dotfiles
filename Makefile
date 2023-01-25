@@ -3,8 +3,8 @@ sync: apt_install vim_install neovim_install copy
 # enabled
 copy:
 	cp confs/.vimrc ~/.vimrc
-	#mkdir -p ~/.config/nvim
-	#cp confs/.vimrc ~/.config/nvim/init.vim
+	mkdir -p ~/.config/nvim
+	cp confs/.vimrc ~/.config/nvim/init.vim
 	cp confs/.gitconfig ~/.gitconfig
 	cp confs/.tmux.conf ~/.tmux.conf
 	cp confs/.bash_aliases ~/.bash_aliases
