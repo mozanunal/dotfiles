@@ -3,8 +3,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'sickill/vim-monokai'
-" Plug 'tpope/vim-surround'
-" Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-surround'
+  Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-fugitive'
 call plug#end()
 
