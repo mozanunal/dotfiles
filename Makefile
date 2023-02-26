@@ -2,7 +2,6 @@ sync: apt_install copy
 
 ###### Generic ########
 copy:
-	cp confs/.vimrc ~/.vimrc
 	cp confs/.gitconfig ~/.gitconfig
 	cp confs/.tmux.conf ~/.tmux.conf
 	cp confs/.bash_aliases ~/.bash_aliases
@@ -11,7 +10,7 @@ copy:
 
 apt_install:
 	sudo apt install -y \
-		htop git tmux fzf ripgrep bat \
+		htop git vim tmux fzf ripgrep bat \
 		dict calc aspell 
 
 
@@ -22,6 +21,10 @@ micro_install:
 	micro -plugin install fzf
 	micro -plugin install comment
 	micro -plugin install detectindent
+
+vim_lite_install:
+	sudo apt install vim
+	cp confs/.vimrc ~/.vimrc
 
 vim_full_install:
 	sudo apt install vim

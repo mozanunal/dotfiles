@@ -6,7 +6,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-fugitive'
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  Plug 'airblade/vim-gitgutter'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'liuchengxu/vim-which-key'
 call plug#end()
+
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 syntax on                       " Enable syntax highlight
 set mouse=a                     " Enable mouse support
@@ -49,14 +56,16 @@ set wildmode=longest:full,full
 set laststatus=2
 set guifont=Monaco:h8          " Use Monaco as default font
 set termguicolors
-colorscheme pablo
-
+colorscheme monokai
+set timeoutlen=50
 "tags
 command! MakeTags !ctags -R .
 
 " Keybindings
-nnoremap <C-p> :Files
-nnoremap <C-g> :Rg<Cr>
+map <silent> <leader>sf :Files<Cr>
+map <leader>sg :Rg<Cr>
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
 
 " Cheatsheet
 " hjkl         : for left up down
