@@ -36,7 +36,7 @@ neovim_install:
 	wget -q https://github.com/neovim/neovim/releases/download/v0.8.1/nvim-linux64.deb
 	sudo dpkg -i nvim-linux64.deb
 	rm nvim-linux64.deb
-	mkdir -p ~/.config/nvim
-	cp confs/nvim/* ~/.config/nvim/
+	rm -rf ~/.config/nvim
+	git clone git@github.com:mozanunal/kickstart.nvim.git ~/.config/nvim
 
 default: sync

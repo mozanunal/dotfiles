@@ -4,13 +4,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'sickill/vim-monokai'
   Plug 'tpope/vim-surround'
+  Plug 'joshdick/onedark.vim'
+  Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdcommenter'
   Plug 'tpope/vim-fugitive'
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}
   Plug 'airblade/vim-gitgutter'
-  Plug 'flazz/vim-colorschemes'
   Plug 'liuchengxu/vim-which-key'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'scrooloose/nerdtree'
 call plug#end()
+
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
@@ -56,15 +60,18 @@ set wildmode=longest:full,full
 set laststatus=2
 set guifont=Monaco:h8          " Use Monaco as default font
 set termguicolors
-colorscheme monokai
+colorscheme onedark
 set timeoutlen=50
+set encoding=UTF-8
+
 "tags
 command! MakeTags !ctags -R .
 
 " Keybindings
-map <silent> <leader>sf :Files<Cr>
-map <leader>sg :Rg<Cr>
+map <silent> <leader>sf :Files<CR>
+map <silent> <leader>sg :Rg<CR>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+nnoremap <silent> <leader>e :NERDTreeFocus<CR>
 
 
 " Cheatsheet
