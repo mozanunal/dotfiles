@@ -39,4 +39,8 @@ neovim_install:
 	rm -rf ~/.config/nvim
 	git clone git@github.com:mozanunal/kickstart.nvim.git ~/.config/nvim
 
+kitty_install:
+	sudo apt install kitty
+	cp confs/kitty.conf ~/.config/kitty/kitty.conf
+
 default: sync
