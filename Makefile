@@ -43,4 +43,8 @@ kitty_install:
 	sudo apt install kitty
 	cp confs/kitty.conf ~/.config/kitty/kitty.conf
 
+i3_install:
+	sudo apt install i3 volumeicon-alsa rofi
+	cp confs/i3/config ~/.config/i3/config
+
 default: sync
