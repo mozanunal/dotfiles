@@ -15,13 +15,6 @@ apt_install:
 
 
 ###### Optional ########
-
-micro_install:
-	sudo apt install -y micro
-	micro -plugin install fzf
-	micro -plugin install comment
-	micro -plugin install detectindent
-
 vim_lite_install:
 	sudo apt install vim
 	cp confs/.vimrc ~/.vimrc
