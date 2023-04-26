@@ -1,0 +1,65 @@
+general {
+        colors = true
+        interval = 5
+}
+
+# order += "wireless _first_"
+# order += "ethernet _first_"
+order += "battery all"
+order += "load"
+order += "memory"
+order += "disk /"
+order += "volume master"
+order += "tztime local"
+
+
+wireless _first_ {
+        format_up = "W: %bitrate -%quality - %ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+volume master {
+        # fa7d, nf-mdi-volume_high
+        format = "墳 %volume"
+        # fc5d, nf-mdi-volume_mute
+        # format_muted = "ﱝ %volume" ??? gets reversed
+        format_muted = "%volume ﱝ"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+battery all {
+        # format = "%status %percentage %remaining %emptytime"
+        format = "%status %percentage %remaining"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+disk "/" {
+        format = "󰋊 %avail"
+}
+
+load {
+        format = "󰊚 %1min"
+}
+
+memory {
+        format = "󰍛 %used"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
