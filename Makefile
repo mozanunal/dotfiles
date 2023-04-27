@@ -41,4 +41,10 @@ i3_install:
 	cp confs/i3/config ~/.config/i3/config
 	cp confs/i3status/config ~/.config/i3status/config
 
+helix_install:
+	wget https://github.com/helix-editor/helix/releases/download/22.12/helix-22.12-x86_64.AppImage -O hx
+	chmod +x hx
+	sudo mv hx /usr/local/bin/hx
+	cp confs/helix/config.toml ~/.config/helix/config.toml
+
 default: sync
