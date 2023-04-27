@@ -11,7 +11,7 @@ copy:
 apt_install:
 	sudo apt install -y \
 		htop git vim tmux fzf ripgrep bat \
-		dict calc aspell 
+		dict calc aspell fd-find
 
 
 ###### Optional ########
