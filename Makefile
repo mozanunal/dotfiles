@@ -34,6 +34,7 @@ neovim_install:
 
 kitty_install:
 	sudo apt install kitty
+	mkdir -p ~/.config/kitty/
 	cp confs/kitty.conf ~/.config/kitty/kitty.conf
 
 i3_install:
@@ -45,6 +46,7 @@ helix_install:
 	wget https://github.com/helix-editor/helix/releases/download/22.12/helix-22.12-x86_64.AppImage -O hx
 	chmod +x hx
 	sudo mv hx /usr/local/bin/hx
+	mkdir -p ~/.config/helix/
 	cp confs/helix/config.toml ~/.config/helix/config.toml
 
 default: sync
