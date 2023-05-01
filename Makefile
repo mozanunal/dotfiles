@@ -1,5 +1,3 @@
-
-
 sync: apt_install copy
 
 sh_sync: sync neovim_install kitty_install helix_install font_install
@@ -36,7 +34,8 @@ neovim_install:
 	sudo dpkg -i nvim-linux64.deb
 	rm nvim-linux64.deb
 	rm -rf ~/.config/nvim
-	git clone git@github.com:mozanunal/kickstart.nvim.git ~/.config/nvim
+	mkdir -p ~/.config/nvim/
+	cp confs/nvim/init.lua ~/.config/nvim/init.lua
 
 kitty_install:
 	sudo apt install -y kitty
