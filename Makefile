@@ -43,7 +43,7 @@ kitty_install:
 	cp confs/kitty.conf ~/.config/kitty/kitty.conf
 
 i3_install:
-	sudo apt install -y i3 volumeicon-alsa rofi arandr
+	sudo apt install -y i3 volumeicon-alsa rofi arandr xclip maim
 	cp confs/i3/config ~/.config/i3/config
 	cp confs/i3status/config ~/.config/i3status/config
 
