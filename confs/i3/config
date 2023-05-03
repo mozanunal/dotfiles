@@ -165,6 +165,7 @@ exec "setxkbmap -layout gb,tr"
 exec "setxkbmap -option 'grp:alt_shift_toggle'"
 bindsym $mod+m move workspace to output right
 
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
