@@ -48,11 +48,13 @@ install_kitty:
 	ln -s -f $(PWD)/confs/kitty.conf ~/.config/kitty/kitty.conf
 
 install_i3:
-	sudo apt install -y i3 volumeicon-alsa rofi arandr xclip maim
+	sudo apt install -y i3 volumeicon-alsa rofi arandr xclip maim light
 	mkdir -p ~/.config/i3/
-	mkdir -p ~/.config/i3status/
+	# mkdir -p ~/.config/i3status/
+	mkdir -p ~/.config/i3blocks/
 	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config
-	ln -s -f $(PWD)/confs/i3status/config ~/.config/i3status/config
+	# ln -s -f $(PWD)/confs/i3status/config ~/.config/i3status/config
+	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
 
 install_helix:
 	wget https://github.com/helix-editor/helix/releases/download/22.12/helix-22.12-x86_64.AppImage -O hx
