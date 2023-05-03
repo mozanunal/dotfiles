@@ -26,6 +26,12 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons'
+  },
+
   --
   {
     "kylechui/nvim-surround",
@@ -162,6 +168,11 @@ require('lazy').setup({
         bind_to_cwd = false,
         follow_current_file = true,
         use_libuv_file_watcher = true,
+        filtered_items = {
+          visible = false, -- when true, they will just be displayed differently than normal items
+          hide_dotfiles = false,
+          hide_gitignored = false,
+        }
       },
       window = {
         position = "left",
@@ -256,6 +267,9 @@ require('telescope').setup {
     },
   },
 }
+
+-- Bufferline setup
+require("bufferline").setup{}
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
