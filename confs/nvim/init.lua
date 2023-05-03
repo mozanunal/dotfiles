@@ -157,25 +157,20 @@ require('lazy').setup({
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     },
-    config = function()
-      -- Unless you are still migrating, remove the deprecated commands from v1.x
-      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-      require('neo-tree').setup {
-        window = {
-          position = 'left',
-          mapping_options = {
-            noremap = true,
-            nowait = false,
-          },
-          mapping = {
-            ['<space>'] = {
-              'none',
-              nowait = false,
-            },
-          }
-        }
-      }
-    end,
+    opts = {
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = true,
+        use_libuv_file_watcher = true,
+      },
+      window = {
+        position = "left",
+        width = 25,
+        mappings = {
+          ["<space>"] = "none",
+        },
+      },
+    },
   },
   {
     "windwp/nvim-autopairs",
