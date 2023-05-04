@@ -14,6 +14,7 @@ sync_i3: sync_wsl install_i3
 copy:   
 	@echo $(SEP) copy
 	ln -s -f $(PWD)/confs/.gitconfig ~/.gitconfig
+	ln -s -f $(PWD)/confs/.inputrc ~/.inputrc
 	ln -s -f $(PWD)/confs/.tmux.conf ~/.tmux.conf
 	ln -s -f $(PWD)/confs/.bash_aliases ~/.bash_aliases
 	ln -s -f $(PWD)/confs/fzf/keybindings.bash ~/.fzf_keybindings.bash
