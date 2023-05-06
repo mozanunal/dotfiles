@@ -57,7 +57,7 @@ install_kitty:
 
 install_i3:
 	@echo $(SEP) install_i3
-	sudo apt install -qq -y i3 volumeicon-alsa rofi arandr xclip maim light
+	sudo apt install -qq -y i3 i3blocks i3lock-fancy xss-lock volumeicon-alsa rofi arandr xclip maim light
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/i3blocks/
 	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config

@@ -78,6 +78,16 @@ interval=2
 separator=true
 align=right
 
+
+# Temperature
+#
+# Support multiple chips, though lm-sensors.
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[temperature]
+label=
+interval=10
+
 #[load_average]
 #interval=10
 

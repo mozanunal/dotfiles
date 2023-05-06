@@ -1,7 +1,7 @@
 set $mod Mod4
 # font pango:monospace 10
 font pango:Cousine Nerd Font 12
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id volumeicon
 
@@ -131,6 +131,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+# lock screen
+bindsym $mod+Shift+d exec "i3lock-fancy"
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning - m 'Do you really want to exit i3?' -B 'Yes, exit i3' 'i3-msg exit'"
 
