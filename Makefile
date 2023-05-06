@@ -20,6 +20,15 @@ copy:
 	ln -s -f $(PWD)/confs/fzf/keybindings.bash ~/.fzf_keybindings.bash
 	. ~/.bashrc
 
+
+update:
+	@echo $(SEP) update
+	sudo apt -qq update
+	sudo apt -qq -y upgrade
+	sudo apt -qq -y autoclean
+	sudo apt -qq -y autoremove
+
+
 install_apt:
 	@echo $(SEP) install_apt
 	sudo apt install -qq -y \
