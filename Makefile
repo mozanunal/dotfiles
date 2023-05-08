@@ -4,9 +4,9 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 
 sync_sh: install_apt install_bash
 
-sync_dev: sync_sh install_neovim install_helix
+sync_sh_dev: sync_sh install_neovim install_helix
 
-sync_wsl: sync_dev install_font install_kitty
+sync_wsl: sync_sh_dev install_font install_kitty
 
 sync_i3: sync_wsl install_i3
 
