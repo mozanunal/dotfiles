@@ -15,16 +15,12 @@ alias nov='cal -m 11'
 alias dec='cal -m 12'
 alias dict='dict -d wn'
 alias fzv='vim $(fzf)'
-
+alias tm='tmux a||tmux'
+alias emj="cat ~/.icons | fzf | awk '{ print $1 }'"
 
 # --- functions
 function fd_largest_files() {
     du -h -x -s -- * | sort -r -h | head -20;
 }
 
-# --- exports
-
-# Let there be color in grep!
-# export GREP_OPTIONS=' — color=auto'
-# Set Vim as my default editor
 export EDITOR=nvim

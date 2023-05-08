@@ -70,8 +70,9 @@ install_font:
 	@echo $(SEP) install_font
 	wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/Cousine.zip
 	mkdir -p ~/.local/share/fonts/CousineNerdFont
-	unzip -o Cousine.zip -d ~/.local/share/fonts/CousineNerdFont 
+	unzip -o Cousine.zip -d ~/.local/share/fonts/CousineNerdFont
 	rm Cousine.zip
+	ln -s -f $(PWD)/confs/.icons ~/.icons
 
 install_kitty:
 	@echo $(SEP) install_kitty
@@ -129,7 +130,7 @@ install_i3:
 	mkdir -p ~/.config/i3blocks/
 	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config
 	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
-
+	sudo usermod -aG video moz
 
 
 default: sync_sh
