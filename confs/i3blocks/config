@@ -53,7 +53,7 @@ signal=11
 # Volume indicator
 #
 [volume]
-label=墳
+label=󰕾
 instance=Master
 interval=once
 signal=11
