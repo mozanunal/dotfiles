@@ -116,6 +116,9 @@ install_dev_scala:
 	./cs setup
 	sudo mv ./cs /usr/local/bin
 
+install_dev_spark:
+	pip install pyspark
+
 ###### Window Manager and Gui #########
 install_i3:
 	@echo $(SEP) install_i3

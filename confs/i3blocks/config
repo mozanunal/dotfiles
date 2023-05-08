@@ -1,57 +1,24 @@
-# i3blocks config file
-#
-# Please see man i3blocks for a complete reference!
-# The man page is also hosted at http://vivien.github.io/i3blocks
-#
-# List of valid properties:
-#
-# align
-# color
-# command
-# full_text
-# instance
-# interval
-# label
-# min_width
-# name
-# separator
-# separator_block_width
-# short_text
-# signal
-# urgent
-
-# Global properties
-#
-# The top properties below are applied to every block, but can be overridden.
-# Each block command defaults to the script name to avoid boilerplate.
 command=/usr/share/i3blocks/$BLOCK_NAME
 separator_block_width=10
 markup=none
 
-# # Print the last command entered in Bash
-# [history]
-# command=inotifywait -qq -e close_write ~/.bash_history; tail -1 ~/.bash_history
-# interval=repeat
-
-
 # Battery indicator
-#
-# The battery instance defaults to 0.
 [battery]
 label=󰂄
 #instance=1
 interval=30
 
-# Brightness indicator
-#
+[power_profile]
+label=
+command=system76-power profile | grep Profile | awk '{print substr($3,1,4)}'
+interval=1
+
 [brightness]
 label=󰃞
 command=light
 interval=once
 signal=11
 
-# Volume indicator
-#
 [volume]
 label=󰕾
 instance=Master
@@ -59,31 +26,27 @@ interval=once
 signal=11
 separator=true
 
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
 [memory]
 label=󰍛
 separator=true
-interval=2
+interval=1
 
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
 [cpu_usage]
 label=󰊚
-interval=2
-#min_width=󰊚 100.00%
+interval=1
 separator=true
 align=right
 
+[cpu_freq]
+min_width=9999 Mhz
+command=grep MHz /proc/cpuinfo | awk '{sum += $4} END {printf "%d MHz", sum/NR }'
+interval=1
 
-# Temperature
-#
-# Support multiple chips, though lm-sensors.
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
+[fan]
+label=󰈐
+command=sensors | grep fan | awk '{print $2" RPM"}'
+interval=1
+
 [temperature]
 label=
 interval=10
@@ -94,5 +57,5 @@ interval=10
 # Date Time
 [time]
 command=date '+%Y-%m-%d %H:%M:%S'
-interval=5
+interval=1
 
