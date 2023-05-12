@@ -81,7 +81,7 @@ install_kitty:
 	ln -s -f $(PWD)/confs/kitty.conf ~/.config/kitty/kitty.conf
 
 ###### Dev Environment #####
-sync_dev: sync_dev_python sync_dev_data sync_dev_spark
+sync_dev_all: sync_dev_python sync_dev_data sync_dev_spark
 
 sync_dev_python: install_dev_python install_nodejs
 
