@@ -48,6 +48,16 @@ install_vim_full:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+install_zellij:
+	wget -q https://github.com/zellij-org/zellij/releases/download/v0.36.0/zellij-x86_64-unknown-linux-musl.tar.gz
+	tar -xvf zellij*.tar.gz
+	chmod +x zellij
+	sudo mv zellij /usr/local/bin/zellij
+	rm zellij*.tar.gz
+	mkdir -p ~/.config/zellij
+	ln -s -f $(PWD)/confs/zellij/config.kdl ~/.config/zellij/config.kdl
+
+
 install_neovim:
 	@echo $(SEP) install_neovim
 	wget -q https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb
