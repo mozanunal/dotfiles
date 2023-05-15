@@ -192,7 +192,7 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting options ]]
-vim.cmd.colorscheme 'catppuccin'
+vim.cmd.colorscheme 'catppuccin-macchiato'
 -- remove swapfile
 vim.o.swapfile = false
 
