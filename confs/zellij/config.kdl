@@ -1,12 +1,16 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
+    
     normal {
 	// uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
     }
+    shared_except "locked" "normal" {
+        bind "Esc" { SwitchToMode "Normal"; }
+    }
+ 
     shared_except "locked" {
         bind "Ctrl q" { Quit; }
-        bind "Esc" { SwitchToMode "Normal"; }
         bind "Ctrl a" { SwitchToMode "Tmux"; }
 	bind "Alt m" { SwitchToMode "Move"; }
 	bind "Alt r" { SwitchToMode "Resize"; }
