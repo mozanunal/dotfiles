@@ -49,6 +49,7 @@ install_vim_full:
     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 install_zellij:
+	@echo $(SEP) install_zellij
 	wget -q https://github.com/zellij-org/zellij/releases/download/v0.36.0/zellij-x86_64-unknown-linux-musl.tar.gz
 	tar -xvf zellij*.tar.gz
 	chmod +x zellij
@@ -56,7 +57,6 @@ install_zellij:
 	rm zellij*.tar.gz
 	mkdir -p ~/.config/zellij
 	ln -s -f $(PWD)/confs/zellij/config.kdl ~/.config/zellij/config.kdl
-
 
 install_neovim:
 	@echo $(SEP) install_neovim
@@ -89,6 +89,13 @@ install_kitty:
 	sudo apt install -qq -y kitty
 	mkdir -p ~/.config/kitty/
 	ln -s -f $(PWD)/confs/kitty.conf ~/.config/kitty/kitty.conf
+
+install_wezterm:
+	@echo $(SEP) install_wezterm
+	wget -q https://github.com/wez/wezterm/releases/download/20230408-112425-69ae8472/wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
+	sudo dpkg -i wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
+	rm wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
+	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
 ###### Dev Environment #####
 sync_dev_all: sync_dev_python sync_dev_data sync_dev_spark
