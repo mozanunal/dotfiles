@@ -16,6 +16,7 @@ alias dec='cal -m 12'
 alias dict='dict -d wn'
 alias fzv='vim $(fzf)'
 alias tm='tmux a||tmux'
+alias zm='zellij a||zellij'
 alias emj="cat ~/.icons | fzf | awk '{ print $1 }'"
 
 # --- functions
