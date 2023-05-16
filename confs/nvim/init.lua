@@ -233,6 +233,24 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- Auto-indent new lines
+vim.o.autoindent = true
+
+-- Use spaces instead of tabs
+vim.o.expandtab = true
+
+-- Number of auto-indent spaces
+vim.o.shiftwidth = 4
+
+-- Enable smart-indent
+vim.o.smartindent = true
+
+-- Enable smart-tabs
+vim.o.smarttab = true
+
+-- Number of spaces per Tab
+vim.o.softtabstop = 4
+
 -- [[ Basic Keymaps ]]
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')

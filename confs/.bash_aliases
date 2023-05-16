@@ -18,7 +18,8 @@ alias fzv='vim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias emj="cat ~/.icons | fzf | awk '{ print $1 }'"
-
+alias fd='fdfind'
+alias bat='batcat'
 # --- functions
 function fd_largest_files() {
     du -h -x -s -- * | sort -r -h | head -20;
