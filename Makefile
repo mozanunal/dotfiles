@@ -60,9 +60,9 @@ install_zellij:
 
 install_neovim:
 	@echo $(SEP) install_neovim
-	wget -q https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb
-	sudo dpkg -i nvim-linux64.deb
-	rm nvim-linux64.deb
+	wget -q https://github.com/neovim/neovim/releases/download/v0.9.0/nvim.appimage
+	chmod +x nvim.appimage
+	sudo mv nvim.appimage /usr/local/bin/nvim
 	rm -rf ~/.config/nvim
 	mkdir -p ~/.config/nvim/
 	ln -s -f $(PWD)/confs/nvim/init.lua ~/.config/nvim/init.lua
@@ -92,9 +92,6 @@ install_kitty:
 
 install_wezterm:
 	@echo $(SEP) install_wezterm
-	wget -q https://github.com/wez/wezterm/releases/download/20230408-112425-69ae8472/wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
-	sudo dpkg -i wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
-	rm wezterm-20230408-112425-69ae8472.Ubuntu22.04.deb
 	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
 ###### Dev Environment #####
