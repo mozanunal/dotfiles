@@ -25,4 +25,15 @@ function fd_largest_files() {
     du -h -x -s -- * | sort -r -h | head -20;
 }
 
+function smoke_test() {
+smoke_tests="Normal
+\033[1mBold\033[22m
+\033[3mItalic\033[23m
+\033[3;1mBold Italic\033[0m
+\033[4mUnderline\033[24m
+== === !== >= <= =>
+契          勒 鈴 \n"
+printf "%b" "${smoke_tests}"
+}
+
 export EDITOR=nvim

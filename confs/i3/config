@@ -1,9 +1,10 @@
 set $mod Mod4
 # font pango:monospace 10
-font pango:Cousine Nerd Font 12
+font pango:Cousine Nerd Font 11
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id volumeicon
+exec --no-startup-id nitrogen --restore
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -96,7 +97,7 @@ set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
-set $ws5 "w"
+set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
