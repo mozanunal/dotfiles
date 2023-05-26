@@ -3,7 +3,7 @@ PWD="$(shell pwd)"
 SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
-sync_sh_server: install_bash
+sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
 sync_term: sync_sh_dev install_font install_kitty
 sync_i3: sync_term install_i3
@@ -13,15 +13,6 @@ dev_all: dev_python dev_data dev_spark
 dev_python: install_dev_python install_nodejs
 dev_data: install_dev_data install_duckdb
 dev_spark: install_dev_scala
-
-
-###### Commands ########
-cmd_update:
-	@echo $(SEP) update
-	sudo apt -qq update
-	sudo apt -qq -y upgrade
-	sudo apt -qq -y autoclean
-	sudo apt -qq -y autoremove
 
 ###### Shells #########
 install_bash:
