@@ -62,7 +62,7 @@ install_neovim:
 
 install_helix:
 	@echo $(SEP) install_helix
-	wget -q https://github.com/helix-editor/helix/releases/download/22.12/helix-22.12-x86_64.AppImage -O hx
+	wget -q https://github.com/helix-editor/helix/releases/download/23.05/helix-23.05-x86_64.AppImage -O hx
 	chmod +x hx
 	sudo mv hx /usr/local/bin/hx
 	mkdir -p ~/.config/helix/
