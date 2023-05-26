@@ -2,13 +2,18 @@
 PWD="$(shell pwd)"
 SEP="\e[1;32m-------------------------------------------\e[0m"
 
-sync_sh: install_apt install_bash
+######## Tools #########
+sync_sh_server: install_bash
+sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
+sync_term: sync_sh_dev install_font install_kitty
+sync_i3: sync_term install_i3
 
-sync_sh_dev: sync_sh install_neovim install_helix
+######## Dev Env ########
+dev_all: dev_python dev_data dev_spark
+dev_python: install_dev_python install_nodejs
+dev_data: install_dev_data install_duckdb
+dev_spark: install_dev_scala
 
-sync_wsl: sync_sh_dev install_font install_kitty
-
-sync_i3: sync_wsl install_i3
 
 ###### Commands ########
 cmd_update:
@@ -18,15 +23,12 @@ cmd_update:
 	sudo apt -qq -y autoclean
 	sudo apt -qq -y autoremove
 
-###### Installs #########
-install_apt:
-	@echo $(SEP) install_apt
+###### Shells #########
+install_bash:
+	@echo $(SEP) install_bash
 	sudo apt install -qq -y \
 		htop git vim tmux fzf ripgrep bat \
 		dict calc aspell fd-find unzip
-
-install_bash:   
-	@echo $(SEP) copy
 	ln -s -f $(PWD)/confs/.gitconfig ~/.gitconfig
 	ln -s -f $(PWD)/confs/.inputrc ~/.inputrc
 	ln -s -f $(PWD)/confs/.tmux.conf ~/.tmux.conf
@@ -94,15 +96,11 @@ install_wezterm:
 	@echo $(SEP) install_wezterm
 	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
+install_alacrity:
+	@echo $(SEP) install_alacrity
+	ln -s -f $(PWD)/confs/alacritty.yml ~/.alacritty.yml
+
 ###### Dev Environment #####
-sync_dev_all: sync_dev_python sync_dev_data sync_dev_spark
-
-sync_dev_python: install_dev_python install_nodejs
-
-sync_dev_data: install_dev_data install_duckdb
-
-sync_dev_spark: install_dev_scala
-
 install_dev_python:
 	@echo $(SEP) install_dev_python
 	sudo apt install -y -qq python-is-python3 python3-pip ipython3
@@ -138,7 +136,8 @@ install_dev_spark:
 install_i3:
 	@echo $(SEP) install_i3
 	sudo apt install -qq -y i3 i3blocks i3lock-fancy xss-lock \
-				volumeicon-alsa pavucontrol rofi arandr \
+				volumeicon-alsa pavucontrol rofi \
+				lxrandr lxappearance arandr \
 				xclip maim light lm-sensors
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/i3blocks/
