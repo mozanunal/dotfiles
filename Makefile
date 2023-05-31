@@ -19,7 +19,7 @@ install_bash:
 	@echo $(SEP) install_bash
 	sudo apt install -qq -y \
 		htop git vim tmux fzf ripgrep bat \
-		dict calc aspell fd-find unzip
+		ncal dict calc aspell fd-find unzip
 	ln -s -f $(PWD)/confs/.gitconfig ~/.gitconfig
 	ln -s -f $(PWD)/confs/.inputrc ~/.inputrc
 	ln -s -f $(PWD)/confs/.tmux.conf ~/.tmux.conf
