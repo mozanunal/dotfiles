@@ -40,7 +40,7 @@ set wildmode=longest:full,full
 set laststatus=2
 set guifont=Monaco:h8          " Use Monaco as default font
 set termguicolors
-colorscheme solarized
+colorscheme default
 
 "tags
 command! MakeTags !ctags -R .
