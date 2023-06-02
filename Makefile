@@ -43,28 +43,20 @@ install_vim_full:
 
 install_zellij:
 	@echo $(SEP) install_zellij
-	wget -q https://github.com/zellij-org/zellij/releases/download/v0.36.0/zellij-x86_64-unknown-linux-musl.tar.gz
-	tar -xvf zellij*.tar.gz
-	chmod +x zellij
-	sudo mv zellij /usr/local/bin/zellij
-	rm zellij*.tar.gz
+	nix-env -iA nixpkgs.zellij
 	mkdir -p ~/.config/zellij
 	ln -s -f $(PWD)/confs/zellij/config.kdl ~/.config/zellij/config.kdl
 
 install_neovim:
 	@echo $(SEP) install_neovim
-	wget -q https://github.com/neovim/neovim/releases/download/v0.9.0/nvim.appimage
-	chmod +x nvim.appimage
-	sudo mv nvim.appimage /usr/local/bin/nvim
+	nix-env -iA nixpkgs.neovim
 	rm -rf ~/.config/nvim
 	mkdir -p ~/.config/nvim/
 	ln -s -f $(PWD)/confs/nvim/init.lua ~/.config/nvim/init.lua
 
 install_helix:
 	@echo $(SEP) install_helix
-	wget -q https://github.com/helix-editor/helix/releases/download/23.05/helix-23.05-x86_64.AppImage -O hx
-	chmod +x hx
-	sudo mv hx /usr/local/bin/hx
+	nix-env -iA nixpkgs.helix
 	mkdir -p ~/.config/helix/
 	ln -s -f $(PWD)/confs/helix/config.toml ~/.config/helix/config.toml
 
@@ -79,12 +71,13 @@ install_font:
 
 install_kitty:
 	@echo $(SEP) install_kitty
-	sudo apt install -qq -y kitty
+	nix-env -iA nixpkgs.kitty
 	mkdir -p ~/.config/kitty/
 	ln -s -f $(PWD)/confs/kitty.conf ~/.config/kitty/kitty.conf
 
 install_wezterm:
 	@echo $(SEP) install_wezterm
+	nix-env -iA nixpkgs.wezterm
 	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
 install_alacrity:
