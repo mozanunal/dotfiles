@@ -28,6 +28,7 @@ separator=true
 
 [memory]
 label=󰍛
+instance=used
 separator=true
 interval=1
 
@@ -41,11 +42,14 @@ align=right
 min_width=9999 Mhz
 command=grep MHz /proc/cpuinfo | awk '{sum += $4} END {printf "%d MHz", sum/NR }'
 interval=1
+align=right
 
 [fan]
 label=󰈐
-command=sensors | grep fan | awk '{print $2" RPM"}'
+min_width=󰈐 9999
+command=sensors | grep fan | awk '{print $2}'
 interval=1
+align=right
 
 [temperature]
 label=
