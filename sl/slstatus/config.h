@@ -63,7 +63,24 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
+static const char vol[]         = "[ `amixer sget Master | tail -n 1 | awk '{print $6;}'` = \"[on]\" ] \
+                                   && printf \"`amixer sget Master | tail -n 1 | awk '{print $5;}' | grep -Po '\\[\\K[^%]*'`%%\" \
+                                   || printf 'Off'";
+
+static const char mic[]         = "[ `amixer sget Capture | tail -n 1 | awk '{print $6;}'` = \"[on]\" ] \
+                                   && printf \"`amixer sget Capture | tail -n 1 | awk '{print $5;}' | grep -Po '\\[\\K[^%]*'`%%\" \
+                                   || printf 'Off'";
+
 static const struct arg args[] = {
-	/* function format          argument */
-	{ datetime, "%s",           "%F %T" },
+        /* function format          argument */
+        { battery_perc,         " 󰂄 %s%%",      "BAT0" },
+        { battery_remaining,    " (%s)",        "BAT0" },
+        { cpu_perc,             " 󰊚 %s%%",      NULL },
+        { ram_perc,             "  %s%%",      NULL },
+        { run_command,          " 󰃞 %s%%",      "light" },
+        { run_command,          "  %s",        vol },
+        { run_command,          "  %s",        mic },
+        { keymap,               "  %s",        NULL },
+        { datetime,             "  %s",        "%F %T" }, /* Date time with this format: Day name YYYY-MM-DD 18:00:00 */
 };
+

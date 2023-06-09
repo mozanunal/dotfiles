@@ -6,7 +6,8 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
 sync_term: sync_sh_dev install_font install_kitty
-sync_i3: sync_term install_i3
+sync_i3: sync_term install_gui_tools install_i3
+sync_dwm: sync_term install_gui_tools install_dwm
 
 ######## Dev Env ########
 dev_all: dev_python dev_data dev_spark
@@ -123,18 +124,31 @@ install_dev_scala:
 install_dev_spark:
 	pip install pyspark
 
+
+
 ###### Window Manager and Gui #########
-install_i3:
-	@echo $(SEP) install_i3
-	sudo apt install -qq -y i3 i3blocks i3lock-fancy xss-lock \
-				volumeicon-alsa pavucontrol rofi \
+install_gui_tools:
+	@echo $(SEP) install_gui_tools
+	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				lxrandr lxappearance arandr \
 				xclip maim light lm-sensors
+	sudo usermod -aG video moz
+
+install_i3:
+	@echo $(SEP) install_i3
+	sudo apt install -qq -y i3 i3blocks i3lock-fancy xss-lock
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/i3blocks/
 	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config
 	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
-	sudo usermod -aG video moz
 
+install_dwm:
+	@echo $(SEP) install_dwm
+	sudo apt install -qq -y git patch diffutils \
+		libglib2.0-dev
+	cd sl/dmenu && sudo make clean install
+	cd sl/dwm && sudo make clean install
+	cd sl/slstatus && sudo make clean install
+	cd sl/st && sudo make clean install
 
 default: sync_sh
