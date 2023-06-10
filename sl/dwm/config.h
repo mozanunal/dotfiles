@@ -1,13 +1,14 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Cousine:size=11", 
+static const char *fonts[]          = { "Cousine:size=12", 
 					"Cousine Nerd Font:size=14" };
-static const char dmenufont[]       = "Cousine Nerd Font:size=11";
+static const char dmenufont[]       = "Cousine Nerd Font:size=12";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -58,13 +59,21 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, 
+    "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ 0,  XF86XK_AudioRaiseVolume,  spawn, {.v = "pactl set-sink-volume @DEFAULT_SINK@ +5%"}}, 
+	{ 0,  XF86XK_AudioLowerVolume,  spawn, {.v = "pactl set-sink-volume @DEFAULT_SINK@ -5%"}}, 
+	{ 0,  XF86XK_AudioMute,         spawn, {.v = "pactl set-sink-mute @DEFAULT_SINK@ toggle"}}, 
+	{ 0,  XF86XK_AudioMicMute,      spawn, {.v = "pactl set-source-mute @DEFAULT_SOURCE@ toggle"}}, 
+	{ 0,  XF86XK_MonBrightnessUp,   spawn, {.v = "st"}}, 
+	{ 0,  XF86XK_MonBrightnessDown, spawn, {.v = "light -U 5"}}, 
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = "google-chrome" } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -116,7 +125,7 @@ static const Button buttons[] = {
 };
 
 static const char *const autostart[] = {
-	"st", NULL,
+	"nitrogen --restore", NULL,
 	"slstatus", NULL,
 	NULL /* terminate */
 };
