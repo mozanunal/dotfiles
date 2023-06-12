@@ -131,7 +131,8 @@ install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				lxrandr lxappearance arandr \
-				xclip maim light lm-sensors
+				xclip maim light lm-sensors \
+				mupdf
 	sudo usermod -aG video moz
 
 install_i3:
