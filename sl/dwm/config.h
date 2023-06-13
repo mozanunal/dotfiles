@@ -71,15 +71,22 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "20",
 	"-nb", col_gray1, "-nf", col_gray3, 
 	"-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *volumeup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *volumedown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *volumemute[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *volumemicmute[]  = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
+static const char *brigup[]  = { "light", "-A", "5", NULL };
+static const char *brigdown[]  = { "light", "-U", "5", NULL };
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	// { 0,  XF86XK_AudioRaiseVolume,  spawn, {.v = "pactl set-sink-volume @DEFAULT_SINK@ +5%"}}, 
-	// { 0,  XF86XK_AudioLowerVolume,  spawn, {.v = "pactl set-sink-volume @DEFAULT_SINK@ -5%"}}, 
-	// { 0,  XF86XK_AudioMute,         spawn, {.v = "pactl set-sink-mute @DEFAULT_SINK@ toggle"}}, 
-	// { 0,  XF86XK_AudioMicMute,      spawn, {.v = "pactl set-source-mute @DEFAULT_SOURCE@ toggle"}}, 
-	// { 0,  XF86XK_MonBrightnessUp,   spawn, {.v = "st"}}, 
-	// { 0,  XF86XK_MonBrightnessDown, spawn, {.v = "light -U 5"}}, 
+	{ 0,  XF86XK_AudioRaiseVolume,  spawn, {.v = volumeup}}, 
+	{ 0,  XF86XK_AudioLowerVolume,  spawn, {.v = volumedown}}, 
+	{ 0,  XF86XK_AudioMute,         spawn, {.v = volumemute}}, 
+	{ 0,  XF86XK_AudioMicMute,      spawn, {.v = volumemicmute}}, 
+	{ 0,  XF86XK_MonBrightnessUp,   spawn, {.v = brigup}}, 
+	{ 0,  XF86XK_MonBrightnessDown, spawn, {.v = brigdown}}, 
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = "google-chrome" } },
@@ -103,9 +110,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_m,      focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_m,      tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -136,7 +145,7 @@ static const Button buttons[] = {
 };
 
 static const char *const autostart[] = {
-	"nitrogen --restore", NULL,
+	"nitrogen", "--restore", NULL,
 	"slstatus", NULL,
 	NULL /* terminate */
 };
