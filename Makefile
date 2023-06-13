@@ -6,8 +6,8 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_sh_bins install_neovim install_helix 
 sync_term: sync_sh_dev install_font install_kitty install_zellij
-sync_de_i3: sync_term install_gui_tools install_i3
-sync_de_dwm: sync_term install_gui_tools install_sl_tools \
+sync_de_i3: sync_term install_gui_bins install_gui_tools install_i3
+sync_de_dwm: sync_term install_gui_bins install_gui_tools install_sl_tools \
 	install_dwm install_st install_dmenu install_slstatus
 
 ######## Dev Env ########
@@ -35,6 +35,10 @@ install_sh_bins:
 	ln -s -f $(PWD)/bin/sh/moz_fd_large_files ~/.local/bin/moz_fd_large_files
 	ln -s -f $(PWD)/bin/sh/moz_smoke_test ~/.local/bin/moz_smoke_test
 	ln -s -f $(PWD)/bin/sh/moz_update ~/.local/bin/moz_update
+
+install_gui_bins:
+	@echo $(SEP) install_gui_bins
+	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
 
 ###### Editors ########
 install_vim_lite:

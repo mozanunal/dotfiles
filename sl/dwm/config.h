@@ -28,7 +28,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "漣", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "漣", "", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -71,6 +71,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "20",
 	"-nb", col_gray1, "-nf", col_gray3, 
 	"-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *webcmd[]  = { "google-chrome", NULL };
 static const char *volumeup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *volumedown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *volumemute[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
@@ -89,7 +90,7 @@ static const Key keys[] = {
 	{ 0,  XF86XK_MonBrightnessDown, spawn, {.v = brigdown}}, 
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = "google-chrome" } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = webcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
