@@ -145,8 +145,8 @@ install_i3:
 install_dwm:
 	@echo $(SEP) install_dwm
 	sudo apt install -qq -y git patch diffutils \
-		libglib2.0-dev
-	cd sl/dmenu && sudo make clean install
+		libglib2.0-dev libxinerama-dev
+	# cd sl/dmenu && sudo make clean install
 	cd sl/dwm && sudo make clean install
 	cd sl/slstatus && sudo make clean install
 	cd sl/st && sudo make clean install
