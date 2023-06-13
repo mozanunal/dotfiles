@@ -158,12 +158,12 @@ install_i3:
 install_sl_tools:
 	@echo $(SEP) install_sl_tools
 	sudo apt install -qq -y git patch diffutils \
-		libglib2.0-dev
+		libglib2.0-dev libimlib2-dev
 
 install_dwm:
 	sudo rm -r build/dwm | true
 	mkdir -p build
-	cd build && git clone -b 6.4 git://git.suckless.org/dwm
+	cd build && git clone -b 6.3 git://git.suckless.org/dwm
 	cp sl/dwm/* build/dwm/
 	cd build/dwm \
 		&& patch -i dwm-winicon-6.3-v2.1.diff \

@@ -2,7 +2,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int borderpx  = 8;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
@@ -16,19 +16,26 @@ static const char *fonts[]          = { "Cousine:size=12",
 static const char dmenufont[]       = "Cousine Nerd Font:size=14";
 #define ICONSIZE 16   /* icon size */
 #define ICONSPACING 5 /* space between icon and title */
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+
+// static const char col_gray1[]       = "#222222";
+// static const char col_gray2[]       = "#444444";
+// static const char col_gray3[]       = "#bbbbbb";
+// static const char col_gray4[]       = "#eeeeee";
+// static const char col_cyan[]        = "#005577";
+// static const char *colors[][3]      = {
+// 	/*               fg         bg         border   */
+// 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+// 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+// };
+static const char *colors[][3] = {
+	/*     fg         bg       */
+	[SchemeNorm] = { "#cad3f5", "#24273a", "#91d7e3" },
+	[SchemeSel] = { "#181926", "#91d7e3",  "#91d7e3" }
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "漣", "", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "6", "7", "8", "9" };
+
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -50,7 +57,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
-	{ "[Z]",      monocle },
+	{ "[S]",      monocle },
 };
 
 /* key definitions */
@@ -66,10 +73,11 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-l", "20", 
-	"-m", dmenumon, "-fn", dmenufont, 
-	"-nb", col_gray1, "-nf", col_gray3, 
-	"-sb", col_cyan, "-sf", col_gray4, NULL };
+// 	"-m", dmenumon, 
+static const char *dmenucmd[] = { "dmenu_run", "-l", "20", NULL };
+	// "-fn", dmenufont, 
+	// "-nb", col_gray1, "-nf", col_gray3, 
+	// "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *webcmd[]  = { "google-chrome", NULL };
 static const char *volumeup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
@@ -92,6 +100,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = webcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_Down,   focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_Up,     focusstack,     {.i = -1 } }, 
+	// { MODKEY,                       XK_Left,   focusmaster,    {.i = +1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -101,6 +112,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_equal,  setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,      zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Left,   zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[0]} },
