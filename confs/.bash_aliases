@@ -1,5 +1,6 @@
 
 source ~/.fzf_keybindings.bash
+
 # --- aliases
 alias jan='cal -m 01'
 alias feb='cal -m 02'
@@ -20,30 +21,5 @@ alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always -
 alias fzv='nvim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
-alias emj="cat ~/.icons | fzf | awk '{ print $1 }'"
-alias conf='nvim $(fd . -t f -E .git --hidden ~/dotfiles/ | fzf)'
-# --- functions
-function fd_largest_files() {
-    du -h -x -s -- * | sort -r -h | head -20;
-}
-
-function smoke_test() {
-    smoke_tests="Normal
-\033[1mBold\033[22m
-\033[3mItalic\033[23m
-\033[3;1mBold Italic\033[0m
-\033[4mUnderline\033[24m
-== === !== >= <= =>
-契          勒 鈴 \n"
-    printf "%b" "${smoke_tests}"
-}
-
-function update ()
-{
-    sudo apt -q update
-    sudo apt -q -y upgrade
-    sudo apt -q -y autoclean
-    sudo apt -q -y autoremove
-}
 
 export EDITOR=nvim

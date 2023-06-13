@@ -292,6 +292,13 @@ require("bufferline").setup{}
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
+
+
+vim.keymap.set('n', '<leader>gg', ":Git<CR>", { desc = '[G]it' })
+vim.keymap.set('n', '<leader>gp', ":Git push<CR>", { desc = '[G]it [P]ush' })
+vim.keymap.set('n', '<leader>bn', ":bn<CR>", { desc = '[B]uffer [N]ext' })
+vim.keymap.set('n', '<leader>bp', ":bp<CR>", { desc = '[B]uffer [P]rev' })
+vim.keymap.set('n', '<leader>e', ":NeoTreeFocus<CR>", { desc = 'Open [E]xplorer' })
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
@@ -380,7 +387,7 @@ require('nvim-treesitter.configs').setup {
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+-- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- LSP settings.

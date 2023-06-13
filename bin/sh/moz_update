@@ -1,0 +1,5 @@
+#!/bin/sh
+sudo apt -q update
+sudo apt -q -y upgrade
+sudo apt -q -y autoclean
+sudo apt -q -y autoremove

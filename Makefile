@@ -4,10 +4,11 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
 sync_sh_server: install_bash install_vim_lite
-sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
-sync_term: sync_sh_dev install_font install_kitty
-sync_i3: sync_term install_gui_tools install_i3
-sync_dwm: sync_term install_gui_tools install_dwm
+sync_sh_dev: sync_sh_server install_sh_bins install_neovim install_helix 
+sync_term: sync_sh_dev install_font install_kitty install_zellij
+sync_de_i3: sync_term install_gui_bins install_gui_tools install_i3
+sync_de_dwm: sync_term install_gui_bins install_gui_tools install_sl_tools \
+	install_dwm install_st install_dmenu install_slstatus
 
 ######## Dev Env ########
 dev_all: dev_python dev_data dev_spark
@@ -28,6 +29,16 @@ install_bash:
 	ln -s -f $(PWD)/confs/fzf/keybindings.bash ~/.fzf_keybindings.bash
 	. ~/.bashrc
 
+install_sh_bins:
+	@echo $(SEP) install_sh_bins
+	ln -s -f $(PWD)/bin/sh/moz_conf ~/.local/bin/moz_conf
+	ln -s -f $(PWD)/bin/sh/moz_fd_large_files ~/.local/bin/moz_fd_large_files
+	ln -s -f $(PWD)/bin/sh/moz_smoke_test ~/.local/bin/moz_smoke_test
+	ln -s -f $(PWD)/bin/sh/moz_update ~/.local/bin/moz_update
+
+install_gui_bins:
+	@echo $(SEP) install_gui_bins
+	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
 
 ###### Editors ########
 install_vim_lite:
@@ -131,7 +142,8 @@ install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				lxrandr lxappearance arandr \
-				xclip maim light lm-sensors
+				xclip maim light lm-sensors \
+				mupdf
 	sudo usermod -aG video moz
 
 install_i3:
@@ -142,13 +154,44 @@ install_i3:
 	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config
 	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
 
-install_dwm:
-	@echo $(SEP) install_dwm
+##### Suckless Tools #################
+install_sl_tools:
+	@echo $(SEP) install_sl_tools
 	sudo apt install -qq -y git patch diffutils \
-		libglib2.0-dev libxinerama-dev
-	# cd sl/dmenu && sudo make clean install
-	cd sl/dwm && sudo make clean install
-	cd sl/slstatus && sudo make clean install
-	cd sl/st && sudo make clean install
+		libglib2.0-dev
+
+install_dwm:
+	sudo rm -r build/dwm | true
+	mkdir -p build
+	cd build && git clone -b 6.4 git://git.suckless.org/dwm
+	cp sl/dwm/* build/dwm/
+	cd build/dwm \
+		&& patch -i dwm-winicon-6.3-v2.1.diff \
+		&& patch -i dwm-cool-autostart-6.2.diff \
+		&& sudo make clean install
+		#&& patch -i dwm-systray-6.4.diff \
+
+install_st:
+	sudo rm -r build/st | true
+	mkdir -p build
+	cd build && git clone -b 0.9 git://git.suckless.org/st
+	cp sl/st/* build/st/
+	cd build/st \
+		&& patch -i st-font2-0.8.5.diff \
+		&& sudo make clean install
+
+install_dmenu:
+	sudo rm -r build/dmenu | true
+	mkdir -p build
+	cd build && git clone -b 5.2 git://git.suckless.org/dmenu
+	cp sl/dmenu/* build/dmenu/
+	cd build/dmenu && sudo make clean install
+
+install_slstatus:
+	sudo rm -r build/slstatus | true
+	mkdir -p build
+	cd build && git clone -b master git://git.suckless.org/slstatus
+	cp sl/slstatus/* build/slstatus/
+	cd build/slstatus && sudo make clean install
 
 default: sync_sh
