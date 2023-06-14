@@ -1,2 +1,2 @@
 #!/bin/sh
-cat ~/.icons | dmenu | awk '{print $1}' | xclip -sel clip
+cat ~/.icons | dmenu -p 'Emoji:' | awk '{print $1}' | xclip -sel clip

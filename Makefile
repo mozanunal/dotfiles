@@ -39,6 +39,7 @@ install_sh_bins:
 install_gui_bins:
 	@echo $(SEP) install_gui_bins
 	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
+	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
 
 ###### Editors ########
 install_vim_lite:
