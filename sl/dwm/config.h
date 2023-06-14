@@ -2,7 +2,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 8;        /* border pixel of windows */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
@@ -17,20 +17,38 @@ static const char dmenufont[]       = "Cousine Nerd Font:size=14";
 #define ICONSIZE 16   /* icon size */
 #define ICONSPACING 5 /* space between icon and title */
 
-// static const char col_gray1[]       = "#222222";
-// static const char col_gray2[]       = "#444444";
-// static const char col_gray3[]       = "#bbbbbb";
-// static const char col_gray4[]       = "#eeeeee";
-// static const char col_cyan[]        = "#005577";
-// static const char *colors[][3]      = {
-// 	/*               fg         bg         border   */
-// 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-// 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+static char normbgcolor[] = "#1e1e2e";
+static char normbordercolor[] = "#3B4252";
+static char normfgcolor[] = "#cdd6f4";
+static char selfgcolor[] = "#D8DEE9";
+static char selbordercolor[] = "#74c7ec";
+static char selbgcolor[] = "#626880";
+// static char termcol0[] = "#3b4252";  /* black   */
+// static char termcol1[] = "#bf616a";  /* red     */
+// static char termcol2[] = "#a3be8c";  /* green   */
+// static char termcol3[] = "#ebcb8b";  /* yellow  */
+// static char termcol4[] = "#81a1c1";  /* blue    */
+// static char termcol5[] = "#b48ead";  /* magenta */
+// static char termcol6[] = "#88c0d0";  /* cyan    */
+// static char termcol7[] = "#e5e9f0";  /* white   */
+// static char termcol8[] = "#4c566a";  /* black   */
+// static char termcol9[] = "#bf616a";  /* red     */
+// static char termcol10[] = "#a3be8c"; /* green   */
+// static char termcol11[] = "#ebcb8b"; /* yellow  */
+// static char termcol12[] = "#81a1c1"; /* blue    */
+// static char termcol13[] = "#b48ead"; /* magenta */
+// static char termcol14[] = "#8fbcbb"; /* cyan    */
+// static char termcol15[] = "#eceff4"; /* white   */
+// static char *termcolor[] = {
+//     termcol0,  termcol1,  termcol2,  termcol3,  termcol4,  termcol5,
+//     termcol6,  termcol7,  termcol8,  termcol9,  termcol10, termcol11,
+//     termcol12, termcol13, termcol14, termcol15,
 // };
-static const char *colors[][3] = {
-	/*     fg         bg       */
-	[SchemeNorm] = { "#cad3f5", "#24273a", "#91d7e3" },
-	[SchemeSel] = { "#181926", "#91d7e3",  "#91d7e3" }
+static char const *colors[][3] = {
+    /*               fg           bg           border   */
+    [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
+    [SchemeSel] = {selfgcolor, selbgcolor, selbordercolor},
+    // [SchemeHid] = {selbgcolor, normbgcolor, selbordercolor},
 };
 
 /* tagging */
