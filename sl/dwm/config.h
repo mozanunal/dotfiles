@@ -78,21 +78,22 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "20", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *webcmd[]  = { "google-chrome", NULL };
 static const char *emojcmd[]  = { "moz_emoji", NULL };
-static const char *volumeup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
-static const char *volumedown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
-static const char *volumemute[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
-static const char *volumemicmute[]  = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
-static const char *brigup[]  = { "light", "-A", "5", NULL };
-static const char *brigdown[]  = { "light", "-U", "5", NULL };
+static const char update_status[] = " && killall -SIGUSR1 slstatus";
+static const char volumeup[]  = "pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 slstatus";
+static const char volumedown[]  = "pactl set-sink-volume @DEFAULT_SINK@ -5% && killall -SIGUSR1 slstatus";
+static const char volumemute[]  = "pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 slstatus";
+static const char volumemicmute[]  = "pactl set-source-mute @DEFAULT_SOURCE@ toggle && killall -SIGUSR1 slstatus";
+static const char brigdown[] = "light -U 5 && killall -SIGUSR1 slstatus";
+static const char brigup[]  = "light -A 5 && killall -SIGUSR1 slstatus";
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ 0,  XF86XK_AudioRaiseVolume,  spawn, {.v = volumeup}}, 
-	{ 0,  XF86XK_AudioLowerVolume,  spawn, {.v = volumedown}}, 
-	{ 0,  XF86XK_AudioMute,         spawn, {.v = volumemute}}, 
-	{ 0,  XF86XK_AudioMicMute,      spawn, {.v = volumemicmute}}, 
-	{ 0,  XF86XK_MonBrightnessUp,   spawn, {.v = brigup}}, 
-	{ 0,  XF86XK_MonBrightnessDown, spawn, {.v = brigdown}}, 
+	{ 0,  XF86XK_AudioRaiseVolume,  spawn, SHCMD(volumeup)}, 
+	{ 0,  XF86XK_AudioLowerVolume,  spawn, SHCMD(volumedown)}, 
+	{ 0,  XF86XK_AudioMute,         spawn, SHCMD(volumemute)}, 
+	{ 0,  XF86XK_AudioMicMute,      spawn, SHCMD(volumemicmute)}, 
+	{ 0,  XF86XK_MonBrightnessUp,   spawn, SHCMD(brigup)}, 
+	{ 0,  XF86XK_MonBrightnessDown, spawn, SHCMD(brigdown)}, 
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = webcmd} },
