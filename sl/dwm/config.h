@@ -23,27 +23,6 @@ static char normfgcolor[] = "#cdd6f4";
 static char selfgcolor[] = "#D8DEE9";
 static char selbordercolor[] = "#74c7ec";
 static char selbgcolor[] = "#626880";
-// static char termcol0[] = "#3b4252";  /* black   */
-// static char termcol1[] = "#bf616a";  /* red     */
-// static char termcol2[] = "#a3be8c";  /* green   */
-// static char termcol3[] = "#ebcb8b";  /* yellow  */
-// static char termcol4[] = "#81a1c1";  /* blue    */
-// static char termcol5[] = "#b48ead";  /* magenta */
-// static char termcol6[] = "#88c0d0";  /* cyan    */
-// static char termcol7[] = "#e5e9f0";  /* white   */
-// static char termcol8[] = "#4c566a";  /* black   */
-// static char termcol9[] = "#bf616a";  /* red     */
-// static char termcol10[] = "#a3be8c"; /* green   */
-// static char termcol11[] = "#ebcb8b"; /* yellow  */
-// static char termcol12[] = "#81a1c1"; /* blue    */
-// static char termcol13[] = "#b48ead"; /* magenta */
-// static char termcol14[] = "#8fbcbb"; /* cyan    */
-// static char termcol15[] = "#eceff4"; /* white   */
-// static char *termcolor[] = {
-//     termcol0,  termcol1,  termcol2,  termcol3,  termcol4,  termcol5,
-//     termcol6,  termcol7,  termcol8,  termcol9,  termcol10, termcol11,
-//     termcol12, termcol13, termcol14, termcol15,
-// };
 static char const *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
@@ -98,13 +77,13 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "20", NULL };
 	// "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *webcmd[]  = { "google-chrome", NULL };
+static const char *emojcmd[]  = { "moz_emoji", NULL };
 static const char *volumeup[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *volumedown[]  = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *volumemute[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
 static const char *volumemicmute[]  = { "pactl", "set-source-mute", "@DEFAULT_SOURCE@", "toggle", NULL };
 static const char *brigup[]  = { "light", "-A", "5", NULL };
 static const char *brigdown[]  = { "light", "-U", "5", NULL };
-
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -117,10 +96,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = webcmd} },
+	{ MODKEY,                       XK_u,      spawn,          {.v = emojcmd} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Down,   focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_Up,     focusstack,     {.i = -1 } }, 
-	// { MODKEY,                       XK_Left,   focusmaster,    {.i = +1 } },
+	{ MODKEY,                       XK_Right,  focusstack,     {.i = 0} },
+	{ MODKEY,                       XK_Left,   focusmaster,    {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },

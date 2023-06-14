@@ -167,6 +167,7 @@ install_dwm:
 	cp sl/dwm/* build/dwm/
 	cd build/dwm \
 		&& patch -i dwm-winicon-6.3-v2.1.diff \
+		&& patch -i dwm-focusmaster-return-20210804-138b405.diff\
 		&& patch -i dwm-cool-autostart-6.2.diff \
 		&& sudo make clean install
 		#&& patch -i dwm-systray-6.4.diff \
