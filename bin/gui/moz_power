@@ -2,7 +2,7 @@
 
     
 case "$(echo "Shutdown\nRestart\nLogout\nSuspend\nLock" | \
-    dmenu -p "Power:" -l 5)" in
+    dmenu -i -p "Power:" -l 5)" in
         Shutdown) exec systemctl poweroff;;
         Restart) exec systemctl reboot;;
         Logout) exec pkill dwm;;

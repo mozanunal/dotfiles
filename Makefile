@@ -7,8 +7,9 @@ sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_sh_bins install_neovim install_helix 
 sync_term: sync_sh_dev install_font install_kitty install_zellij
 sync_de_i3: sync_term install_gui_bins install_gui_tools install_i3
-sync_de_dwm: sync_term install_gui_bins install_gui_tools install_sl_tools \
-	install_dwm install_st install_dmenu install_slstatus
+sync_de_dwm: sync_term install_gui_bins install_gui_tools \
+	install_sl_tools install_dwm install_st install_dmenu \
+	install_slstatus install_slock
 
 ######## Dev Env ########
 dev_all: dev_python dev_data dev_spark
@@ -159,7 +160,7 @@ install_i3:
 install_sl_tools:
 	@echo $(SEP) install_sl_tools
 	sudo apt install -qq -y git patch diffutils \
-		libglib2.0-dev libimlib2-dev
+		libglib2.0-dev libimlib2-dev libxrandr-dev
 
 install_dwm:
 	sudo rm -r build/dwm | true
@@ -172,7 +173,6 @@ install_dwm:
 		&& patch -i dwm-cool-autostart-6.2.diff \
 		&& sudo make clean install
 		#&& patch -i dwm-systray-6.4.diff \
-
 install_st:
 	sudo rm -r build/st | true
 	mkdir -p build
@@ -187,7 +187,9 @@ install_dmenu:
 	mkdir -p build
 	cd build && git clone -b 5.2 git://git.suckless.org/dmenu
 	cp sl/dmenu/* build/dmenu/
-	cd build/dmenu && sudo make clean install
+	cd build/dmenu \
+		&& patch -i dmenu-fuzzymatch-4.9.diff \
+		&& sudo make clean install
 
 install_slstatus:
 	sudo rm -r build/slstatus | true
@@ -195,5 +197,14 @@ install_slstatus:
 	cd build && git clone -b master git://git.suckless.org/slstatus
 	cp sl/slstatus/* build/slstatus/
 	cd build/slstatus && sudo make clean install
+
+install_slock:
+	sudo rm -r build/slock | true
+	mkdir -p build
+	cd build && git clone -b 1.5 git://git.suckless.org/slock
+	cp sl/slock/* build/slock/
+	cd build/slock \
+		&& patch -i slock-blur_pixelated_screen-1.4.diff \
+		&& sudo make clean install
 
 default: sync_sh
