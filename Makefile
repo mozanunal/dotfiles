@@ -172,7 +172,7 @@ install_dwm:
 		&& patch -i dwm-focusmaster-return-20210804-138b405.diff\
 		&& patch -i dwm-cool-autostart-6.2.diff \
 		&& sudo make clean install
-		#&& patch -i dwm-systray-6.4.diff \
+
 install_st:
 	sudo rm -r build/st | true
 	mkdir -p build
