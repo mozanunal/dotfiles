@@ -1,11 +1,14 @@
 #!/bin/sh
 
     
-case "$(echo "Shutdown\nRestart\nLogout\nSuspend\nLock" | \
-    dmenu -i -p "Power:" -l 5)" in
+case "$(echo "Shutdown\nRestart\nLogout\nSuspend\nLock\nBM_Battery\nBM_Balanced\nBM_Performance\n" | \
+    dmenu -i -p "Power:" -l 8)" in
         Shutdown) exec systemctl poweroff;;
         Restart) exec systemctl reboot;;
         Logout) exec pkill dwm;;
         Suspend) exec systemctl suspend;;
         Lock) exec slock;;
+        BM_Battery) exec system76-power profile battery;;
+        BM_Balanced) exec system76-power profile balanced;;
+        BM_Performance) exec system76-power profile performance;;
 esac
