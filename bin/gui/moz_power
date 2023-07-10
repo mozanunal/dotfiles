@@ -8,7 +8,7 @@ case "$(echo "Shutdown\nRestart\nLogout\nSuspend\nLock\nBM_Battery\nBM_Balanced\
         Logout) exec pkill dwm;;
         Suspend) exec systemctl suspend;;
         Lock) exec slock;;
-        BM_Battery) exec system76-power profile battery;;
-        BM_Balanced) exec system76-power profile balanced;;
-        BM_Performance) exec system76-power profile performance;;
+        BM_Battery) exec system76-power profile battery && notify-send 'BM: Battery';;
+        BM_Balanced) exec system76-power profile balanced && notify-send 'BM: Balanced';;
+        BM_Performance) exec system76-power profile performance && notify-send 'BM: Performance';;
 esac
