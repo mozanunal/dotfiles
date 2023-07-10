@@ -1,2 +1,2 @@
-#!/bin/sh
-nvim $(fd . -t f -E .git --hidden ~/dotfiles/ | fzf)
+#!/bin/bash
+fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs nvim
