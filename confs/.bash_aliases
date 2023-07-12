@@ -1,6 +1,3 @@
-
-source ~/.fzf_keybindings.bash
-
 # --- aliases
 alias jan='cal -m 01'
 alias feb='cal -m 02'

@@ -21,13 +21,15 @@ dev_spark: install_dev_scala
 install_bash:
 	@echo $(SEP) install_bash
 	sudo apt install -qq -y \
-		htop git vim tmux fzf ripgrep bat \
+		htop git vim tmux ripgrep bat \
 		ncal dict calc aspell fd-find unzip
+	sudo rm -r ~/.fzf
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install --all
 	ln -s -f $(PWD)/confs/.gitconfig ~/.gitconfig
 	ln -s -f $(PWD)/confs/.inputrc ~/.inputrc
 	ln -s -f $(PWD)/confs/.tmux.conf ~/.tmux.conf
 	ln -s -f $(PWD)/confs/.bash_aliases ~/.bash_aliases
-	ln -s -f $(PWD)/confs/fzf/keybindings.bash ~/.fzf_keybindings.bash
 	. ~/.bashrc
 
 install_sh_bins:
