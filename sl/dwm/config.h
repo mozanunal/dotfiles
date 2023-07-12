@@ -100,6 +100,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask, XK_Return,   spawn, {.v = webcmd} },
 	{ MODKEY|ShiftMask, XK_u,        spawn, SHCMD("moz_emoji") },
 	{ MODKEY|ShiftMask, XK_p,        spawn, SHCMD("moz_power") },
+	{ MODKEY, XK_c,                  spawn, SHCMD("passmenu") },
 	{ MODKEY, XK_b,                  togglebar, {0} },
 	{ MODKEY, XK_Down,               focusstack, {.i = +1 } },
 	{ MODKEY, XK_Up,                 focusstack, {.i = -1 } }, 
