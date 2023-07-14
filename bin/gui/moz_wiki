@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-FILE="$1"
+FILE=$(ls ~/.local/share/kiwix/*.zim | fzf)
 
 zsearch () {
     zimsearch $1 $2 | sed 'N;s/\n/ /'
