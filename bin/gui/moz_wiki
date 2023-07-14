@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+FILE="$1"
+
+zsearch () {
+    zimsearch $1 $2 | sed 'N;s/\n/ /'
+}
+
+zpreview () {
+    idx=$(echo $2 | awk '{print $2}')
+    zimdump show --idx $idx $1 | w3m -T text/html
+}
+
+export -f zsearch
+export -f zpreview
+
+RES=$(fzf --ansi --disabled --query "" \
+    --bind "start:reload:zsearch $FILE {q}" \
+    --bind "change:reload:sleep 0.1; zsearch $FILE {q} || true" \
+    --preview "zpreview $FILE {}")
+echo $RES
+zpreview $FILE "$RES"
