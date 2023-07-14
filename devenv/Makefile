@@ -15,11 +15,11 @@ install_nodejs:
 	@echo $(SEP) install_nodejs
 	curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
 	sudo apt-get install -y nodejs
-	
+
 install_dev_data:
 	@echo $(SEP) install_dev_data
 	sudo apt install -y -qq sqlite3
-	
+
 install_duckdb:
 	@echo $(SEP) install_duckdb
 	wget https://github.com/duckdb/duckdb/releases/download/v0.7.1/duckdb_cli-linux-amd64.zip
