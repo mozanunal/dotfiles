@@ -6,16 +6,9 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_sh_bins install_neovim install_helix 
 sync_term: sync_sh_dev install_font install_kitty install_zellij
-sync_de_i3: sync_term install_gui_bins install_gui_tools install_i3
 sync_de_dwm: sync_term install_gui_bins install_gui_tools \
 	install_sl_tools install_dwm install_st install_dmenu \
 	install_slstatus install_slock
-
-######## Dev Env ########
-dev_all: dev_python dev_data dev_spark
-dev_python: install_dev_python install_nodejs
-dev_data: install_dev_data install_duckdb
-dev_spark: install_dev_scala
 
 ###### Shells #########
 install_bash:
@@ -44,19 +37,13 @@ install_gui_bins:
 	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
 	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
 	ln -s -f $(PWD)/bin/gui/passmenu ~/.local/bin/passmenu
+	ln -s -f $(PWD)/bin/gui/moz_wiki ~/.local/bin/moz_wiki
 
 ###### Editors ########
 install_vim_lite:
 	@echo $(SEP) install_vim_lite
 	sudo apt install -qq -y vim
 	ln -s -f $(PWD)/confs/.vimrc ~/.vimrc
-
-install_vim_full:
-	@echo $(SEP) install_vim_full
-	sudo apt install -qq -y vim
-	ln -s -f $(PWD)/confs/.vimrc.full ~/.vimrc
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 install_zellij:
 	@echo $(SEP) install_zellij
@@ -108,56 +95,16 @@ install_alacrity:
 	@echo $(SEP) install_alacrity
 	ln -s -f $(PWD)/confs/alacritty.yml ~/.alacritty.yml
 
-###### Dev Environment #####
-install_dev_python:
-	@echo $(SEP) install_dev_python
-	sudo apt install -y -qq python-is-python3 python3-pip ipython3
-
-install_nodejs:
-	@echo $(SEP) install_nodejs
-	curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
-	sudo apt-get install -y nodejs
-	
-install_dev_data:
-	@echo $(SEP) install_dev_data
-	sudo apt install -y -qq sqlite3
-	
-install_duckdb:
-	@echo $(SEP) install_duckdb
-	wget https://github.com/duckdb/duckdb/releases/download/v0.7.1/duckdb_cli-linux-amd64.zip
-	unzip duckdb_cli-linux-amd64.zip
-	rm duckdb_cli-linux-amd64.zip
-	sudo mv duckdb /usr/local/bin
-
-install_dev_scala:
-	@echo $(SEP) install_dev_scala
-	sudo apt install openjdk-8-jdk
-	curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs
-	chmod +x cs
-	./cs setup
-	sudo mv ./cs /usr/local/bin
-
-install_dev_spark:
-	pip install pyspark
-
-
-
 ###### Window Manager and Gui #########
 install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				lxrandr lxappearance arandr \
 				xclip maim light lm-sensors \
-				mupdf
-	sudo usermod -aG video moz
+				zim-tools kiwix-tools kiwix \
+				mupdf pass 
 
-install_i3:
-	@echo $(SEP) install_i3
-	sudo apt install -qq -y i3 i3blocks i3lock-fancy xss-lock
-	mkdir -p ~/.config/i3/
-	mkdir -p ~/.config/i3blocks/
-	ln -s -f $(PWD)/confs/i3/config ~/.config/i3/config
-	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
+	sudo usermod -aG video moz
 
 ##### Suckless Tools #################
 install_sl_tools:
