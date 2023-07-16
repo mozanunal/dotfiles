@@ -4,9 +4,9 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
 sync_sh_server: install_bash install_vim_lite
-sync_sh_dev: sync_sh_server install_sh_bins install_neovim install_helix 
+sync_sh_dev: sync_sh_server install_moz_sh install_neovim install_helix 
 sync_term: sync_sh_dev install_font install_kitty install_zellij
-sync_de_dwm: sync_term install_gui_bins install_gui_tools \
+sync_de_dwm: sync_term install_moz_gui install_gui_tools \
 	install_sl_tools install_dwm install_st install_dmenu \
 	install_slstatus install_slock
 
@@ -25,14 +25,14 @@ install_bash:
 	ln -s -f $(PWD)/confs/.bash_aliases ~/.bash_aliases
 	. ~/.bashrc
 
-install_sh_bins:
+install_moz_sh:
 	@echo $(SEP) install_sh_bins
 	ln -s -f $(PWD)/bin/sh/moz_conf ~/.local/bin/moz_conf
 	ln -s -f $(PWD)/bin/sh/moz_fd_large_files ~/.local/bin/moz_fd_large_files
 	ln -s -f $(PWD)/bin/sh/moz_smoke_test ~/.local/bin/moz_smoke_test
 	ln -s -f $(PWD)/bin/sh/moz_update ~/.local/bin/moz_update
 
-install_gui_bins:
+install_moz_gui:
 	@echo $(SEP) install_gui_bins
 	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
 	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
@@ -47,38 +47,31 @@ install_vim_lite:
 
 install_zellij:
 	@echo $(SEP) install_zellij
-	wget -q https://github.com/zellij-org/zellij/releases/download/v0.36.0/zellij-x86_64-unknown-linux-musl.tar.gz
-	tar -xvf zellij*.tar.gz
-	chmod +x zellij
-	sudo mv zellij /usr/local/bin/zellij
-	rm zellij*.tar.gz
+	brew install zellij
 	mkdir -p ~/.config/zellij
 	ln -s -f $(PWD)/confs/zellij/config.kdl ~/.config/zellij/config.kdl
 
 install_neovim:
 	@echo $(SEP) install_neovim
-	wget -q https://github.com/neovim/neovim/releases/download/v0.9.0/nvim.appimage
-	chmod +x nvim.appimage
-	sudo mv nvim.appimage /usr/local/bin/nvim
+	brew install neovim
 	rm -rf ~/.config/nvim
 	mkdir -p ~/.config/nvim/
 	ln -s -f $(PWD)/confs/nvim/init.lua ~/.config/nvim/init.lua
 
 install_helix:
 	@echo $(SEP) install_helix
-	wget -q https://github.com/helix-editor/helix/releases/download/23.05/helix-23.05-x86_64.AppImage -O hx
-	chmod +x hx
-	sudo mv hx /usr/local/bin/hx
+	brew install helix
 	mkdir -p ~/.config/helix/
 	ln -s -f $(PWD)/confs/helix/config.toml ~/.config/helix/config.toml
 
 ###### Terminal ########
 install_font:
 	@echo $(SEP) install_font
-	wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/Cousine.zip
-	mkdir -p ~/.local/share/fonts/CousineNerdFont
-	unzip -o Cousine.zip -d ~/.local/share/fonts/CousineNerdFont
-	rm Cousine.zip
+	sudo apt install -qq -y fonts-symbola fonts-noto-color-emoji fonts-croscore fonts-powerline
+	wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/NerdFontsSymbolsOnly.zip
+	mkdir -p ~/.local/share/fonts/NerdFontsSymbolsOnly
+	unzip -o NerdFontsSymbolsOnly.zip -d ~/.local/share/fonts/NerdFontsSymbolsOnly
+	rm NerdFontsSymbolsOnly.zip
 	ln -s -f $(PWD)/confs/.icons ~/.icons
 
 install_kitty:
@@ -115,7 +108,7 @@ install_sl_tools:
 install_dwm:
 	sudo rm -r build/dwm | true
 	mkdir -p build
-	cd build && git clone -b 6.3 git://git.suckless.org/dwm
+	cd build && git clone --depth=1 -b 6.3 git://git.suckless.org/dwm
 	cp sl/dwm/* build/dwm/
 	cd build/dwm \
 		&& patch -i dwm-winicon-6.3-v2.1.diff \
@@ -126,7 +119,7 @@ install_dwm:
 install_st:
 	sudo rm -r build/st | true
 	mkdir -p build
-	cd build && git clone -b 0.9 git://git.suckless.org/st
+	cd build && git clone --depth=1 -b 0.9 git://git.suckless.org/st
 	cp sl/st/* build/st/
 	cd build/st \
 		&& patch -i st-font2-0.8.5.diff \
@@ -136,7 +129,7 @@ install_st:
 install_dmenu:
 	sudo rm -r build/dmenu | true
 	mkdir -p build
-	cd build && git clone -b 5.2 git://git.suckless.org/dmenu
+	cd build && git clone --depth=1 -b 5.2 git://git.suckless.org/dmenu
 	cp sl/dmenu/* build/dmenu/
 	cd build/dmenu \
 		&& patch -i dmenu-fuzzymatch-4.9.diff \
@@ -145,14 +138,14 @@ install_dmenu:
 install_slstatus:
 	sudo rm -r build/slstatus | true
 	mkdir -p build
-	cd build && git clone -b master git://git.suckless.org/slstatus
+	cd build && git clone --depth=1 -b master git://git.suckless.org/slstatus
 	cp sl/slstatus/* build/slstatus/
 	cd build/slstatus && sudo make clean install
 
 install_slock:
 	sudo rm -r build/slock | true
 	mkdir -p build
-	cd build && git clone -b 1.5 git://git.suckless.org/slock
+	cd build && git clone --depth=1 -b 1.5 git://git.suckless.org/slock
 	cp sl/slock/* build/slock/
 	cd build/slock \
 		&& patch -i slock-blur_pixelated_screen-1.4.diff \
