@@ -67,7 +67,11 @@ install_helix:
 ###### Terminal ########
 install_font:
 	@echo $(SEP) install_font
-	sudo apt install -qq -y fonts-symbola fonts-noto-color-emoji fonts-croscore fonts-powerline
+	sudo apt install -qq -y fonts-symbola fonts-noto-color-emoji fonts-croscore 
+	wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Cousine.zip 
+	mkdir -p ~/.local/share/fonts/Cousine
+	unzip -o Cousine.zip -d ~/.local/share/fonts/Cousine
+	rm Cousine.zip
 	wget -q https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/NerdFontsSymbolsOnly.zip 
 	mkdir -p ~/.local/share/fonts/NerdFontsSymbolsOnly
 	unzip -o NerdFontsSymbolsOnly.zip -d ~/.local/share/fonts/NerdFontsSymbolsOnly
