@@ -54,9 +54,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]",      tile },    /* first entry is default */
-	{ "[F]",      NULL },    /* no layout function means floating behavior */
-	{ "[S]",      monocle },
+	{ "﩯 ",      tile },    /* first entry is default */
+	{ " ",      NULL },    /* no layout function means floating behavior */
+	{ " ",      monocle },
 };
 
 /* key definitions */
@@ -85,6 +85,8 @@ static const char brigup[]  = "light -A 5 && killall -SIGUSR1 slstatus";
 static const char take_ss_select[]  = "maim --select | xclip -selection clipboard -t image/png";
 static const char take_ss_full[]  = "maim | xclip -selection clipboard -t image/png";
 static const char take_ss_window[]  = "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png";
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "100x30", NULL };
 
 static const Key keys[] = {
 	// Volume
@@ -97,6 +99,7 @@ static const Key keys[] = {
 	{ 0, XK_Print,                   spawn, SHCMD(take_ss_full)},
 	{ ShiftMask, XK_Print,           spawn, SHCMD(take_ss_select)},
 	{ ControlMask, XK_Print,         spawn, SHCMD(take_ss_window)},
+	{ MODKEY, XK_x,                  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY, XK_space,              spawn, {.v = dmenucmd} },
 	{ MODKEY, XK_Return,             spawn, {.v = termcmd} },
 	{ MODKEY|ShiftMask, XK_Return,   spawn, {.v = webcmd} },
