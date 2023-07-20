@@ -9,11 +9,9 @@ git clone git@github.com:mozanunal/dotfiles.git
 to install
 ```sh
 # for deployment servers 
-make sync_sh
+make sync_sh_server
 # for development servers
-make sync_dev
-# for wsl or chromebook lxc
-make sync_wsl
+make sync_sh_dev
 # full desktop with i3wm
-make sync_i3
+make sync_de_dwm
 ```

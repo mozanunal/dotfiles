@@ -299,7 +299,7 @@ vim.keymap.set('n', '<leader>gg', ":Git<CR>", { desc = '[G]it' })
 vim.keymap.set('n', '<leader>gp', ":Git push<CR>", { desc = '[G]it [P]ush' })
 vim.keymap.set('n', '<leader>bn', ":bn<CR>", { desc = '[B]uffer [N]ext' })
 vim.keymap.set('n', '<leader>bp', ":bp<CR>", { desc = '[B]uffer [P]rev' })
-vim.keymap.set('n', '<leader>e', ":NeoTreeFocusToggle<CR>", { desc = 'Open [E]xplorer' })
+vim.keymap.set('n', '<leader>e', ":Neotree focus toggle<CR>", { desc = 'Open [E]xplorer' })
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })

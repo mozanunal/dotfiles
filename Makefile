@@ -128,6 +128,7 @@ install_st:
 	cd build/st \
 		&& patch -i st-font2-0.8.5.diff \
 		&& patch -i st-w3m-0.8.3.diff \
+		&& patch -i st-scrollback-0.8.5.diff \
 		&& sudo make clean install
 
 install_dmenu:
