@@ -16,7 +16,7 @@ install_bash:
 	sudo apt install -qq -y \
 		htop git vim tmux ripgrep bat \
 		ncal dict calc aspell fd-find unzip
-	sudo rm -r ~/.fzf
+	sudo rm -r ~/.fzf || true
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --all
 	ln -s -f $(PWD)/confs/.gitconfig ~/.gitconfig
@@ -27,6 +27,7 @@ install_bash:
 
 install_moz_sh:
 	@echo $(SEP) install_sh_bins
+	mkdir -p ~/.local/bin/
 	ln -s -f $(PWD)/bin/sh/moz_conf ~/.local/bin/moz_conf
 	ln -s -f $(PWD)/bin/sh/moz_fd_large_files ~/.local/bin/moz_fd_large_files
 	ln -s -f $(PWD)/bin/sh/moz_smoke_test ~/.local/bin/moz_smoke_test
@@ -97,10 +98,10 @@ install_alacrity:
 install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
-				lxrandr lxappearance arandr \
+				autorandr lxrandr lxappearance arandr \
 				xclip maim light lm-sensors \
 				zim-tools kiwix-tools kiwix \
-				mupdf pass 
+				mupdf pass pcmanfm
 
 	sudo usermod -aG video moz
 
