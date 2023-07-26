@@ -35,6 +35,7 @@ install_moz_sh:
 install_moz_gui:
 	@echo $(SEP) install_gui_bins
 	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
+	ln -s -f $(PWD)/bin/gui/moz_sync ~/.local/bin/moz_sync
 	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
 	ln -s -f $(PWD)/bin/gui/passmenu ~/.local/bin/passmenu
 	ln -s -f $(PWD)/bin/gui/moz_wiki ~/.local/bin/moz_wiki
