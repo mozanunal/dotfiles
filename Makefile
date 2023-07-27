@@ -124,8 +124,6 @@ install_dwm:
 		&& patch -i dwm-pertag-6.2.diff \
 		&& sudo make clean install
 
-
-
 install_st:
 	sudo rm -r build/st | true
 	mkdir -p build
@@ -135,6 +133,7 @@ install_st:
 		&& patch -i st-font2-0.8.5.diff \
 		&& patch -i st-w3m-0.8.3.diff \
 		&& patch -i st-scrollback-0.8.5.diff \
+		&& patch -i st-desktopentry-0.8.5.diff \
 		&& sudo make clean install
 
 install_dmenu:
