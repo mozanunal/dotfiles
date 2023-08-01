@@ -98,7 +98,7 @@ install_alacrity:
 install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
-				autorandr lxrandr lxappearance arandr \
+				autorandr lxappearance arandr \
 				xclip maim light lm-sensors \
 				zim-tools kiwix-tools kiwix \
 				mupdf pass pcmanfm
@@ -122,6 +122,7 @@ install_dwm:
 		&& patch -i dwm-cool-autostart-6.2.diff \
 		&& patch -i dwm-scratchpad-6.2.diff \
 		&& patch -i dwm-pertag-6.2.diff \
+		&& patch -i dwm-r1615-selfrestart.diff \
 		&& sudo make clean install
 
 install_st:
