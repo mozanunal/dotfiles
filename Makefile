@@ -40,6 +40,7 @@ install_moz_gui:
 	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
 	ln -s -f $(PWD)/bin/gui/passmenu ~/.local/bin/passmenu
 	ln -s -f $(PWD)/bin/gui/moz_wiki ~/.local/bin/moz_wiki
+	ln -s -f $(PWD)/bin/gui/moz_notes ~/.local/bin/moz_notes
 
 ###### Editors ########
 install_vim_lite:

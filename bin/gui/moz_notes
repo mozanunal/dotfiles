@@ -1,0 +1,2 @@
+#!/bin/sh
+cd ~/.password-store/notes/ && nvim .
