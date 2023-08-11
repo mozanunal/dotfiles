@@ -1,14 +1,14 @@
 #!/bin/sh
 
     
-case "$(echo "Shutdown\nRestart\nLogout\nSuspend\nLock\nBM_Battery\nBM_Balanced\nBM_Performance\n" | \
+case "$(echo " Shutdown\nﰇ Reboot\n Logout\n鈴 Sleep\n Lock\n BM_Battery\n𢡄 BM_Balanced\n BM_Performance\n" | \
     dmenu -i -p "Power:" -l 8)" in
-        Shutdown) exec systemctl poweroff;;
-        Restart) exec systemctl reboot;;
-        Logout) exec pkill dwm;;
-        Suspend) exec systemctl suspend;;
-        Lock) exec slock;;
-        BM_Battery) exec system76-power profile battery && notify-send 'BM: Battery';;
-        BM_Balanced) exec system76-power profile balanced && notify-send 'BM: Balanced';;
-        BM_Performance) exec system76-power profile performance && notify-send 'BM: Performance';;
+        " Shutdown") exec systemctl poweroff;;
+        "ﰇ Reboot") exec systemctl reboot;;
+        " Logout") exec pkill dwm;;
+        "鈴 Sleep") exec systemctl suspend;;
+        " Lock") exec slock;;
+        " BM_Battery") exec system76-power profile battery && notify-send 'BM: Battery';;
+        "𢡄 BM_Balanced") exec system76-power profile balanced && notify-send 'BM: Balanced';;
+        " BM_Performance") exec system76-power profile performance && notify-send 'BM: Performance';;
 esac
