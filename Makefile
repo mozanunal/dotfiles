@@ -102,7 +102,7 @@ install_gui_tools:
 				autorandr lxappearance arandr \
 				xclip maim light lm-sensors \
 				zim-tools kiwix-tools kiwix \
-				mupdf pass pcmanfm
+				mupdf pass pcmanfm sxiv
 
 	sudo usermod -aG video moz
 
