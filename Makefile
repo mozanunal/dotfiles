@@ -101,9 +101,9 @@ install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				autorandr lxappearance arandr \
-				xclip maim light lm-sensors \
+				xclip maim light acpi lm-sensors \
 				zim-tools kiwix-tools kiwix \
-				mupdf pass pcmanfm sxiv
+				mupdf pass pcmanfm sxiv nitrogen
 
 	sudo usermod -aG video moz
 
@@ -111,7 +111,9 @@ install_gui_tools:
 install_sl_tools:
 	@echo $(SEP) install_sl_tools
 	sudo apt install -qq -y git patch diffutils \
-		libglib2.0-dev libimlib2-dev libxrandr-dev
+		build-essential libglib2.0-dev \
+		libxft-dev libimlib2-dev libxrandr-dev \
+		libxinerama-dev
 
 install_dwm:
 	sudo rm -r build/dwm | true
