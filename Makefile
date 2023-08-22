@@ -66,6 +66,7 @@ install_helix:
 	brew install helix
 	mkdir -p ~/.config/helix/
 	ln -s -f $(PWD)/confs/helix/config.toml ~/.config/helix/config.toml
+	ln -s -f $(PWD)/confs/helix/languages.toml ~/.config/helix/languages.toml
 
 ###### Terminal ########
 install_font:

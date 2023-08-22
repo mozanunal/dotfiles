@@ -1,4 +1,6 @@
 
+let mapleader=" "
+
 syntax on                       " Enable syntax highlight
 set mouse=a                     " Enable mouse support
 set number                      " Show line numbers
@@ -46,6 +48,9 @@ colorscheme default
 command! MakeTags !ctags -R .
 
 " Keybindings
+" nnoremap <C-p> :find<Cr>
+nnoremap <leader>sf :find<Space>
+nnoremap <leader>gg :silent !lazygit<CR><C-l>
 
 " Cheatsheet
 " hjkl         : for left up down
