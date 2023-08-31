@@ -7,7 +7,8 @@ install_dev_data:
 	@echo $(SEP) install_dev_data
 	sudo apt install -y -qq \
 		python-is-python3 \
-		python3-pip
+		python3-pip \
+		python3-venv
 	python -m venv .venv/
 	. .venv/bin/activate && \
 		pip install -r requirements.txt
