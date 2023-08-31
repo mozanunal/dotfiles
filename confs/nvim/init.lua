@@ -253,9 +253,14 @@ vim.o.softtabstop = 4
 
 -- [[ Basic Keymaps ]]
 
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
--- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+-- Keymaps for better default experience
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+-- search will center on the line it's found in.
+vim.keymap.set('n', 'n', 'nzzzv', {noremap = true})
+vim.keymap.set('n', 'N', 'Nzzzv', {noremap = true})
+
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap

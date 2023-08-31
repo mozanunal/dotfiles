@@ -1,0 +1,11 @@
+pandas
+pyspark
+datasette
+ipython
+litecli
+duckdb
+ipython
+datasette
+sqlite-utils
+litecli
+tqdm

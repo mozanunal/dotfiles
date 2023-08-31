@@ -1,29 +1,20 @@
 
 ######## Dev Env ########
-all: install_dev_data install_dev_scala
+all: install_dev_data install_dev_scala install_dev_lua
 
 ###### Dev Environment #####
-install_example_data:
-	@echo $(SEP) install_example_data
-	rm -rf ~/.data
-	cp -r data/ ~/.data
-
 install_dev_data:
 	@echo $(SEP) install_dev_data
 	sudo apt install -y -qq \
 		python-is-python3 \
 		python3-pip
+	python -m venv .venv/
+	. .venv/bin/activate && \
+		pip install -r requirements.txt
 	brew install \
-		sqlite \
-		litecli \
 		duckdb \
-		ipython \
 		pyright \
-		datasette \
 		marksman
-	pip install \
-		pandas \
-		pyspark
 
 install_dev_scala:
 	@echo $(SEP) install_dev_scala

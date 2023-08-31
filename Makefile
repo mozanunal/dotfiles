@@ -4,8 +4,8 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
 sync_sh_server: install_bash install_vim_lite
-sync_sh_dev: sync_sh_server install_moz_sh install_neovim install_helix 
-sync_term: sync_sh_dev install_font install_kitty install_zellij
+sync_sh_dev: sync_sh_server install_neovim install_helix 
+sync_term: sync_sh_dev install_font install_alacritty install_zellij
 sync_de_dwm: sync_term install_moz_gui install_gui_tools \
 	install_sl_tools install_dwm install_st install_dmenu \
 	install_slstatus install_slock
@@ -23,24 +23,7 @@ install_bash:
 	ln -s -f $(PWD)/confs/.inputrc ~/.inputrc
 	ln -s -f $(PWD)/confs/.tmux.conf ~/.tmux.conf
 	ln -s -f $(PWD)/confs/.bash_aliases ~/.bash_aliases
-	. ~/.bashrc
-
-install_moz_sh:
-	@echo $(SEP) install_sh_bins
-	mkdir -p ~/.local/bin/
-	ln -s -f $(PWD)/bin/sh/moz_conf ~/.local/bin/moz_conf
-	ln -s -f $(PWD)/bin/sh/moz_fd_large_files ~/.local/bin/moz_fd_large_files
-	ln -s -f $(PWD)/bin/sh/moz_smoke_test ~/.local/bin/moz_smoke_test
-	ln -s -f $(PWD)/bin/sh/moz_update ~/.local/bin/moz_update
-
-install_moz_gui:
-	@echo $(SEP) install_gui_bins
-	ln -s -f $(PWD)/bin/gui/moz_emoji ~/.local/bin/moz_emoji
-	ln -s -f $(PWD)/bin/gui/moz_sync ~/.local/bin/moz_sync
-	ln -s -f $(PWD)/bin/gui/moz_power ~/.local/bin/moz_power
-	ln -s -f $(PWD)/bin/gui/passmenu ~/.local/bin/passmenu
-	ln -s -f $(PWD)/bin/gui/moz_wiki ~/.local/bin/moz_wiki
-	ln -s -f $(PWD)/bin/gui/moz_notes ~/.local/bin/moz_notes
+	rm ~/.local/bin/moz_* || true
 
 ###### Editors ########
 install_vim_lite:
@@ -82,19 +65,15 @@ install_font:
 	rm NerdFontsSymbolsOnly.zip
 	ln -s -f $(PWD)/confs/.icons ~/.icons
 
-install_kitty:
-	@echo $(SEP) install_kitty
-	sudo apt install -qq -y kitty
-	mkdir -p ~/.config/kitty/
-	ln -s -f $(PWD)/confs/kitty.conf ~/.config/kitty/kitty.conf
+install_alacritty:
+	@echo $(SEP) install_alacritty
+	sudo apt install -qq -y alacritty
+	ln -s -f $(PWD)/confs/alacritty.yml ~/.alacritty.yml
 
 install_wezterm:
 	@echo $(SEP) install_wezterm
 	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
-install_alacrity:
-	@echo $(SEP) install_alacrity
-	ln -s -f $(PWD)/confs/alacritty.yml ~/.alacritty.yml
 
 ###### Window Manager and Gui #########
 install_gui_tools:
@@ -102,10 +81,19 @@ install_gui_tools:
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
 				autorandr lxappearance arandr \
 				xclip maim light acpi lm-sensors \
-				zim-tools kiwix-tools kiwix \
+				zim-tools kiwix-tools kiwix feh \
 				mupdf pass pcmanfm sxiv nitrogen
 
 	sudo usermod -aG video moz
+
+install_moz_gui:
+	@echo $(SEP) install_gui_bins
+	ln -s -f $(PWD)/bin/moz_emoji ~/.local/bin/moz_emoji
+	ln -s -f $(PWD)/bin/moz_sync ~/.local/bin/moz_sync
+	ln -s -f $(PWD)/bin/moz_power ~/.local/bin/moz_power
+	ln -s -f $(PWD)/bin/passmenu ~/.local/bin/passmenu
+	ln -s -f $(PWD)/bin/moz_wiki ~/.local/bin/moz_wiki
+	ln -s -f $(PWD)/bin/moz_notes ~/.local/bin/moz_notes
 
 ##### Suckless Tools #################
 install_sl_tools:

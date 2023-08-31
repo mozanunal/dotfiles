@@ -6,6 +6,9 @@ true-color = true
 bufferline = "always"
 auto-pairs = true
 
+[editor.file-picker]
+hidden = false
+
 [editor.statusline]
 left = [ "mode", "file-name", "separator", "spacer", "diagnostics", ]
 center = []
