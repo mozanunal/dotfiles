@@ -7,8 +7,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Cousine:pixelsize=18:antialias=true:autohint=false";
-static char *font2[] = { "Symbols Nerd Font:pixelsize=18:antialias=true:autohint=false", };
+static char *font = "Cousine:pixelsize=18:antialias=true:autohint=true";
+static char *font2[] = { "Cousine Nerd Font:pixelsize=20:antialias=true:autohint=true", };
 static int borderpx = 2;
 
 /*
