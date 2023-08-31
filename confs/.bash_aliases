@@ -9,8 +9,10 @@ alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always -
 alias fzv='nvim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
-alias mpy='source ~/dotfiles/dev/.venv/bin/activate'
-alias mpyi='source ~/dotfiles/dev/.venv/bin/activate;ipython -i ~/dotfiles/dev/start.py'
+alias moz_py='source ~/dotfiles/dev/.venv/bin/activate'
+alias moz_ipy='source ~/dotfiles/dev/.venv/bin/activate;ipython -i ~/dotfiles/dev/start.py'
+alias moz_notes='cd ~/.password-store/notes/ && $EDITOR .'
+alias moz_git_sync="git add . && git commit -m 'sync' && git push"
 
 # --- functions
 moz_conf ()

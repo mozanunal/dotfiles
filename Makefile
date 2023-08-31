@@ -93,7 +93,6 @@ install_moz_gui:
 	ln -s -f $(PWD)/bin/moz_power ~/.local/bin/moz_power
 	ln -s -f $(PWD)/bin/passmenu ~/.local/bin/passmenu
 	ln -s -f $(PWD)/bin/moz_wiki ~/.local/bin/moz_wiki
-	ln -s -f $(PWD)/bin/moz_notes ~/.local/bin/moz_notes
 
 ##### Suckless Tools #################
 install_sl_tools:
