@@ -9,3 +9,5 @@ datasette
 sqlite-utils
 litecli
 tqdm
+polars
+bpython
