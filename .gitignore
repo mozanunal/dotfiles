@@ -1,3 +1,4 @@
 *.o
 build
 dev/.venv
+lazy-lock.json

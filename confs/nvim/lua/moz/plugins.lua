@@ -1,4 +1,4 @@
-local USE_ICONS = false
+local USE_ICONS = true
 
 -- mini
 require('mini.basics').setup {

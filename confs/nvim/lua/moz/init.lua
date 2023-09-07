@@ -71,10 +71,10 @@ require('lazy').setup {
   },
 }
 
-require("plugins")
-require("options")
-require("autocmds")
-require("keymaps")
+require("moz.plugins")
+require("moz.options")
+require("moz.autocmds")
+require("moz.keymaps")
 
 -- vim.cmd([[autocmd FileType scala,sbt lua require("metals").initialize_or_attach({})]])
 -- The line beneath this is called `modeline`. See `:help modeline`

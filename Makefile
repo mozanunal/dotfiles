@@ -41,8 +41,8 @@ install_neovim:
 	@echo $(SEP) install_neovim
 	brew install neovim
 	rm -rf ~/.config/nvim
-	mkdir -p ~/.config/nvim/
-	ln -s -f $(PWD)/confs/nvim/init.lua ~/.config/nvim/init.lua
+	# mkdir -p ~/.config/nvim/
+	ln -s -f $(PWD)/confs/nvim/ ~/.config/
 
 install_helix:
 	@echo $(SEP) install_helix

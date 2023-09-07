@@ -50,8 +50,10 @@ command! MakeTags !ctags -R .
 " Keybindings
 " nnoremap <C-p> :find<Cr>
 nnoremap <leader>sf :find<Space>
-nnoremap <leader>gg :silent !lazygit<CR><C-l>
+nnoremap <leader>sg :vimgrep<Space>
+nnoremap <leader>sw :vimgrep .expand("<cword>") **
 
+nnoremap <leader>gg :silent !lazygit<CR><C-l>
 " Cheatsheet
 " hjkl         : for left up down
 " <C-o>        : is back
