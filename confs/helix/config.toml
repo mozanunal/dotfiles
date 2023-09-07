@@ -40,7 +40,7 @@ tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 
 [editor.indent-guides]
 render = true
-character = "│"
+character = "┊"
 skip-levels = 0
 
 [keys.normal]
