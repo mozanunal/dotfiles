@@ -17,12 +17,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-  { 'echasnovski/mini.nvim',    version = false },
+  { 'echasnovski/mini.nvim',   version = false },
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-sleuth' },
-  { 'folke/which-key.nvim',     opts = {} },
+  { 'folke/which-key.nvim',    opts = {} },
   { 'lewis6991/gitsigns.nvim', },
-  { "catppuccin/nvim",          name = "catppuccin" },
+  { "catppuccin/nvim",         name = "catppuccin" },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
