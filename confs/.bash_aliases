@@ -12,6 +12,7 @@ alias zm='zellij a||zellij'
 alias moz_py='source ~/dotfiles/dev/.venv/bin/activate'
 alias moz_ipy='source ~/dotfiles/dev/.venv/bin/activate;ipython -i ~/dotfiles/dev/start.py'
 alias moz_bpy='source ~/dotfiles/dev/.venv/bin/activate;bpython -p ~/dotfiles/dev/start.py'
+alias moz_sql='litecli ~/dotfiles/dev/data/sq.sqlite'
 alias moz_notes='cd ~/.password-store/notes/ && $EDITOR .'
 alias moz_git_sync="git add . && git commit -m 'sync' && git push"
 
