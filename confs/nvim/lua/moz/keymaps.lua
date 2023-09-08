@@ -22,6 +22,7 @@ vim.keymap.set('n', '<leader>sf', tb.find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', tb.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', tb.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', tb.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>\'', tb.resume, { desc = '[S]earch [R]resume' })
 
 -- Diagnostic Keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
