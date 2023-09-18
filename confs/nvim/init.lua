@@ -1,3 +1,5 @@
-require("moz")
+
+require("config.lazy")
+-- require("moz")
 
 
