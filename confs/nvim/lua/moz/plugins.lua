@@ -10,6 +10,7 @@ require('mini.statusline').setup {
 require('mini.tabline').setup {
   show_icons = USE_ICONS
 }
+require('mini.jump').setup()
 require('mini.comment').setup()
 require('mini.surround').setup()
 require('mini.pairs').setup()
