@@ -5,7 +5,7 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 ######## Tools #########
 sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_neovim install_helix 
-sync_term: sync_sh_dev install_font install_alacritty install_zellij
+sync_term: sync_sh_dev install_font install_zellij
 sync_de_dwm: sync_term install_moz_gui install_gui_tools \
 	install_sl_tools install_dwm install_st install_dmenu \
 	install_slstatus install_slock
@@ -67,7 +67,6 @@ install_font:
 
 install_alacritty:
 	@echo $(SEP) install_alacritty
-	sudo apt install -qq -y alacritty
 	ln -s -f $(PWD)/confs/alacritty.yml ~/.alacritty.yml
 
 install_wezterm:
