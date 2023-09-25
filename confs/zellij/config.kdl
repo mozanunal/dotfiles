@@ -7,8 +7,10 @@ keybinds clear-defaults=true {
     }
 
     shared_except "locked" {
-        bind "Ctrl q" { Quit; }
         bind "Ctrl a" { SwitchToMode "Tmux"; }
+        bind "Alt g" { SwitchToMode "locked"; }
+        bind "Alt E" { Quit; }
+        bind "Alt Q" { CloseFocus; SwitchToMode "Normal"; }
         bind "Alt o" { NextSwapLayout; }
         bind "Alt n" { NewPane; }
         bind "Alt t" { NewTab; SwitchToMode "Normal"; }
@@ -38,12 +40,8 @@ keybinds clear-defaults=true {
         bind "Alt 9" { GoToTab 9; SwitchToMode "Normal"; }
     }
    
-    move {
-        bind "Alt x" { SwitchToMode "Normal"; }
-        bind "h" "Left" { MovePane "Left"; }
-        bind "j" "Down" { MovePane "Down"; }
-        bind "k" "Up" { MovePane "Up"; }
-        bind "l" "Right" { MovePane "Right"; }
+    locked {
+        bind "Alt g" { SwitchToMode "Normal"; }
     }
     
     tmux {
