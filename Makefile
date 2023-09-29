@@ -134,7 +134,7 @@ install_dmenu:
 	cd build && git clone --depth=1 -b 5.2 git://git.suckless.org/dmenu
 	cp sl/dmenu/* build/dmenu/
 	cd build/dmenu \
-		&& patch -i dmenu-fuzzymatch-4.9.diff \
+		&& patch -i border-center-fuzzymatch.diff \
 		&& sudo make clean install
 
 install_slstatus:
