@@ -23,17 +23,16 @@
 	discard = checkout -- 
 
 [merge]
-    tool = nvimdiff
-
-[mergetool "nvimdiff"]
-    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+  tool = nvimdiff
 
 [color]
 	ui = auto
+
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
+
 [color "status"]
 	added = yellow
 	changed = green

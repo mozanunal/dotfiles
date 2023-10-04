@@ -169,7 +169,7 @@ static const Button buttons[] = {
 };
 
 static const char *const autostart[] = {
-	"feh", "--bg-scale", "/home/moz/dotfiles/dev/data/tetris.png", NULL,
+	"feh", "--bg-scale", "~/dotfiles/dev/data/tetris.png", NULL,
 	"slstatus", NULL,
 	NULL /* terminate */
 };
