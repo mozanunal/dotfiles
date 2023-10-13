@@ -1,5 +1,6 @@
 
 PWD="$(shell pwd)"
+USER="$(shell whoami)"
 SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
@@ -83,7 +84,7 @@ install_gui_tools:
 				zim-tools kiwix-tools kiwix feh \
 				mupdf pass pcmanfm sxiv nitrogen
 
-	sudo usermod -aG video moz
+	sudo usermod -aG video $(USER)
 
 install_moz_gui:
 	@echo $(SEP) install_gui_bins
