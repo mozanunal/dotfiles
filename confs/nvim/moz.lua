@@ -1,3 +1,77 @@
+-- Set <space> as the leader key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Install package manager
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup {
+  { 'echasnovski/mini.nvim',   version = false },
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-sleuth' },
+  { 'folke/which-key.nvim',    opts = {} },
+  { 'lewis6991/gitsigns.nvim', },
+  { "catppuccin/nvim",         name = "catppuccin" },
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      { 'williamboman/mason.nvim',          config = true },
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'j-hui/fidget.nvim',                opts = {} },
+      { 'folke/neodev.nvim' },
+    },
+  },
+  {
+    -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'rafamadriz/friendly-snippets' },
+  },
+  {
+    "scalameta/nvim-metals",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    }
+  },
+  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
+    cond = function()
+      return vim.fn.executable 'make' == 1
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ":TSUpdate",
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+  },
+}
+
+---- Plugins Configs
 local USE_ICONS = true
 
 -- mini
@@ -256,3 +330,70 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+---- Options
+vim.cmd.colorscheme 'catppuccin-macchiato' --
+vim.o.swapfile = false                     -- remove swapfile
+vim.o.hlsearch = false                     -- Set highlight on search
+vim.wo.number = true                       -- Make line numbers default
+vim.wo.relativenumber = true               --
+vim.o.mouse = 'a'                          -- Enable mouse mode
+vim.o.clipboard = 'unnamedplus'            -- Sync clipboard between OS and Neovim.
+vim.o.breakindent = true                   -- Enable break indent
+vim.o.undofile = true                      -- Save undo history
+vim.o.ignorecase = true                    -- Case insensitive searching UNLESS /C or capital in search
+vim.o.smartcase = true                     --
+vim.wo.signcolumn = 'yes'                  -- Keep signcolumn on by default
+vim.o.updatetime = 200                     -- Decrease update time
+vim.o.timeout = true                       --
+vim.o.timeoutlen = 200                     --
+vim.o.completeopt = 'menuone,noselect'     -- Set completeopt to have a better completion experience
+vim.o.termguicolors = true                 -- NOTE: You should makebsure your terminal supports this
+vim.o.autoindent = true                    -- Auto-indent new lines
+vim.o.expandtab = true                     -- Use spaces instead of tabs
+vim.o.shiftwidth = 4                       -- Number of auto-indent spaces
+vim.o.smartindent = true                   -- Enable smart-indent
+vim.o.smarttab = true                      -- Enable smart-tabs
+vim.o.softtabstop = 4                      -- Number of spaces per Tab
+
+---- Keymaps
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+vim.keymap.set({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '}', '}zz', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '{', '{zz', { noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set('n', '<leader>t', ":terminal<CR>i", { desc = '[T]erminal' })
+vim.keymap.set('n', '<leader>gg', ":Git<CR>", { desc = '[G]it' })
+vim.keymap.set('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = '[G]it [D]iff' })
+vim.keymap.set('n', '<leader>gp', ":Git push<CR>", { desc = '[G]it [P]ush' })
+vim.keymap.set('n', ']b', ":bn<CR>", { desc = '[B]uffer [N]ext' })
+vim.keymap.set('n', '[b', ":bp<CR>", { desc = '[B]uffer [P]rev' })
+vim.keymap.set('n', '<leader>e', ":Neotree focus toggle<CR>", { desc = 'Open [E]xplorer' })
+
+-- Telescope
+local tb = require('telescope.builtin')
+vim.keymap.set('n', '<leader>?', tb.oldfiles, { desc = '[?] Find recently opened files' })
+vim.keymap.set('n', '<leader><space>', tb.buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', tb.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
+vim.keymap.set('n', '<leader>gf', tb.git_files, { desc = 'Search [G]it [F]iles' })
+vim.keymap.set('n', '<leader>sf', tb.find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sh', tb.help_tags, { desc = '[S]earch [H]elp' })
+vim.keymap.set('n', '<leader>sw', tb.grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sg', tb.live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>\'', tb.resume, { desc = '[S]earch [R]resume' })
+
+-- Diagnostic Keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+-- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+vim.keymap.set('n', '<leader>sd', tb.diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- vim.cmd([[autocmd FileType scala,sbt lua require("metals").initialize_or_attach({})]])
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
