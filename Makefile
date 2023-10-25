@@ -9,7 +9,7 @@ sync_sh_dev: sync_sh_server install_neovim install_helix
 sync_term: sync_sh_dev install_font install_zellij
 sync_de_dwm: sync_term install_moz_gui install_gui_tools \
 	install_sl_tools install_dwm install_st install_dmenu \
-	install_slstatus install_slock
+	install_slstatus install_slock install_rofi 
 
 ###### Shells #########
 install_bash:
@@ -94,6 +94,11 @@ install_moz_gui:
 	ln -s -f $(PWD)/bin/moz_wiki ~/.local/bin/moz_wiki
 	ln -s -f $(PWD)/bin/passmenu ~/.local/bin/passmenu
 	ln -s -f $(PWD)/bin/dmenu_run_i ~/.local/bin/dmenu_run_i
+
+install_rofi:
+	@echo $(SEP) install_rofi
+	rm -rf ~/.config/rofi
+	ln -s -f $(PWD)/confs/rofi/ ~/.config/
 
 ##### Suckless Tools #################
 install_sl_tools:

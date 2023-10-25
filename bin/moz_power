@@ -1,10 +1,10 @@
 #!/bin/sh
 
     
-case "$(echo " Shutdown\nﰇ Reboot\n Logout\n鈴 Sleep\n Lock\n BM_Battery\n𢡄 BM_Balanced\n BM_Performance\n" | \
-    dmenu -i -p "Power:" -l 8)" in
+case "$(echo " Shutdown\n Reboot\n Logout\n鈴 Sleep\n Lock\n BM_Battery\n𢡄 BM_Balanced\n BM_Performance\n" | \
+    rofi -dmenu -i -p "Power:" -l 8)" in
         " Shutdown") exec systemctl poweroff;;
-        "ﰇ Reboot") exec systemctl reboot;;
+        " Reboot") exec systemctl reboot;;
         " Logout") exec pkill dwm;;
         "鈴 Sleep") exec systemctl suspend;;
         " Lock") exec slock;;
