@@ -74,8 +74,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 // 	"-m", dmenumon, 
-/* static const char *dmenucmd[] = { "dmenu_run_i", "-f", "-p", "Run:","-l", "20", NULL }; */
-static const char *dmenucmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
+static const char *dmenucmd[] = { "dmenu_run_i", "-f", "-p", "Run:","-l", "20", NULL };
+static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *webcmd[]  = { "google-chrome", NULL };
 static const char volumeup[]  = "pactl set-sink-volume @DEFAULT_SINK@ +5% && killall -SIGUSR1 slstatus";
@@ -102,7 +102,8 @@ static const Key keys[] = {
 	{ ShiftMask, XK_Print,           spawn, SHCMD(take_ss_select)},
 	{ ControlMask, XK_Print,         spawn, SHCMD(take_ss_window)},
 	{ MODKEY, XK_x,                  togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY, XK_space,              spawn, {.v = dmenucmd} },
+	{ MODKEY, XK_r,                  spawn, {.v = dmenucmd} },
+	{ MODKEY, XK_space,              spawn, {.v = roficmd} },
 	{ MODKEY, XK_Return,             spawn, {.v = termcmd} },
 	{ MODKEY|ShiftMask, XK_Return,   spawn, {.v = webcmd} },
 	{ MODKEY|ShiftMask, XK_u,        spawn, SHCMD("moz_emoji") },
