@@ -1,7 +1,7 @@
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-local keymap = vim.keymap.set
+local kmap = vim.keymap.set
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -40,10 +40,12 @@ require('lazy').setup {
 }
 
 ---- Plugins Configs
-local USE_ICONS = true
-
--- mini
-require('mini.completion').setup()
+require('mini.completion').setup({
+  window = {
+    info = { height = 25, width = 80, border = 'none' },
+    signature = { height = 25, width = 80, border = 'none' },
+  },
+})
 require('mini.basics').setup({
   options = {
     extra_ui = true,
@@ -54,14 +56,8 @@ require('mini.basics').setup({
   }
 })
 
-require('mini.statusline').setup {
-  use_icons = USE_ICONS
-}
-
-require('mini.tabline').setup {
-  show_icons = USE_ICONS
-}
-
+require('mini.statusline').setup()
+require('mini.tabline').setup()
 require('mini.comment').setup()
 require('mini.surround').setup()
 require('mini.pairs').setup()
@@ -70,10 +66,12 @@ require('mini.indentscope').setup()
 require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
-require('mini.files').setup()
+local mini_files = require('mini.files')
+mini_files.setup()
 
 require('mini.fuzzy').setup()
-require('mini.pick').setup({
+local mini_pick = require('mini.pick')
+mini_pick.setup({
   mappings = {
     choose_in_vsplit = '<C-CR>',
   },
@@ -84,9 +82,9 @@ require('mini.pick').setup({
   --   config = win_config,
   -- }
 })
-local pickcmd = require('mini.pick').builtin.cli
-require('mini.extra').setup()
 
+local mini_extra = require('mini.extra')
+mini_extra.setup()
 -- local animate = require('mini.animate')
 -- animate.setup {
 --   scroll = {
@@ -153,7 +151,6 @@ require('mini.clue').setup({
 
   clues = {
     { mode = 'n', keys = '<Leader>f', desc = 'Find' },
-    { mode = 'n', keys = '<Leader>s', desc = 'Switch' },
     { mode = 'n', keys = '<Leader>b', desc = 'Buffer' },
     { mode = 'n', keys = '<Leader>g', desc = 'Git' },
     { mode = 'n', keys = '<Leader>w', desc = 'Workspace' },
@@ -240,6 +237,8 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
+require('neodev').setup()
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -248,31 +247,24 @@ local on_attach = function(_, bufnr)
     if desc then
       desc = 'LSP: ' .. desc
     end
-
-    keymap('n', keys, func, { buffer = bufnr, desc = desc })
+    kmap('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
   nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
-
   nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
-  -- nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gr', function () mini_extra.pickers.lsp({scope="references"}) end, 'Goto References')
   nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
-  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-  -- nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-  -- See `:help K` for why this keymap
+  nmap('gt', vim.lsp.buf.type_definition, 'Goto Type Definition')
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-  -- Lesser used LSP functionality
+  nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
   nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
+  nmap('<leader>lf', vim.lsp.buf.format, 'Format')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, 'Add Workspace')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, 'Remove Workspace')
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, 'Workspace List Folders')
+  end, 'List Workspace')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -294,7 +286,6 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -329,7 +320,7 @@ vim.o.undofile = true                  -- Save undo history
 vim.o.ignorecase = true                -- Case insensitive searching UNLESS /C or capital in search
 vim.o.smartcase = true                 --
 vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
-vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
+-- vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
 vim.o.termguicolors = true             -- NOTE: You should makebsure your terminal supports this
 vim.o.autoindent = true                -- Auto-indent new lines
 vim.o.expandtab = true                 -- Use spaces instead of tabs
@@ -339,67 +330,42 @@ vim.o.smarttab = true                  -- Enable smart-tabs
 vim.o.softtabstop = 4                  -- Number of spaces per Tab
 
 ---- Keymaps
-keymap('t', '<Esc>', '<C-\\><C-n>')
-keymap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
-keymap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
-keymap({ 'n', 'v' }, '}', '}zz', { noremap = true })
-keymap({ 'n', 'v' }, '{', '{zz', { noremap = true })
-keymap({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-keymap('n', ']b', ":bn<CR>", { desc = '[B]uffer [N]ext' })
-keymap('n', '[b', ":bp<CR>", { desc = '[B]uffer [P]rev' })
-keymap('n', '<leader>t', ":terminal<CR>i", { desc = '[T]erminal' })
-keymap('n', '<leader>gg', ":Git<CR>", { desc = '[G]it' })
-keymap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = '[G]it [D]iff' })
-keymap('n', '<leader>gp', ":Git push<CR>", { desc = '[G]it [P]ush' })
-keymap('n', '<leader>e', ":Neotree focus toggle<CR>", { desc = 'Open [E]xplorer' })
-keymap("n", "<leader>ff", "<cmd>lua MiniPick.builtin.files()<cr>", { noremap = true, silent = true, desc = 'Find File' })
-keymap("n", "<leader><space>", "<cmd>lua MiniPick.builtin.files()<cr>",
-  { noremap = true, silent = true, desc = 'Find File' })
-keymap("n", "<leader>e", "<cmd>lua MiniFiles.open()<cr>", { noremap = true, silent = true, desc = 'File Explorer' })
-keymap("n", "<leader>fb", "<cmd>lua MiniPick.builtin.buffers()<cr>",
-  { noremap = true, silent = true, desc = 'Find Buffer' })
-keymap("n", "<leader>fg", "<cmd>lua MiniPick.builtin.grep_live()<cr>",
-  { noremap = true, silent = true, desc = 'Find String' })
-keymap("n", "<leader>fh", "<cmd>lua MiniPick.builtin.help()<cr>", { noremap = true, silent = true, desc = 'Find Help' })
-keymap("n", "<leader>ss", "<cmd>lua MiniSessions.select()<cr>",
-  { noremap = true, silent = true, desc = 'Switch Session' })
-keymap("n", "<leader>bd", "<cmd>bd<cr>", { noremap = true, silent = true, desc = 'Close Buffer' })
-keymap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = true, desc = 'Lazygit' })
-keymap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
-keymap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent = true, desc = 'Git Pull' })
-keymap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
-keymap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>',
-  { noremap = true, silent = true, desc = 'Git Autocommit' })
-
--- Telescope
--- local tb = require('telescope.builtin')
--- vim.keymap.set('n', '<leader>?', tb.oldfiles, { desc = '[?] Find recently opened files' })
--- vim.keymap.set('n', '<leader><space>', tb.buffers, { desc = '[ ] Find existing buffers' })
--- vim.keymap.set('n', '<leader>/', tb.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
--- vim.keymap.set('n', '<leader>gf', tb.git_files, { desc = 'Search [G]it [F]iles' })
--- vim.keymap.set('n', '<leader>sf', tb.find_files, { desc = '[S]earch [F]iles' })
--- vim.keymap.set('n', '<leader>sh', tb.help_tags, { desc = '[S]earch [H]elp' })
--- vim.keymap.set('n', '<leader>sw', tb.grep_string, { desc = '[S]earch current [W]ord' })
--- vim.keymap.set('n', '<leader>sg', tb.live_grep, { desc = '[S]earch by [G]rep' })
--- vim.keymap.set('n', '<leader>\'', tb.resume, { desc = '[S]earch [R]resume' })
-
--- Diagnostic Keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
--- vim.keymap.set('n', '<leader>sd', tb.diagnostics, { desc = '[S]earch [D]iagnostics' })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- keymap('t', '<Esc>', '<C-\\><C-n>')
+kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
+kmap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
+kmap({ 'n', 'v' }, '}', '}zz', { noremap = true })
+kmap({ 'n', 'v' }, '{', '{zz', { noremap = true })
+kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, desc = 'Window Split'  })
+kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, desc = 'Window VSplit'  })
+kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc='Window Quit' })
+kmap({ 'n', 'v' }, 'H', ':bp', { noremap = true })
+kmap({ 'n', 'v' }, 'L', ':bn', { noremap = true })
+kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
+kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
+kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
+kmap("n", "<leader>ff", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<leader><Space>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<leader>fs", function () mini_extra.pickers.lsp({ scope = 'document_symbol' }) end, { noremap = true, silent = true, desc = 'Find Symbols' })
+kmap("n", "<leader>e", mini_files.open, { noremap = true, silent = true, desc = 'File Explorer' })
+kmap("n", "<leader>fb", mini_pick.builtin.buffers, { noremap = true, silent = true, desc = 'Find Buffer' })
+kmap("n", "<leader>fg", mini_pick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
+kmap("n", "<leader>/", mini_pick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
+kmap("n", "<leader>fh", mini_pick.builtin.help, { noremap = true, silent = true, desc = 'Find Help' })
+kmap("n", "<leader>fk", mini_extra.pickers.keymaps, { noremap = true, silent = true, desc = 'Find Keymaps' })
+kmap("n", "<leader>`", mini_pick.builtin.resume, { noremap = true, silent = true, desc = 'Find Resume' })
+kmap("n", "<leader>bd", "<cmd>bd<cr>", { noremap = true, silent = true, desc = 'Close Buffer' })
+kmap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = true, desc = 'Lazygit' })
+kmap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
+kmap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent = true, desc = 'Git Pull' })
+kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
+kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>', { noremap = true, silent = true, desc = 'Git Autocommit' })
+kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
 
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function()
     vim.cmd("bdelete")
   end
 })
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
