@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   { 'echasnovski/mini.nvim' },
+  { "catppuccin/nvim",         name = "catppuccin", priority = 1000 },
   { 'tpope/vim-sleuth' },
   { 'lewis6991/gitsigns.nvim', opts = {} },
   {
@@ -78,44 +79,10 @@ mini_pick.setup({
   options = {
     use_cache = true
   },
-  -- window = {
-  --   config = win_config,
-  -- }
 })
 
 local mini_extra = require('mini.extra')
 mini_extra.setup()
--- local animate = require('mini.animate')
--- animate.setup {
---   scroll = {
---     -- Disable Scroll Animations, as the can interfer with mouse Scrolling
---     enable = false,
---   },
---   cursor = {
---     timing = animate.gen_timing.cubic({ duration = 50, unit = 'total' })
---   },
--- }
-
-require('mini.base16').setup({
-  palette = {
-    base00 = "#24273a",
-    base01 = "#1e2030",
-    base02 = "#363a4f",
-    base03 = "#494d64",
-    base04 = "#5b6078",
-    base05 = "#cad3f5",
-    base06 = "#f4dbd6",
-    base07 = "#b7bdf8",
-    base08 = "#ed8796",
-    base09 = "#f5a97f",
-    base0A = "#eed49f",
-    base0B = "#a6da95",
-    base0C = "#8bd5ca",
-    base0D = "#8aadf4",
-    base0E = "#c6a0f6",
-    base0F = "#f0c6c6",
-  }
-})
 
 require('mini.clue').setup({
   triggers = {
@@ -253,7 +220,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
   nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
-  nmap('gr', function () mini_extra.pickers.lsp({scope="references"}) end, 'Goto References')
+  nmap('gr', function() mini_extra.pickers.lsp({ scope = "references" }) end, 'Goto References')
   nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
   nmap('gt', vim.lsp.buf.type_definition, 'Goto Type Definition')
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -309,25 +276,26 @@ mason_lspconfig.setup_handlers {
 }
 
 ---- Options
-vim.o.swapfile = false                 -- remove swapfile
-vim.o.hlsearch = false                 -- Set highlight on search
-vim.wo.number = true                   -- Make line numbers default
-vim.wo.relativenumber = true           --
-vim.o.mouse = 'a'                      -- Enable mouse mode
-vim.o.clipboard = 'unnamedplus'        -- Sync clipboard between OS and Neovim.
-vim.o.breakindent = true               -- Enable break indent
-vim.o.undofile = true                  -- Save undo history
-vim.o.ignorecase = true                -- Case insensitive searching UNLESS /C or capital in search
-vim.o.smartcase = true                 --
-vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
+vim.cmd.colorscheme "catppuccin-macchiato"
+vim.o.swapfile = false          -- remove swapfile
+vim.o.hlsearch = false          -- Set highlight on search
+vim.wo.number = true            -- Make line numbers default
+vim.wo.relativenumber = true    --
+vim.o.mouse = 'a'               -- Enable mouse mode
+vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
+vim.o.breakindent = true        -- Enable break indent
+vim.o.undofile = true           -- Save undo history
+vim.o.ignorecase = true         -- Case insensitive searching UNLESS /C or capital in search
+vim.o.smartcase = true          --
+vim.wo.signcolumn = 'yes'       -- Keep signcolumn on by default
 -- vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
-vim.o.termguicolors = true             -- NOTE: You should makebsure your terminal supports this
-vim.o.autoindent = true                -- Auto-indent new lines
-vim.o.expandtab = true                 -- Use spaces instead of tabs
-vim.o.shiftwidth = 4                   -- Number of auto-indent spaces
-vim.o.smartindent = true               -- Enable smart-indent
-vim.o.smarttab = true                  -- Enable smart-tabs
-vim.o.softtabstop = 4                  -- Number of spaces per Tab
+vim.o.termguicolors = true      -- NOTE: You should makebsure your terminal supports this
+vim.o.autoindent = true         -- Auto-indent new lines
+vim.o.expandtab = true          -- Use spaces instead of tabs
+vim.o.shiftwidth = 4            -- Number of auto-indent spaces
+vim.o.smartindent = true        -- Enable smart-indent
+vim.o.smarttab = true           -- Enable smart-tabs
+vim.o.softtabstop = 4           -- Number of spaces per Tab
 
 ---- Keymaps
 -- keymap('t', '<Esc>', '<C-\\><C-n>')
@@ -335,17 +303,18 @@ kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, '}', '}zz', { noremap = true })
 kmap({ 'n', 'v' }, '{', '{zz', { noremap = true })
-kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, desc = 'Window Split'  })
-kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, desc = 'Window VSplit'  })
-kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc='Window Quit' })
-kmap({ 'n', 'v' }, 'H', ':bp', { noremap = true })
-kmap({ 'n', 'v' }, 'L', ':bn', { noremap = true })
+kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, desc = 'Window Split' })
+kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, desc = 'Window VSplit' })
+kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc = 'Window Quit' })
+kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true })
+kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
 kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
 kmap("n", "<leader>ff", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
 kmap("n", "<leader><Space>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
-kmap("n", "<leader>fs", function () mini_extra.pickers.lsp({ scope = 'document_symbol' }) end, { noremap = true, silent = true, desc = 'Find Symbols' })
+kmap("n", "<leader>fs", function() mini_extra.pickers.lsp({ scope = 'document_symbol' }) end,
+  { noremap = true, silent = true, desc = 'Find Symbols' })
 kmap("n", "<leader>e", mini_files.open, { noremap = true, silent = true, desc = 'File Explorer' })
 kmap("n", "<leader>fb", mini_pick.builtin.buffers, { noremap = true, silent = true, desc = 'Find Buffer' })
 kmap("n", "<leader>fg", mini_pick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
@@ -358,7 +327,8 @@ kmap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = 
 kmap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
 kmap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent = true, desc = 'Git Pull' })
 kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
-kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>', { noremap = true, silent = true, desc = 'Git Autocommit' })
+kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>',
+  { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
 
 vim.api.nvim_create_autocmd("TermClose", {
