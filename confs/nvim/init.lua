@@ -122,6 +122,7 @@ require('mini.clue').setup({
     { mode = 'n', keys = '<Leader>g', desc = 'Git' },
     { mode = 'n', keys = '<Leader>w', desc = 'Workspace' },
     { mode = 'n', keys = '<Leader>l', desc = 'LSP' },
+    { mode = 'n', keys = '<Leader>t', desc = 'Treesitter' },
     function() MiniClue.gen_clues.g() end,
     function() MiniClue.gen_clues.builtin_completion() end,
     function() MiniClue.gen_clues.marks() end,
@@ -134,75 +135,78 @@ require('mini.clue').setup({
   }
 })
 
+vim.defer_fn(function()
+  require('nvim-treesitter.configs').setup({
+    modules = {},
+    sync_install = true,
+    ignore_install = {},
+    -- Add languages to be installed here that you want installed for treesitter
+    ensure_installed = {
+      'sql', 'scala', 'c', 'cpp', 'go',
+      'lua', 'python', 'rust',
+      'tsx', 'javascript', 'typescript',
+      'vimdoc', 'vim', 'bash' },
 
--- [[ Configure Treesitter ]]
-require('nvim-treesitter.configs').setup({
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua',
-    'python', 'sql', 'scala',
-    'html', 'css', 'markdown',
-    'rust', 'tsx', 'typescript',
-    'vimdoc', 'vim' },
+    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
+    auto_install = false,
 
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = true,
-
-  indent = { enable = true, disable = { 'python' } },
-  highlight = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
-  textobjects = {
-    select = {
+    highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
+        init_selection = '<c-space>',
+        node_incremental = '<c-space>',
+        scope_incremental = '<c-s>',
+        node_decremental = '<M-space>',
       },
     },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+        keymaps = {
+          -- You can use the capture groups defined in textobjects.scm
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+        },
       },
-      goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          [']m'] = '@function.outer',
+          [']]'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
+        },
       },
-      goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
-      },
-      goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>ts'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>tS'] = '@parameter.inner',
+        },
       },
     },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
-  },
-})
+  })
+end, 0)
 
 require('neodev').setup()
 
@@ -303,11 +307,11 @@ kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, '}', '}zz', { noremap = true })
 kmap({ 'n', 'v' }, '{', '{zz', { noremap = true })
-kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, desc = 'Window Split' })
-kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, desc = 'Window VSplit' })
+kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, silent = true, desc = 'Window Split' })
+kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Window VSplit' })
 kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc = 'Window Quit' })
-kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true })
-kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true })
+kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true, silent = true, })
+kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true, silent = true, })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
 kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
