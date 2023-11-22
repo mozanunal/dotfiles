@@ -9,12 +9,14 @@ cmd_web = "google-chrome"
 cmd_volumeup = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
 cmd_volumedown = "pactl set-sink-volume @DEFAULT_SINK@ -5%"
 cmd_volumemute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-cmd_volumemicmute  = "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+cmd_volumemicmute = "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 cmd_brigdown = "light -U 5"
 cmd_brigup = "light -A 5"
 cmd_take_ss_select = "maim --select | xclip -selection clipboard -t image/png"
 cmd_take_ss_full = "maim | xclip -selection clipboard -t image/png"
-cmd_take_ss_window = "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+cmd_take_ss_window = (
+    "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+)
 
 keys = [
     # My apps
@@ -30,10 +32,11 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn(cmd_volumedown), desc="Volume down"),
     Key([], "XF86AudioMute", lazy.spawn(cmd_volumemute), desc="Volume mute"),
     Key([], "XF86AudioMicMute", lazy.spawn(cmd_volumemicmute), desc="Volume mute"),
-    Key(["shift"], "Print", lazy.spawn(cmd_take_ss_select), desc="Screenshot selection"),
+    Key(
+        ["shift"], "Print", lazy.spawn(cmd_take_ss_select), desc="Screenshot selection"
+    ),
     Key([], "Print", lazy.spawn(cmd_take_ss_full), desc="Screenshot full screen"),
     Key(["control"], "Print", lazy.spawn(cmd_take_ss_window), desc="Screenshot window"),
-
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -148,45 +151,53 @@ layouts = [
 
 widget_defaults = dict(
     font="Cousine Nerd Font",
-    fontsize=14,
-    padding=3,
+    fontsize=16,
+    padding=2,
 )
 extension_defaults = widget_defaults.copy()
 
+widgets_screen_1 = [
+    widget.CurrentLayoutIcon(),
+    widget.GroupBox(highlight_method='line', fontsize=18, disable_drag=True),
+    # widget.Prompt(),
+    widget.TaskList(title_width_method="uniform"),
+    widget.Chord(
+        chords_colors={
+            "launch": ("#ff0000", "#ffffff"),
+        },
+        name_transform=lambda name: name.upper(),
+    ),
+    widget.Battery(),
+    widget.ThermalZone(fmt=" :{}"),
+    widget.Volume(fmt=" 墳:{} "),
+    widget.Systray(),
+    widget.Clock(format="%Y-%m-%d %H:%M"),
+]
+
+widgets_screen_2 = [
+    widget.CurrentLayoutIcon(),
+    widget.GroupBox(highlight_method='line', fontsize=18, disable_drag=True),
+    # widget.Prompt(),
+    widget.TaskList(title_width_method="uniform"),
+    widget.Chord(
+        chords_colors={
+            "launch": ("#ff0000", "#ffffff"),
+        },
+        name_transform=lambda name: name.upper(),
+    ),
+    widget.Battery(),
+    widget.ThermalZone(fmt=" :{}"),
+    widget.Volume(fmt=" 墳:{} "),
+    widget.Clock(format="%Y-%m-%d %H:%M"),
+]
+
 screens = [
     Screen(
-        bottom=bar.Bar(
-           [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                # widget.Prompt(),
-                widget.TaskList(title_width_method='uniform'),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                # widget.cpu.Cpu(),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
-                widget.Battery(),
-                # widget.battery.Battery(),
-                widget.ThermalZone(fmt=' :{}'),
-                widget.Volume(fmt=' 墳:{} '),
-                widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %H:%M"),
-                # widget.QuickExit(),
-            ],
-            27,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-        ),
-        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
-        # By default we handle these events delayed to already improve performance, however your system might still be struggling
-        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+        bottom=bar.Bar(widgets_screen_1, 27),
+        # x11_drag_polling_rate = 60,
+    ),
+    Screen(
+        bottom=bar.Bar(widgets_screen_2, 27),
         # x11_drag_polling_rate = 60,
     ),
 ]
@@ -207,7 +218,7 @@ mouse = [
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 floats_kept_above = True
 cursor_warp = False
