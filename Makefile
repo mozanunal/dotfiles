@@ -5,11 +5,13 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 
 ######## Tools #########
 sync_sh_server: install_bash install_vim_lite
-sync_sh_dev: sync_sh_server install_neovim install_helix 
-sync_term: sync_sh_dev install_font install_zellij
-sync_de_dwm: sync_term install_moz_gui install_gui_tools \
+sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
+sync_gui: sync_sh_dev install_font install_alacritty \
+					install_rofi install_moz_gui install_gui_tools
+sync_qtile: sync_gui install_qtile_wm
+sync_de_dwm: sync_gui \
 	install_sl_tools install_dwm install_st install_dmenu \
-	install_slstatus install_slock install_rofi 
+	install_slstatus install_slock  
 
 ###### Shells #########
 install_bash:
@@ -83,7 +85,6 @@ install_gui_tools:
 				xclip maim light acpi lm-sensors \
 				zim-tools kiwix-tools kiwix feh \
 				mupdf pass pcmanfm sxiv nitrogen
-
 	sudo usermod -aG video $(USER)
 
 install_moz_gui:
@@ -99,6 +100,14 @@ install_rofi:
 	@echo $(SEP) install_rofi
 	rm -rf ~/.config/rofi
 	ln -s -f $(PWD)/confs/rofi/ ~/.config/
+
+##### Qtile #################
+install_qtile_wm:
+	sudo cp confs/qtile/qtile.desktop /usr/share/xsessions/qtile.desktop
+	python -m venv ~/.qtile
+	. ~/.qtile/bin/activate && \
+		pip install -r confs/qtile/requirements.txt
+	ln -s -f $(PWD)/confs/qtile/ ~/.config/
 
 ##### Suckless Tools #################
 install_sl_tools:

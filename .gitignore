@@ -1,4 +1,5 @@
 *.o
+*.pyc
 build
 dev/.venv
 lazy-lock.json
