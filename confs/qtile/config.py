@@ -33,6 +33,9 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn(cmd_volumemute), desc="Volume mute"),
     Key([], "XF86AudioMicMute", lazy.spawn(cmd_volumemicmute), desc="Volume mute"),
     Key(
+        [mod, "shift"], "s", lazy.spawn(cmd_take_ss_select), desc="Screenshot selection"
+    ),
+    Key(
         ["shift"], "Print", lazy.spawn(cmd_take_ss_select), desc="Screenshot selection"
     ),
     Key([], "Print", lazy.spawn(cmd_take_ss_full), desc="Screenshot full screen"),
@@ -140,8 +143,8 @@ layouts = [
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
+    layout.MonadTall(),
+    layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
     # layout.TreeTab(),
@@ -158,7 +161,7 @@ extension_defaults = widget_defaults.copy()
 
 widgets_screen_1 = [
     widget.CurrentLayoutIcon(),
-    widget.GroupBox(highlight_method='line', fontsize=18, disable_drag=True),
+    widget.GroupBox(highlight_method="line", fontsize=18, disable_drag=True),
     # widget.Prompt(),
     widget.TaskList(title_width_method="uniform"),
     widget.Chord(
@@ -176,7 +179,7 @@ widgets_screen_1 = [
 
 widgets_screen_2 = [
     widget.CurrentLayoutIcon(),
-    widget.GroupBox(highlight_method='line', fontsize=18, disable_drag=True),
+    widget.GroupBox(highlight_method="line", fontsize=18, disable_drag=True),
     # widget.Prompt(),
     widget.TaskList(title_width_method="uniform"),
     widget.Chord(
