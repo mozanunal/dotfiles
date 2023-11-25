@@ -7,7 +7,7 @@ SEP="\e[1;32m-------------------------------------------\e[0m"
 sync_sh_server: install_bash install_vim_lite
 sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
 sync_gui: sync_sh_dev install_font install_alacritty \
-					install_rofi install_moz_gui install_gui_tools
+					install_wallpapers install_rofi install_moz_gui install_gui_tools
 sync_qtile: sync_gui install_qtile_wm
 sync_de_dwm: sync_gui \
 	install_sl_tools install_dwm install_st install_dmenu \
@@ -100,6 +100,10 @@ install_rofi:
 	@echo $(SEP) install_rofi
 	rm -rf ~/.config/rofi
 	ln -s -f $(PWD)/confs/rofi/ ~/.config/
+
+install_wallpapers:
+	@echo $(SEP) install_wallpapers
+	sudo ln -s -f $(PWD)/wallpapers /usr/share/backgrounds/moz
 
 ##### Qtile #################
 install_qtile_wm:

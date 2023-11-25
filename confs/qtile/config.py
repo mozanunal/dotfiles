@@ -2,8 +2,13 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
+
+def bash_cmd(cmd):
+    return f"""bash -c '{cmd}' """
+
+
 mod = "mod4"
-cmd_terminal = "alacritty"
+cmd_terminal = "st"
 cmd_menu = "rofi -show drun -show-icons"
 cmd_web = "google-chrome"
 cmd_volumeup = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
@@ -12,9 +17,9 @@ cmd_volumemute = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 cmd_volumemicmute = "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 cmd_brigdown = "light -U 5"
 cmd_brigup = "light -A 5"
-cmd_take_ss_select = "maim --select | xclip -selection clipboard -t image/png"
-cmd_take_ss_full = "maim | xclip -selection clipboard -t image/png"
-cmd_take_ss_window = (
+cmd_take_ss_select = bash_cmd("maim --select | xclip -selection clipboard -t image/png")
+cmd_take_ss_full = bash_cmd("maim | xclip -selection clipboard -t image/png")
+cmd_take_ss_window = bash_cmd(
     "maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
 )
 
@@ -152,6 +157,9 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+wallpaper = "/usr/share/backgrounds/moz/tetris.png"
+wallpaper_mode = "fill"
+
 widget_defaults = dict(
     font="Cousine Nerd Font",
     fontsize=16,
@@ -197,10 +205,14 @@ widgets_screen_2 = [
 screens = [
     Screen(
         bottom=bar.Bar(widgets_screen_1, 27),
+        wallpaper=wallpaper,
+        wallpaper_mode=wallpaper_mode,
         # x11_drag_polling_rate = 60,
     ),
     Screen(
         bottom=bar.Bar(widgets_screen_2, 27),
+        wallpaper=wallpaper,
+        wallpaper_mode=wallpaper_mode,
         # x11_drag_polling_rate = 60,
     ),
 ]
