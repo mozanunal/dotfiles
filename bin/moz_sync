@@ -1,2 +1,2 @@
 #!/bin/sh
-cd ~/dotfiles/ && git pull && make sync_de_dwm
+cd ~/dotfiles/ && git pull && make sync_de

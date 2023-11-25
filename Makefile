@@ -12,6 +12,7 @@ sync_qtile: sync_gui install_qtile_wm
 sync_de_dwm: sync_gui \
 	install_sl_tools install_dwm install_st install_dmenu \
 	install_slstatus install_slock  
+sync_de: sync_qtile
 
 ###### Shells #########
 install_bash:
