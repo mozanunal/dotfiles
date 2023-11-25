@@ -103,7 +103,8 @@ install_rofi:
 
 install_wallpapers:
 	@echo $(SEP) install_wallpapers
-	sudo ln -s -f $(PWD)/wallpapers /usr/share/backgrounds/moz
+	sudo rm -rf /usr/share/backgrounds/moz
+	sudo cp -r wallpapers /usr/share/backgrounds/moz
 
 ##### Qtile #################
 install_qtile_wm:

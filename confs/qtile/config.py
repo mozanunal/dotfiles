@@ -91,6 +91,7 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "o", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "s", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key(
         [mod, "shift"],
@@ -115,6 +116,9 @@ groups = [
     Group("3", label=""),
     Group("4", label=""),
     Group("5", label=""),
+    Group("6", label=""),
+    Group("7", label=""),
+    Group("8", label=""),
 ]
 
 for i in groups:
