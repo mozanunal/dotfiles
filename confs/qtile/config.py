@@ -8,7 +8,7 @@ def bash_cmd(cmd):
 
 
 mod = "mod4"
-cmd_terminal = "st"
+cmd_terminal = "alacritty"
 cmd_menu = "rofi -show drun -show-icons"
 cmd_web = "google-chrome"
 cmd_volumeup = "pactl set-sink-volume @DEFAULT_SINK@ +5%"
@@ -93,7 +93,7 @@ keys = [
     Key([mod], "o", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key(
-        [mod],
+        [mod, "shift"],
         "f",
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
