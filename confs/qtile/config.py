@@ -119,6 +119,7 @@ groups = [
     Group("6", label=""),
     Group("7", label=""),
     Group("8", label=""),
+    Group("9", label=""),
 ]
 
 for i in groups:
@@ -135,7 +136,7 @@ for i in groups:
             Key(
                 [mod, "shift"],
                 i.name,
-                lazy.window.togroup(i.name, switch_group=True),
+                lazy.window.togroup(i.name, switch_group=False),
                 desc="Switch to & move focused window to group {}".format(i.name),
             ),
             # Or, use below if you prefer not to switch to that group.
