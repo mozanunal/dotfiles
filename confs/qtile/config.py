@@ -2,7 +2,6 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
-
 def bash_cmd(cmd):
     return f"""bash -c '{cmd}' """
 
@@ -105,7 +104,8 @@ keys = [
         lazy.window.toggle_floating(),
         desc="Toggle floating on the focused window",
     ),
-    Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
+    # Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key([mod, "shift"], "r", lazy.restart(), desc="Reload the config"),
     Key([mod, "shift"], "e", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "space", lazy.spawn(cmd_menu), desc="Spawn Rofi menu"),
 ]

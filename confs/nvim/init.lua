@@ -20,7 +20,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup {
   { 'echasnovski/mini.nvim' },
   { "catppuccin/nvim",         name = "catppuccin", priority = 1000 },
-  { 'tpope/vim-sleuth' },
   { 'lewis6991/gitsigns.nvim', opts = {} },
   {
     'neovim/nvim-lspconfig',
@@ -279,27 +278,56 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
----- Options
 vim.cmd.colorscheme "catppuccin-macchiato"
-vim.o.swapfile = false          -- remove swapfile
-vim.o.hlsearch = false          -- Set highlight on search
-vim.wo.number = true            -- Make line numbers default
-vim.wo.relativenumber = true    --
-vim.o.mouse = 'a'               -- Enable mouse mode
-vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
-vim.o.breakindent = true        -- Enable break indent
-vim.o.undofile = true           -- Save undo history
-vim.o.ignorecase = true         -- Case insensitive searching UNLESS /C or capital in search
-vim.o.smartcase = true          --
-vim.wo.signcolumn = 'yes'       -- Keep signcolumn on by default
--- vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
-vim.o.termguicolors = true      -- NOTE: You should makebsure your terminal supports this
-vim.o.autoindent = true         -- Auto-indent new lines
-vim.o.expandtab = true          -- Use spaces instead of tabs
-vim.o.shiftwidth = 4            -- Number of auto-indent spaces
-vim.o.smartindent = true        -- Enable smart-indent
-vim.o.smarttab = true           -- Enable smart-tabs
-vim.o.softtabstop = 4           -- Number of spaces per Tab
+vim.o.swapfile = false               -- remove swapfile
+vim.o.hlsearch = false               -- Set highlight on search
+vim.wo.number = true                 -- Make line numbers default
+vim.wo.relativenumber = true         --
+vim.o.mouse = 'a'                    -- Enable mouse mode
+vim.o.clipboard = 'unnamedplus'      -- Sync clipboard between OS and Neovim.
+vim.o.breakindent = true             -- Enable break indent
+vim.o.undofile = true                -- Save undo history
+vim.o.ignorecase = true              -- Case insensitive searching UNLESS /C or capital in search
+vim.o.smartcase = true               --
+vim.o.completeopt = "menu,menuone,noselect"
+vim.o.conceallevel = 3               -- Hide * markup for bold and italic
+vim.o.autoindent = true              -- Auto-indent new lines
+vim.o.smartindent = true             -- Enable smart-indent
+vim.o.smarttab = true                -- Enable smart-tabs
+vim.o.softtabstop = 2                -- Number of spaces per Tab
+vim.o.confirm = true                 -- Confirm to save changes before exiting modified buffer
+vim.o.cursorline = true              -- Enable highlighting of the current line
+vim.o.expandtab = true               -- Use spaces instead of tabs
+vim.o.formatoptions = "jcroqlnt"     -- tcqj
+vim.o.ignorecase = true              -- Ignore case
+vim.o.inccommand = "nosplit"         -- preview incremental substitute
+vim.o.laststatus = 3                 -- global statusline
+vim.o.scrolloff = 4                  -- Lines of context
+vim.o.shiftround = true              -- Round indent
+vim.o.shiftwidth = 2                 -- Size of an indent
+vim.o.sidescrolloff = 8              -- Columns of context
+vim.o.signcolumn = "yes"             -- Always show the signcolumn, otherwise it would shift the text each time
+vim.o.smartcase = true               -- Don't ignore case with capitals
+vim.o.smartindent = true             -- Insert indents automatically
+vim.o.tabstop = 2                    -- Number of spaces tabs count for
+vim.o.termguicolors = true           -- True color support
+vim.o.virtualedit = "block"          -- Allow cursor to move where there is no text in visual block mode
+vim.o.wildmode = "longest:full,full" -- Command-line completion mode
+vim.o.winminwidth = 5                -- Minimum window width
+vim.o.wrap = false                   -- Disable line wrap
+vim.o.list = true                    -- Show some invisible characters (tabs...
+-- vim.o.listchars = @nbsp.",
+--   tab= "→"
+--
+-- vim.o.fillchars = {
+--   foldopen = "",
+--   foldclose = "",
+--   -- fold = "⸱",
+--   fold = " ",
+--   foldsep = " ",
+--   diff = "╱",
+--   eob = " ",
+-- }
 
 ---- Keymaps
 -- keymap('t', '<Esc>', '<C-\\><C-n>')
