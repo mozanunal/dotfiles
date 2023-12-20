@@ -9,6 +9,7 @@ sync_sh_dev: sync_sh_server install_neovim install_helix install_zellij
 sync_gui: sync_sh_dev install_font install_alacritty \
 					install_wallpapers install_rofi install_moz_gui install_gui_tools
 sync_qtile: sync_gui install_qtile_wm
+sync_sway: sync_gui install_sway
 sync_de: sync_qtile
 
 ###### Shells #########
@@ -75,13 +76,11 @@ install_wezterm:
 	@echo $(SEP) install_wezterm
 	ln -s -f $(PWD)/confs/wezterm.lua ~/.wezterm.lua
 
-
 ###### Window Manager and Gui #########
 install_gui_tools:
 	@echo $(SEP) install_gui_tools
 	sudo apt install -qq -y volumeicon-alsa pavucontrol rofi \
-				autorandr lxappearance arandr \
-				xclip maim light acpi lm-sensors \
+				lxappearance arandr xclip maim light acpi lm-sensors \
 				zim-tools kiwix-tools kiwix feh \
 				mupdf pass pcmanfm sxiv nitrogen
 	sudo usermod -aG video $(USER)
@@ -112,5 +111,19 @@ install_qtile_wm:
 	. ~/.qtile/bin/activate && \
 		pip install -r confs/qtile/requirements.txt
 	ln -s -f $(PWD)/confs/qtile/ ~/.config/
+
+##### Sway ##################
+install_sway:
+	@echo $(SEP) install_sway
+	sudo apt install -qq -y \
+		i3 i3blocks i3lock-fancy xss-lock \
+		sway sway* xwayland wireplumber \
+		xdg-desktop-portal-wlr wofi wlr-randr
+	mkdir -p ~/.config/i3/
+	mkdir -p ~/.config/sway/
+	mkdir -p ~/.config/i3blocks/
+	ln -s -f $(PWD)/confs/sway/config ~/.config/i3/config
+	ln -s -f $(PWD)/confs/sway/config ~/.config/sway/config
+	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
 
 default: sync_sh
