@@ -27,7 +27,6 @@ install_bash:
 	ln -s -f $(PWD)/confs/.bash_aliases ~/.bash_aliases
 	rm ~/.local/bin/moz_* || true
 
-
 ###### Editors ########
 install_vim_lite:
 	@echo $(SEP) install_vim_lite
@@ -118,7 +117,8 @@ install_sway:
 	sudo apt install -qq -y \
 		i3 i3blocks i3lock-fancy xss-lock \
 		sway sway* xwayland wireplumber \
-		xdg-desktop-portal-wlr wofi wlr-randr
+		xdg-desktop-portal-wlr wofi wlr-randr \
+		grim grimshot
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/sway/
 	mkdir -p ~/.config/i3blocks/
