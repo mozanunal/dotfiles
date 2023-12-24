@@ -37,6 +37,7 @@ require('lazy').setup {
     },
     build = ":TSUpdate",
   },
+  { 'SWiegandt/python-utils.nvim' }
 }
 
 ---- Plugins Configs

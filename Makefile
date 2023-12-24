@@ -118,7 +118,7 @@ install_sway:
 		i3 i3blocks i3lock-fancy xss-lock \
 		sway sway* xwayland wireplumber \
 		xdg-desktop-portal-wlr wofi wlr-randr \
-		grim grimshot
+		grim grimshot wdisplays
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/sway/
 	mkdir -p ~/.config/i3blocks/
