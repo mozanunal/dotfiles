@@ -112,7 +112,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec google-chrome
 bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+space exec "rofi -modi drun,run -show drun -show-icons"
-bindsym $mod+c exec passmenu
+bindsym $mod+c exec moz_passmenu
 bindsym $mod+Shift+p exec moz_power
 
 ########## Keybinds Special Keys

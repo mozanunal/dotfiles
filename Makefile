@@ -86,12 +86,12 @@ install_gui_tools:
 
 install_moz_gui:
 	@echo $(SEP) install_gui_bins
-	ln -s -f $(PWD)/bin/moz_emoji ~/.local/bin/moz_emoji
-	ln -s -f $(PWD)/bin/moz_sync ~/.local/bin/moz_sync
-	ln -s -f $(PWD)/bin/moz_power ~/.local/bin/moz_power
-	ln -s -f $(PWD)/bin/moz_wiki ~/.local/bin/moz_wiki
-	ln -s -f $(PWD)/bin/passmenu ~/.local/bin/passmenu
-	ln -s -f $(PWD)/bin/dmenu_run_i ~/.local/bin/dmenu_run_i
+	sudo ln -s -f $(PWD)/bin/moz_emoji /usr/local/bin/moz_emoji
+	sudo ln -s -f $(PWD)/bin/moz_sync /usr/local/bin/moz_sync
+	sudo ln -s -f $(PWD)/bin/moz_power /usr/local/bin/moz_power
+	sudo ln -s -f $(PWD)/bin/moz_wiki /usr/local/bin/moz_wiki
+	sudo ln -s -f $(PWD)/bin/moz_passmenu /usr/local/bin/moz_passmenu
+	sudo ln -s -f $(PWD)/bin/dmenu_run_i /usr/local/bin/dmenu_run_i
 
 install_rofi:
 	@echo $(SEP) install_rofi

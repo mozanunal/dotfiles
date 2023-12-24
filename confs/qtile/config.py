@@ -27,7 +27,7 @@ keys = [
     Key([mod, "shift"], "u", lazy.spawn("moz_emoji"), desc="Emoji selector"),
     Key([mod, "shift"], "p", lazy.spawn("moz_power"), desc="Power Menu"),
     Key([mod, "shift"], "Return", lazy.spawn("google-chrome"), desc="Web Browser"),
-    Key([mod], "c", lazy.spawn("passmenu"), desc="Passmenu"),
+    Key([mod], "c", lazy.spawn("moz_passmenu"), desc="Passmenu"),
     Key([mod], "e", lazy.spawn("pcmanfm"), desc="File Manager"),
     # Tools
     Key([], "XF86MonBrightnessUp", lazy.spawn(cmd_brigup), desc="Brightness up"),
