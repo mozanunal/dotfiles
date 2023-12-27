@@ -10,7 +10,7 @@ sync_gui: sync_sh_dev install_font install_alacritty \
 					install_wallpapers install_rofi install_moz_gui install_gui_tools
 sync_qtile: sync_gui install_qtile_wm
 sync_sway: sync_gui install_sway
-sync_de: sync_qtile
+sync_de: sync_sway
 
 ###### Shells #########
 install_bash:
