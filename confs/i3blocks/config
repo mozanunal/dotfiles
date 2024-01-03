@@ -5,7 +5,7 @@ markup=none
 # Battery indicator
 [battery]
 label=󰂄
-command=acpi | awk '{print $4$5}'
+command=acpi | awk 'END{print $4$5}'
 #instance=1
 interval=30
 
