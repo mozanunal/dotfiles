@@ -122,8 +122,10 @@ install_sway:
 	mkdir -p ~/.config/i3/
 	mkdir -p ~/.config/sway/
 	mkdir -p ~/.config/i3blocks/
+	mkdir -p ~/.config/foot/
 	ln -s -f $(PWD)/confs/sway/config ~/.config/i3/config
 	ln -s -f $(PWD)/confs/sway/config ~/.config/sway/config
 	ln -s -f $(PWD)/confs/i3blocks/config ~/.config/i3blocks/config
+	ln -s -f $(PWD)/confs/foot/foot.ini ~/.config/foot/foot.ini
 
 default: sync_sh
