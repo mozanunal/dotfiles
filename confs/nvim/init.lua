@@ -370,5 +370,30 @@ vim.api.nvim_create_autocmd("TermClose", {
   end
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  pattern = { "*.py" },
+  callback = function()
+    vim.api.nvim_buf_create_user_command(0, "OpenDataset", function()
+      require("python-utils.python").get_class_module(function(symbol_path)
+        local _, _, module, class = string.find(symbol_path, "(.*)%.(%w+)$")
+
+        vim.cmd(
+          string.format(
+            "silent !python -c 'from %s import %s; print(%s().target().path)' | xargs open",
+            module,
+            class,
+            class
+          )
+        )
+
+        if vim.v.shell_error ~= 0 then
+          vim.notify("Couldn't find dataset directory for " .. class, "ERROR")
+        end
+      end)
+    end, {})
+  end
+})
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
