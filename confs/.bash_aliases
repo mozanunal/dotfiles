@@ -30,6 +30,7 @@ alias moz_bpy='source ~/dotfiles/dev/.venv/bin/activate;bpython -p ~/dotfiles/de
 alias moz_sql='litecli ~/dotfiles/dev/data/sq.sqlite'
 alias moz_notes='cd ~/.password-store/ && $EDITOR .'
 alias moz_git_sync="git add . && git commit -m 'sync' && git push"
+alias moz_sync="cd ~/dotfiles/ && git pull && make sync_de"
 
 # --- functions
 moz_conf() {
