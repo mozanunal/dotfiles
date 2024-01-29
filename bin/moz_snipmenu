@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-find ~/.password-store/ -type f -iname '*.gpg' \
+find ~/.password-store/snip -type f -iname '*.gpg' \
   | sed 's|/home/moz/.password-store/||g' \
   | sed 's|.gpg||g' \
   | rofi -dmenu \
-  | xargs -r pass show -c1
+  | xargs -r pass show | wl-copy

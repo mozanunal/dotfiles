@@ -91,6 +91,7 @@ install_moz_gui:
 	sudo ln -s -f $(PWD)/bin/moz_power /usr/local/bin/moz_power
 	sudo ln -s -f $(PWD)/bin/moz_wiki /usr/local/bin/moz_wiki
 	sudo ln -s -f $(PWD)/bin/moz_passmenu /usr/local/bin/moz_passmenu
+	sudo ln -s -f $(PWD)/bin/moz_snipmenu /usr/local/bin/moz_snipmenu
 	sudo ln -s -f $(PWD)/bin/dmenu_run_i /usr/local/bin/dmenu_run_i
 
 install_rofi:
