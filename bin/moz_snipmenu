@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
+ff="rofi -p snip -dmenu"
+if [ -t 1 ] ; then ff="fzf"; fi
+
 find ~/.password-store/snip -type f -iname '*.gpg' \
-  | sed 's|/home/moz/.password-store/||g' \
+  | sed 's|/home/moz/.password-store/snip/||g' \
   | sed 's|.gpg||g' \
-  | rofi -dmenu \
+  | $ff \
+  | sed 's|^|snip/|' \
   | xargs -r pass show | wl-copy
