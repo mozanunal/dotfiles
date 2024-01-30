@@ -26,7 +26,6 @@ require('lazy').setup {
     dependencies = {
       { 'williamboman/mason.nvim',          config = true },
       { 'williamboman/mason-lspconfig.nvim' },
-      { 'j-hui/fidget.nvim',                opts = {} },
       { 'folke/neodev.nvim' },
     },
   },
@@ -57,6 +56,8 @@ require('mini.basics').setup({
   }
 })
 
+require('mini.misc').setup()
+require('mini.notify').setup()
 require('mini.statusline').setup()
 require('mini.tabline').setup()
 require('mini.comment').setup()
@@ -67,6 +68,10 @@ require('mini.indentscope').setup()
 require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
+-- require('mini.jump2d').setup()
+require('mini.jump').setup({
+  delay = { highlight = 0, idle_stop = 0, },
+})
 local mini_files = require('mini.files')
 mini_files.setup()
 
@@ -302,7 +307,7 @@ vim.o.expandtab = true               -- Use spaces instead of tabs
 vim.o.formatoptions = "jcroqlnt"     -- tcqj
 vim.o.ignorecase = true              -- Ignore case
 vim.o.inccommand = "nosplit"         -- preview incremental substitute
-vim.o.laststatus = 3                 -- global statusline
+vim.go.lasttatus = 3                 -- global statusline
 vim.o.scrolloff = 4                  -- Lines of context
 vim.o.shiftround = true              -- Round indent
 vim.o.shiftwidth = 2                 -- Size of an indent
