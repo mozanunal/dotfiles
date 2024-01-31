@@ -19,7 +19,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   { 'echasnovski/mini.nvim' },
-  { "catppuccin/nvim",         name = "catppuccin", priority = 1000 },
   { 'lewis6991/gitsigns.nvim', opts = {} },
   {
     'neovim/nvim-lspconfig',
@@ -69,6 +68,63 @@ require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
 -- require('mini.jump2d').setup()
+
+
+require('mini.base16').setup({
+  palette = {
+    -- base00 = "#303446",
+    -- base01 = "#292c3c",
+    -- base02 = "#414559",
+    -- base03 = "#51576d",
+    -- base04 = "#626880",
+    -- base05 = "#c6d0f5",
+    -- base06 = "#f2d5cf",
+    -- base07 = "#babbf1",
+    -- base08 = "#e78284",
+    -- base09 = "#ef9f76",
+    -- base0A = "#e5c890",
+    -- base0B = "#a6d189",
+    -- base0C = "#81c8be",
+    -- base0D = "#8caaee",
+    -- base0E = "#ca9ee6",
+    -- base0F = "#eebebe",
+
+    base00 = "#24273a",
+    base01 = "#1e2030",
+    base02 = "#363a4f",
+    base03 = "#494d64",
+    base04 = "#5b6078",
+    base05 = "#cad3f5",
+    base06 = "#f4dbd6",
+    base07 = "#b7bdf8",
+    base08 = "#ed8796",
+    base09 = "#f5a97f",
+    base0A = "#eed49f",
+    base0B = "#a6da95",
+    base0C = "#8bd5ca",
+    base0D = "#8aadf4",
+    base0E = "#c6a0f6",
+    base0F = "#f0c6c6"
+
+    -- base00 = "#1e1e2e",
+    -- base01 = "#181825",
+    -- base02 = "#313244",
+    -- base03 = "#45475a",
+    -- base04 = "#585b70",
+    -- base05 = "#cdd6f4",
+    -- base06 = "#f5e0dc",
+    -- base07 = "#b4befe",
+    -- base08 = "#f38ba8",
+    -- base09 = "#fab387",
+    -- base0A = "#f9e2af",
+    -- base0B = "#a6e3a1",
+    -- base0C = "#94e2d5",
+    -- base0D = "#89b4fa",
+    -- base0E = "#cba6f7",
+    -- base0F = "#f2cdcd",
+  }
+})
+
 require('mini.jump').setup({
   delay = { highlight = 0, idle_stop = 0, },
 })
@@ -284,7 +340,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-vim.cmd.colorscheme "catppuccin-macchiato"
+-- vim.cmd.colorscheme "catppuccin-macchiato"
 vim.o.swapfile = false               -- remove swapfile
 vim.o.hlsearch = false               -- Set highlight on search
 vim.wo.number = true                 -- Make line numbers default
@@ -322,18 +378,6 @@ vim.o.wildmode = "longest:full,full" -- Command-line completion mode
 vim.o.winminwidth = 5                -- Minimum window width
 vim.o.wrap = false                   -- Disable line wrap
 vim.o.list = true                    -- Show some invisible characters (tabs...
--- vim.o.listchars = @nbsp.",
---   tab= "→"
---
--- vim.o.fillchars = {
---   foldopen = "",
---   foldclose = "",
---   -- fold = "⸱",
---   fold = " ",
---   foldsep = " ",
---   diff = "╱",
---   eob = " ",
--- }
 
 ---- Keymaps
 -- keymap('t', '<Esc>', '<C-\\><C-n>')
