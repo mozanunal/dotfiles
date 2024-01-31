@@ -7,4 +7,5 @@ find ~/.password-store/pass -type f -iname '*.gpg' \
   | sed 's|.gpg||g' \
   | $ff \
   | sed 's|^|pass/|' \
-  | xargs -r pass show -c1
+  | xargs -r pass show \
+  | head -n1 | tr -d '\r' | wl-copy
