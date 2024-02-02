@@ -391,6 +391,7 @@ kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc = 'Window Quit'
 kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true, silent = true, })
 kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true, silent = true, })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
+kmap('t', '<Esc>', "<C-\\><C-n>", { noremap = true })
 kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
 kmap("n", "<leader>ff", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
