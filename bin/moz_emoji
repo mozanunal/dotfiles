@@ -3,5 +3,4 @@ cat ~/.icons \
     | rofi -dmenu -i -p 'Emoji:' \
     | awk '{print $1}' \
     | tr -d '\n' \
-    | xclip -sel clip
-
+    | wl-copy
