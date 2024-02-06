@@ -42,16 +42,14 @@ require('lazy').setup {
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-  { 'ms-jpq/coq_nvim' },
-  { 'ms-jpq/coq.artifacts' }
 }
 
 ---- Plugins Configs
 require('mini.completion').setup({
-  window = {
-    info = { height = 25, width = 80, border = 'none' },
-    signature = { height = 25, width = 80, border = 'none' },
-  },
+  -- window = {
+  --   info = { height = 25, width = 80, border = 'none' },
+  --   signature = { height = 25, width = 80, border = 'none' },
+  -- },
 })
 require('mini.basics').setup({
   options = {
@@ -75,28 +73,10 @@ require('mini.indentscope').setup()
 require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
--- require('mini.jump2d').setup()
-
+require('mini.jump2d').setup()
 
 require('mini.base16').setup({
   palette = {
-    -- base00 = "#303446",
-    -- base01 = "#292c3c",
-    -- base02 = "#414559",
-    -- base03 = "#51576d",
-    -- base04 = "#626880",
-    -- base05 = "#c6d0f5",
-    -- base06 = "#f2d5cf",
-    -- base07 = "#babbf1",
-    -- base08 = "#e78284",
-    -- base09 = "#ef9f76",
-    -- base0A = "#e5c890",
-    -- base0B = "#a6d189",
-    -- base0C = "#81c8be",
-    -- base0D = "#8caaee",
-    -- base0E = "#ca9ee6",
-    -- base0F = "#eebebe",
-
     base00 = "#24273a",
     base01 = "#1e2030",
     base02 = "#363a4f",
@@ -113,23 +93,6 @@ require('mini.base16').setup({
     base0D = "#8aadf4",
     base0E = "#c6a0f6",
     base0F = "#f0c6c6"
-
-    -- base00 = "#1e1e2e",
-    -- base01 = "#181825",
-    -- base02 = "#313244",
-    -- base03 = "#45475a",
-    -- base04 = "#585b70",
-    -- base05 = "#cdd6f4",
-    -- base06 = "#f5e0dc",
-    -- base07 = "#b4befe",
-    -- base08 = "#f38ba8",
-    -- base09 = "#fab387",
-    -- base0A = "#f9e2af",
-    -- base0B = "#a6e3a1",
-    -- base0C = "#94e2d5",
-    -- base0D = "#89b4fa",
-    -- base0E = "#cba6f7",
-    -- base0F = "#f2cdcd",
   }
 })
 
@@ -348,6 +311,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
+
 -- vim.cmd.colorscheme "catppuccin-macchiato"
 vim.o.swapfile = false               -- remove swapfile
 vim.o.hlsearch = false               -- Set highlight on search
@@ -359,7 +323,7 @@ vim.o.breakindent = true             -- Enable break indent
 vim.o.undofile = true                -- Save undo history
 vim.o.ignorecase = true              -- Case insensitive searching UNLESS /C or capital in search
 vim.o.smartcase = true               --
-vim.o.completeopt = "menu,menuone,noselect"
+-- vim.o.completeopt = "menu,menuone,noselect"
 vim.o.conceallevel = 3               -- Hide * markup for bold and italic
 vim.o.autoindent = true              -- Auto-indent new lines
 vim.o.smartindent = true             -- Enable smart-indent
@@ -421,6 +385,9 @@ kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent 
 kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
+
+kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
+kmap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
 
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function()
