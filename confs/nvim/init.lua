@@ -392,6 +392,7 @@ kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic
 
 kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
 kmap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
+kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
 
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function()
