@@ -51,7 +51,6 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-set $refresh_i3status killall -SIGUSR1 i3status
 set $refresh_bar pkill -SIGRTMIN+11 i3blocks
 
 ########## Visual
@@ -122,6 +121,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id \
 bindsym Print exec --no-startup-id grimshot copy output
 bindsym $mod+Print exec --no-startup-id grimshot copy window
 bindsym Shift+Print exec --no-startup-id grimshot copy area
+bindsym $mod+Shift+s exec --no-startup-id grimshot copy area
 
 ########## Keybinds Windows and Workspaces
 # change focus

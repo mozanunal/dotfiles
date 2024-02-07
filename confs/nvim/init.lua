@@ -54,7 +54,7 @@ require('mini.completion').setup({
 require('mini.basics').setup({
   options = {
     extra_ui = true,
-    win_borders = 'double',
+    win_borders = 'single',
   },
   mappings = {
     windows = true,
@@ -73,7 +73,11 @@ require('mini.indentscope').setup()
 require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
-require('mini.jump2d').setup()
+require('mini.jump2d').setup({
+    mappings = {
+    start_jumping = 's',
+  },
+})
 
 require('mini.base16').setup({
   palette = {
