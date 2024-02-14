@@ -72,7 +72,7 @@ focus_follows_mouse no
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r reload
-bindsym $mod+Shift+d exec swaylock
+bindsym $mod+Shift+d exec swaylock -c "303030" -e
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' \
                 -B 'PowerOff' 'systemctl poweroff' \
                 -B 'Suspend' 'systemctl suspend' \
