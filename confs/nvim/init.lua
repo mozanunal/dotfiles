@@ -372,6 +372,7 @@ kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
 kmap("n", "<leader>ff", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
 kmap("n", "<leader><Space>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<C-p>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
 kmap("n", "<leader>fs", function() mini_extra.pickers.lsp({ scope = 'document_symbol' }) end,
   { noremap = true, silent = true, desc = 'Find Symbols' })
 kmap("n", "<leader>e", mini_files.open, { noremap = true, silent = true, desc = 'File Explorer' })
