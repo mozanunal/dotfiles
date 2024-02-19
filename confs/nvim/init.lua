@@ -317,43 +317,41 @@ mason_lspconfig.setup_handlers {
 
 
 -- vim.cmd.colorscheme "catppuccin-macchiato"
-vim.o.swapfile = false               -- remove swapfile
-vim.o.hlsearch = false               -- Set highlight on search
-vim.wo.number = true                 -- Make line numbers default
-vim.wo.relativenumber = true         --
-vim.o.mouse = 'a'                    -- Enable mouse mode
-vim.o.clipboard = 'unnamedplus'      -- Sync clipboard between OS and Neovim.
-vim.o.breakindent = true             -- Enable break indent
-vim.o.undofile = true                -- Save undo history
-vim.o.ignorecase = true              -- Case insensitive searching UNLESS /C or capital in search
-vim.o.smartcase = true               --
--- vim.o.completeopt = "menu,menuone,noselect"
-vim.o.conceallevel = 3               -- Hide * markup for bold and italic
 vim.o.autoindent = true              -- Auto-indent new lines
-vim.o.smartindent = true             -- Enable smart-indent
-vim.o.smarttab = true                -- Enable smart-tabs
-vim.o.softtabstop = 2                -- Number of spaces per Tab
+vim.o.breakindent = true             -- Enable break indent
+vim.o.clipboard = 'unnamedplus'      -- Sync clipboard between OS and Neovim.
+vim.o.completeopt = "menu,menuone,noselect"
+vim.o.conceallevel = 3               -- Hide * markup for bold and italic
 vim.o.confirm = true                 -- Confirm to save changes before exiting modified buffer
 vim.o.cursorline = true              -- Enable highlighting of the current line
 vim.o.expandtab = true               -- Use spaces instead of tabs
 vim.o.formatoptions = "jcroqlnt"     -- tcqj
-vim.o.ignorecase = true              -- Ignore case
+vim.o.hlsearch = false               -- Set highlight on search
+vim.o.ignorecase = true              -- Case insensitive searching UNLESS /C or capital in search
 vim.o.inccommand = "nosplit"         -- preview incremental substitute
-vim.go.lasttatus = 3                 -- global statusline
+vim.o.laststatus = 3                 -- global statusline
+vim.o.list = true                    -- Show some invisible characters (tabs...
+vim.o.mouse = 'a'                    -- Enable mouse mode
 vim.o.scrolloff = 4                  -- Lines of context
 vim.o.shiftround = true              -- Round indent
 vim.o.shiftwidth = 2                 -- Size of an indent
 vim.o.sidescrolloff = 8              -- Columns of context
 vim.o.signcolumn = "yes"             -- Always show the signcolumn, otherwise it would shift the text each time
-vim.o.smartcase = true               -- Don't ignore case with capitals
-vim.o.smartindent = true             -- Insert indents automatically
+vim.o.smartcase = true               --
+vim.o.smartindent = true             -- Enable smart-indent
+vim.o.smarttab = true                -- Enable smart-tabs
+vim.o.softtabstop = 2                -- Number of spaces per Tab
+vim.o.swapfile = false               -- Remove swapfile
 vim.o.tabstop = 2                    -- Number of spaces tabs count for
 vim.o.termguicolors = true           -- True color support
+vim.o.undofile = true                -- Save undo history
 vim.o.virtualedit = "block"          -- Allow cursor to move where there is no text in visual block mode
 vim.o.wildmode = "longest:full,full" -- Command-line completion mode
 vim.o.winminwidth = 5                -- Minimum window width
 vim.o.wrap = false                   -- Disable line wrap
-vim.o.list = true                    -- Show some invisible characters (tabs...
+vim.wo.number = true                 -- Make line numbers default
+vim.wo.relativenumber = true         --
+vim.wo.signcolumn = 'yes'            -- Keep signcolumn on by default
 
 ---- Keymaps
 -- keymap('t', '<Esc>', '<C-\\><C-n>')
@@ -390,7 +388,6 @@ kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent 
 kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
-
 kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
 kmap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
 kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
