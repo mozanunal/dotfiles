@@ -58,3 +58,34 @@ moz_update() {
 	sudo apt -q -y autoclean
 	sudo apt -q -y autoremove
 }
+
+moz_update_check () {
+  DIRECTORY="$HOME/dotfiles"
+
+  # Check if it's a Git repository
+  if ! git -C "$DIRECTORY" rev-parse --is-inside-work-tree &>/dev/null; then
+      echo "Directory $DIRECTORY is not a Git repository."
+      exit 1
+  fi
+
+  # Fetch latest changes from remote repository
+  git -C "$DIRECTORY" fetch &>/dev/null
+
+  # Check if there are changes to pull
+  AHEAD=$(git -C "$DIRECTORY" rev-list --count HEAD..origin/master)
+
+  if [ $AHEAD -gt 0 ]; then
+      echo -e "\n[Dotfiles is $AHEAD versions behind the remote repository.]"
+      echo "[You should run moz_sync to be up-to-date.]"
+  # else
+  #     echo "Dotfiles are up-to-date"
+  fi
+}
+
+moz_update_check &
+
+
+
+
+
+
