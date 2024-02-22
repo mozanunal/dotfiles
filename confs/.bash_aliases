@@ -76,13 +76,26 @@ moz_update_check () {
 
   if [ $AHEAD -gt 0 ]; then
       echo -e "\n[Dotfiles is $AHEAD versions behind the remote repository.]"
-      echo "[You should run moz_sync to be up-to-date.]"
-  # else
-  #     echo "Dotfiles are up-to-date"
+      echo -e "[You should run moz_sync to be up-to-date.]"
+  else
+      echo -e "\n[Dotfiles are up-to-date]"
   fi
 }
 
-moz_update_check &
+last_run_file="$HOME/.last_run_timestamp"
+if [ -f "$last_run_file" ]; then
+    last_run_timestamp=$(cat "$last_run_file")
+    time_since_last_run=$(( $(date +%s) - last_run_timestamp ))
+    if [ $time_since_last_run -gt 86399 ]; then
+        moz_update_check &
+        date +%s > "$last_run_file"
+    fi
+else
+    moz_update_check &
+    date +%s > "$last_run_file"
+fi
+
+
 
 
 
