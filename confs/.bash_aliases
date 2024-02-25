@@ -17,6 +17,8 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
 fi
 
 # --- aliases
+alias la='ls -la'
+alias ll='ls -ll'
 alias dict='dict -d wn'
 alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
@@ -24,6 +26,7 @@ alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always -
 alias fze='nvim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
+alias lg='lazygit'
 alias moz_py='source ~/dotfiles/dev/.venv/bin/activate'
 alias moz_ipy='source ~/dotfiles/dev/.venv/bin/activate;ipython -i ~/dotfiles/dev/start.py'
 alias moz_bpy='source ~/dotfiles/dev/.venv/bin/activate;bpython -p ~/dotfiles/dev/start.py'
