@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Qtile
-Comment=Qtile Session
-Exec=/home/moz/.qtile/bin/qtile start -c /home/moz/.config/qtile/config.py
-Type=Application
-Keywords=wm;tiling

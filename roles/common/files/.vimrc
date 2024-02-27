@@ -1,4 +1,3 @@
-
 let mapleader=" "
 
 syntax on                       " Enable syntax highlight
@@ -195,5 +194,3 @@ hi link StatusLineTerm StatusLine
 hi link StatusLineTermNC StatusLineNC
 hi link Terminal Normal
 hi link Ignore Comment
-
-
