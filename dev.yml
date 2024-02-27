@@ -1,7 +1,0 @@
----
-- name: Sync Dev
-  hosts: localhost
-  gather_facts: yes
-
-  roles:
-    - dev
