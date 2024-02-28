@@ -17,7 +17,8 @@
     depth: 1
 
 - name: Run fzf installation script
-  command: sudo ~/.fzf/install
+  command: ~/.fzf/install
+  become_method: sudo
 
 - name: Install essential tools
   ansible.builtin.apt:

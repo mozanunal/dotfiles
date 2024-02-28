@@ -32,6 +32,11 @@
   with_fileglob:
     - "moz_*"
 
+- name: Copy wallpapers
+  ansible.builtin.copy:
+    src: "wallpapers/"
+    dest: "~/.wallpapers/"
+
 - name: Copy rofi configuration
   ansible.builtin.copy:
     src: "rofi/"
