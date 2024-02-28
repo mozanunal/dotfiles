@@ -5,6 +5,7 @@
       - python3-pip
       - python3-venv
       - lua5.1
+      - openjdk-8-jdk
     state: present
   become: true
 # - name: Set up Python virtual environment
@@ -34,5 +35,7 @@
       - duckdb
       - pyright
       - marksman
+      - awscli
+      - kubectl
     state: present
 

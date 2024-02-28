@@ -16,6 +16,10 @@
       - neovim
       - zellij
       - helix
+      - lazygit
+      - awscli
+      - lazygit
+      - lf
     state: present
 
 - name: Copy .icons
