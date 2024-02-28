@@ -1,0 +1,11 @@
+---
+- name: Sync Sway
+  hosts: localhost
+  gather_facts: yes
+
+  roles:
+    - common
+    - term
+    - gui
+    - sway
+    - dev

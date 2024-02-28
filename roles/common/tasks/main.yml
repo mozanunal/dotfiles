@@ -1,0 +1,47 @@
+- name: Update apt package cache
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: true
+    autoremove: true
+    autoclean: true
+  become: true
+
+- name: Install essential tools
+  ansible.builtin.apt:
+    name:
+      - sudo
+      - htop
+      - git
+      - vim
+      - tmux
+      - ripgrep
+      - bat
+      - fd-find
+      - unzip
+      - fzf
+    state: present
+  become: true
+
+- name: Copy the vim configuration
+  ansible.builtin.copy:
+    src: ".vimrc"
+    dest: "~/.vimrc"
+
+- name: Copy the tmux configuration
+  ansible.builtin.copy:
+    src: ".tmux.conf"
+    dest: "~/.tmux.conf"
+
+- name: Copy the git configuration
+  ansible.builtin.copy:
+    src: ".gitconfig"
+    dest: "~/.gitconfig"
+
+- name: Copy the .bash_aliases
+  ansible.builtin.copy:
+    src: ".bash_aliases"
+    dest: "~/.bash_aliases"

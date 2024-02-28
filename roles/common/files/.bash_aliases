@@ -27,13 +27,13 @@ alias fze='nvim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
-alias moz_py='source ~/dotfiles/dev/.venv/bin/activate'
-alias moz_ipy='source ~/dotfiles/dev/.venv/bin/activate;ipython -i ~/dotfiles/dev/start.py'
-alias moz_bpy='source ~/dotfiles/dev/.venv/bin/activate;bpython -p ~/dotfiles/dev/start.py'
-alias moz_sql='litecli ~/dotfiles/dev/data/sq.sqlite'
 alias moz_notes='cd ~/.password-store/ && $EDITOR .'
 alias moz_git_sync="git add . && git commit -m 'sync' && git push"
-alias moz_sync="cd ~/dotfiles/ && git pull && make sync_de"
+alias moz_sync="cd ~/dotfiles/ && git pull && make"
+alias moz_py='source ~/.moz_py/bin/activate'
+alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
+alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
+alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
 
 # --- functions
 moz_conf() {
@@ -45,7 +45,7 @@ moz_fd_large_files() {
 }
 
 moz_smoke_test() {
-	smoke_tests="Normalx
+	smoke_tests="Normal
 \033[1mBold\033[22m
 \033[3mItalic\033[23m
 \033[3;1mBold Italic\033[0m
