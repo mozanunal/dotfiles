@@ -1,4 +1,4 @@
 sync_de:
-	ansible-playbook local.yml
+	ansible-playbook --ask-become-pass local.yml
 
 all: sync_de

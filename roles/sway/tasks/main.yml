@@ -10,7 +10,6 @@
       - swaybg
       - swayidle
       - swaylock
-      - swaykbdd
       - xwayland
       - wireplumber
       - xdg-desktop-portal-wlr

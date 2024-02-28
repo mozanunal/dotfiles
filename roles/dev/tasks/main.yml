@@ -6,7 +6,7 @@
       - python3-venv
       - lua5.1
     state: present
-
+  become: true
 # - name: Set up Python virtual environment
 #   command: python3 -m venv ~/.moz_py/
 #   # args:
