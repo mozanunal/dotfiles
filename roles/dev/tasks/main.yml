@@ -39,3 +39,13 @@
       - kubectl
     state: present
 
+- name: Copy example development files for python
+  ansible.builtin.copy:
+    src: "dev.py"
+    dest: "~/.moz_py/dev.py"
+
+- name: Copy example development files for sqlite
+  ansible.builtin.copy:
+    src: "dev.sqlite"
+    dest: "~/.moz_py/dev.sqlite"
+

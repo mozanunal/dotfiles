@@ -27,10 +27,13 @@ alias fze='nvim $(fzf)'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
-alias moz_py='source ~/.moz_py/bin/activate'
 alias moz_notes='cd ~/.password-store/ && $EDITOR .'
 alias moz_git_sync="git add . && git commit -m 'sync' && git push"
 alias moz_sync="cd ~/dotfiles/ && git pull && make"
+alias moz_py='source ~/.moz_py/bin/activate'
+alias moz_ipy='source ~/.moz_py/bin/acivate;ipython'
+alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
+alias moz_sql='litecli ~/.moz_py/dev.sqlite'
 
 # --- functions
 moz_conf() {
@@ -58,11 +61,6 @@ moz_update() {
 	sudo apt -q -y autoclean
 	sudo apt -q -y autoremove
 }
-
-# alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
-# alias moz_bpy='source ~/.moz_pybin/activate;bpython'
-# alias moz_sql='litecli ~/dotfiles/dev/data/sq.sqlite'
-
 
 moz_update_check () {
   DIRECTORY="$HOME/dotfiles"
