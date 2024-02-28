@@ -10,6 +10,15 @@
     autoclean: true
   become: true
 
+- name: Clone fzf repository
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: ~/.fzf
+    depth: 1
+
+- name: Run fzf installation script
+  command: sudo ~/.fzf/install
+
 - name: Install essential tools
   ansible.builtin.apt:
     name:
@@ -22,7 +31,6 @@
       - bat
       - fd-find
       - unzip
-      - fzf
     state: present
   become: true
 
