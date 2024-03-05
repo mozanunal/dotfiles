@@ -34,13 +34,13 @@
 
 - name: Copy zellij configuration
   ansible.builtin.copy:
-    src: "config.kdl"
-    dest: "~/.config/zellij/config.kdl"
+    src: "zellij/"
+    dest: "~/.config/zellij/"
 
 - name: Copy foot terminal configuration
   ansible.builtin.copy:
-    src: "foot.ini"
-    dest: "~/.config/foot/foot.ini"
+    src: "foot/"
+    dest: "~/.config/foot/"
 
 - name: Copy neovim configuration
   ansible.builtin.copy:
