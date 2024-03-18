@@ -63,6 +63,7 @@ moz_update() {
 }
 
 moz_update_check () {
+  echo "moz_os checking for updates, please wait..."
   DIRECTORY="$HOME/dotfiles"
 
   # Check if it's a Git repository
@@ -90,18 +91,12 @@ if [ -f "$last_run_file" ]; then
     last_run_timestamp=$(cat "$last_run_file")
     time_since_last_run=$(( $(date +%s) - last_run_timestamp ))
     if [ $time_since_last_run -gt 86399 ]; then
-        moz_update_check &
+        moz_update_check
         date +%s > "$last_run_file"
     fi
 else
-    moz_update_check &
+    moz_update_check
     date +%s > "$last_run_file"
 fi
-
-
-
-
-
-
 
 
