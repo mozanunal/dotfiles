@@ -53,6 +53,7 @@ bindsym $mod+p focus parent
 
 ########## Keybinds Launcher
 bindsym $mod+Return exec alacritty
+bindsym $mod+t exec "neovide -- -c terminal"
 bindsym $mod+Shift+Return exec google-chrome
 bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+space exec "rofi -modi drun,run -show drun -show-icons"
