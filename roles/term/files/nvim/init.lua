@@ -282,8 +282,9 @@ end
 local servers = {
   gopls = {},
   pyright = {},
-  marksman = {},
   rust_analyzer = {},
+  markdown_oxide = {},
+  texlab = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -321,7 +322,7 @@ vim.o.autoindent = true              -- Auto-indent new lines
 vim.o.breakindent = true             -- Enable break indent
 vim.o.clipboard = 'unnamedplus'      -- Sync clipboard between OS and Neovim.
 vim.o.completeopt = "menu,menuone,noselect"
-vim.o.conceallevel = 3               -- Hide * markup for bold and italic
+vim.o.conceallevel = 0               -- Hide * markup for bold and italic
 vim.o.confirm = true                 -- Confirm to save changes before exiting modified buffer
 vim.o.cursorline = true              -- Enable highlighting of the current line
 vim.o.expandtab = true               -- Use spaces instead of tabs
@@ -350,7 +351,7 @@ vim.o.wildmode = "longest:full,full" -- Command-line completion mode
 vim.o.winminwidth = 5                -- Minimum window width
 vim.o.wrap = false                   -- Disable line wrap
 vim.wo.number = true                 -- Make line numbers default
-vim.wo.relativenumber = true         --
+vim.wo.relativenumber = false        --
 vim.wo.signcolumn = 'yes'            -- Keep signcolumn on by default
 
 ---- Keymaps
