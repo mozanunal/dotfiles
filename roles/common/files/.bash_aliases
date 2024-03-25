@@ -27,7 +27,7 @@ alias la='ls -la'
 alias ll='ls -ll'
 alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
-alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
+# alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
@@ -48,14 +48,15 @@ fzcd() {
   cd $(fd -t d -d 4 | fzf)
 }
 
-fzp() {
-  fd -t d -d 4 | fzf | xargs -r $EDITOR
+fzd() {
+  cd $HOME
+  cd $(fd -t d -d 4 | fzf )
+  source .venv/bin/activate 2>/dev/null || true
+  $EDITOR .
 }
 
-# fzh () {
-#
-# }
-
+bind -x '"\ec": "fzcd"'
+bind -x '"\ed": "fzd"'
 
 moz_conf() {
 	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs -r $EDITOR
@@ -107,17 +108,21 @@ moz_update_check () {
   fi
 }
 
-last_run_file="$HOME/.last_run_timestamp"
-if [ -f "$last_run_file" ]; then
-    last_run_timestamp=$(cat "$last_run_file")
-    time_since_last_run=$(( $(date +%s) - last_run_timestamp ))
-    if [ $time_since_last_run -gt 86399 ]; then
-        moz_update_check
-        date +%s > "$last_run_file"
-    fi
-else
-    moz_update_check
-    date +%s > "$last_run_file"
-fi
+moz_update_ts_check () {
+  last_run_file="$HOME/.last_run_timestamp"
+  if [ -f "$last_run_file" ]; then
+      last_run_timestamp=$(cat "$last_run_file")
+      time_since_last_run=$(( $(date +%s) - last_run_timestamp ))
+      if [ $time_since_last_run -gt 86399 ]; then
+          moz_update_check
+          date +%s > "$last_run_file"
+      fi
+  else
+      moz_update_check
+      date +%s > "$last_run_file"
+  fi
+}
+
+moz_update_ts_check
 
 
