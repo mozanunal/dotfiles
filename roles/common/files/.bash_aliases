@@ -1,5 +1,11 @@
 export EDITOR=nvim
 
+# don't put duplicate lines or lines starting with space in the history.
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000000
+HISTFILESIZE=10000000
+
 if [ -d "$HOME/go/bin" ]; then
 	PATH="$HOME/go/bin:$PATH"
 fi
@@ -19,11 +25,11 @@ fi
 # --- aliases
 alias la='ls -la'
 alias ll='ls -ll'
-alias dict='dict -d wn'
 alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
 alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
 alias fze='nvim $(fzf)'
+alias fzp='find "$HOME/projects" -maxdepth 2 -type d | fzf | xargs -r nvim'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
@@ -37,7 +43,7 @@ alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
 
 # --- functions
 moz_conf() {
-	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs $EDITOR
+	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs -r $EDITOR
 }
 
 moz_fd_large_files() {

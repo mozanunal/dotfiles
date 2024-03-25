@@ -283,7 +283,6 @@ local servers = {
   gopls = {},
   pyright = {},
   rust_analyzer = {},
-  markdown_oxide = {},
   texlab = {},
   lua_ls = {
     Lua = {
