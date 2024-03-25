@@ -28,8 +28,6 @@ alias ll='ls -ll'
 alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
 alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
-alias fze='nvim $(fzf)'
-alias fzp='find "$HOME/projects" -maxdepth 2 -type d | fzf | xargs -r nvim'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
@@ -42,6 +40,23 @@ alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
 alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
 
 # --- functions
+fze() {
+  fd -t f -d 4 | fzf | xargs -r $EDITOR
+}
+
+fzcd() {
+  cd $(fd -t d -d 4 | fzf)
+}
+
+fzp() {
+  fd -t d -d 4 | fzf | xargs -r $EDITOR
+}
+
+# fzh () {
+#
+# }
+
+
 moz_conf() {
 	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs -r $EDITOR
 }
