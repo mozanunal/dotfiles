@@ -39,24 +39,34 @@ alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
 alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
 alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
 
+fzf_cmd="fzf --reverse"
+
 # --- functions
-fze() {
-  fd -t f -d 4 | fzf | xargs -r $EDITOR
+fzef() {
+  fd -t f -d 7 | $fzf_cmd | xargs -r $EDITOR
 }
 
 fzcd() {
-  cd $(fd -t d -d 4 | fzf)
+  cd $(fd -t d -d 5 | $fzf_cmd)
 }
 
-fzd() {
+fzed() {
   cd $HOME
-  cd $(fd -t d -d 4 | fzf )
+  cd $(fd -t d -d 5 | $fzf_cmd )
   source .venv/bin/activate 2>/dev/null || true
   $EDITOR .
 }
 
-bind -x '"\ec": "fzcd"'
-bind -x '"\ed": "fzd"'
+fzh() {
+  sel=$(cat ~/.bash_history | sort | uniq | $fzf_cmd)
+  echo "> $sel"
+  $sel
+}
+
+bind -x '"\ec":"fzcd"'
+bind -x '"\ed":"fzed"'
+bind -x '"\ee":"fzef"'
+bind -x '"\C-r":"fzh"'
 
 moz_conf() {
 	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs -r $EDITOR
