@@ -74,7 +74,7 @@ require('mini.cursorword').setup()
 require('mini.splitjoin').setup()
 require('mini.move').setup()
 require('mini.jump2d').setup({
-    mappings = {
+  mappings = {
     start_jumping = 's',
   },
 })
@@ -369,8 +369,10 @@ kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
 kmap('t', '<Esc>', "<C-\\><C-n>", { noremap = true })
 kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
-kmap("n", "<leader>ff", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
-kmap("n", "<leader><Space>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<leader>ff", function() mini_pick.builtin.files({ tool = 'git' }) end,
+  { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<leader><Space>", function() mini_pick.builtin.files({ tool = 'git' }) end,
+  { noremap = true, silent = true, desc = 'Find File' })
 kmap("n", "<C-p>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
 kmap("n", "<leader>fs", function() mini_extra.pickers.lsp({ scope = 'document_symbol' }) end,
   { noremap = true, silent = true, desc = 'Find Symbols' })
