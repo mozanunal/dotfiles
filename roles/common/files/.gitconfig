@@ -38,3 +38,9 @@
 	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	editor = nvim
 	quotepath = false
+
+[pull]
+	rebase = false
+
+[init]
+	defaultBranch = main
