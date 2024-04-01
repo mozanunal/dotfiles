@@ -42,6 +42,8 @@ require('lazy').setup {
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
+  "jamessan/vim-gnupg"
+
 }
 
 ---- Plugins Configs
@@ -319,25 +321,25 @@ mason_lspconfig.setup_handlers {
 -- vim.cmd.colorscheme "catppuccin-macchiato"
 -- vim.o.autoindent = true              -- Auto-indent new lines
 -- vim.o.breakindent = true             -- Enable break indent
-vim.o.clipboard = 'unnamedplus'      -- Sync clipboard between OS and Neovim.
+vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
 vim.o.completeopt = "menuone,noinsert,noselect"
-vim.o.conceallevel = 0               -- Hide * markup for bold and italic
-vim.o.confirm = true                 -- Confirm to save changes before exiting modified buffer
+vim.o.conceallevel = 0          -- Hide * markup for bold and italic
+vim.o.confirm = true            -- Confirm to save changes before exiting modified buffer
 -- vim.o.cursorline = true              -- Enable highlighting of the current line
-vim.o.expandtab = true               -- Use spaces instead of tabs
+vim.o.expandtab = true          -- Use spaces instead of tabs
 -- vim.o.formatoptions = "jcroqlnt"     -- tcqj
-vim.o.hlsearch = false               -- Set highlight on search
-vim.o.ignorecase = true              -- Case insensitive searching UNLESS /C or capital in search
-vim.o.inccommand = "nosplit"         -- preview incremental substitute
-vim.o.laststatus = 3                 -- global statusline
-vim.o.list = true                    -- Show some invisible characters (tabs...
-vim.o.mouse = 'a'                    -- Enable mouse mode
-vim.o.scrolloff = 4                  -- Lines of context
-vim.o.shiftround = true              -- Round indent
-vim.o.shiftwidth = 2                 -- Size of an indent
-vim.o.sidescrolloff = 8              -- Columns of context
-vim.o.signcolumn = "yes"             -- Always show the signcolumn, otherwise it would shift the text each time
-vim.o.smartcase = true               --
+vim.o.hlsearch = false          -- Set highlight on search
+vim.o.ignorecase = true         -- Case insensitive searching UNLESS /C or capital in search
+vim.o.inccommand = "nosplit"    -- preview incremental substitute
+vim.o.laststatus = 3            -- global statusline
+vim.o.list = true               -- Show some invisible characters (tabs...
+vim.o.mouse = 'a'               -- Enable mouse mode
+vim.o.scrolloff = 4             -- Lines of context
+vim.o.shiftround = true         -- Round indent
+vim.o.shiftwidth = 2            -- Size of an indent
+vim.o.sidescrolloff = 8         -- Columns of context
+vim.o.signcolumn = "yes"        -- Always show the signcolumn, otherwise it would shift the text each time
+vim.o.smartcase = true          --
 -- vim.o.smartindent = true             -- Enable smart-indent
 -- vim.o.smarttab = true                -- Enable smart-tabs
 vim.o.softtabstop = 2                -- Number of spaces per Tab
