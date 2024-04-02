@@ -52,6 +52,11 @@
     src: "helix/"
     dest: "~/.config/helix/"
 
+- name: Copy wezterm configuration
+  ansible.builtin.copy:
+    src: "wezterm/"
+    dest: "~/.config/wezterm/"
+
 - name: Install Cousine Nerd Font
   ansible.builtin.copy:
     src: "Cousine/"
