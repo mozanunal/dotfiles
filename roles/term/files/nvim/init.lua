@@ -63,6 +63,7 @@ require('mini.basics').setup({
   }
 })
 
+require('mini.trailspace').setup()
 require('mini.misc').setup()
 require('mini.notify').setup()
 require('mini.statusline').setup()
@@ -368,7 +369,7 @@ kmap({ 'n', 'v' }, '<leader>bd', ':bd<CR>', { noremap = true, desc = 'Buffer Del
 kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true, silent = true, })
 kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true, silent = true, })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
-kmap('t', '<Esc>', "<C-\\><C-n>", { noremap = true })
+kmap('t', '<Esc><Esc>', "<C-\\><C-n>", { noremap = true })
 kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
 kmap("n", "<leader>ff", function() mini_pick.builtin.files({ tool = 'git' }) end,
@@ -390,7 +391,7 @@ kmap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = 
 kmap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
 kmap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent = true, desc = 'Git Pull' })
 kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
-kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from MVIM"<cr>',
+kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from nvim"<cr>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
