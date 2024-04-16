@@ -23,15 +23,25 @@
     state: present
   become: true
 
-- name: Copy i3 config directory
-  copy:
-    src: "sway/"
-    dest: "~/.config/i3/"
-
 - name: Copy sway config directory
   copy:
     src: "sway/"
     dest: "~/.config/sway/"
+
+- name: Copy wofi config directory
+  copy:
+    src: "wofi/"
+    dest: "~/.config/wofi/"
+
+- name: Copy waybar config directory
+  copy:
+    src: "waybar/"
+    dest: "~/.config/waybar/"
+
+- name: Copy i3 config directory
+  copy:
+    src: "sway/"
+    dest: "~/.config/i3/"
 
 - name: Copy i3blocks config directory
   copy:

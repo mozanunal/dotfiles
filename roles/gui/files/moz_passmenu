@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ff="wofi -p pass --dmenu"
-if [ -t 1 ] ; then ff="fzf"; fi
+# if [ -t 1 ] ; then ff="fzf"; fi
 
 find ~/.password-store/pass -type f -iname '*.gpg' \
   | sed 's|/home/moz/.password-store/pass/||g' \
