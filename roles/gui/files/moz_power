@@ -5,7 +5,7 @@ case "$(echo " Shutdown\n Reboot\n Logout\n鈴 Sleep\n Lock\n BM_
     rofi -dmenu -i -p "Power:" -l 8)" in
         " Shutdown") exec systemctl poweroff;;
         " Reboot") exec systemctl reboot;;
-        " Logout") exec sudo pkill -u $USER;;
+        " Logout") exec sudo pkill sway;;
         "鈴 Sleep") exec systemctl suspend;;
         " Lock") exec swaylock -c "303030" -e;;
         " BM_Battery") exec system76-power profile battery && notify-send 'BM: Battery';;
