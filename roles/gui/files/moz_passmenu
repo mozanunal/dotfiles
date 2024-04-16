@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ff="rofi -matching fuzzy -p pass -dmenu"
+ff="wofi -p pass --dmenu"
 if [ -t 1 ] ; then ff="fzf"; fi
 
 find ~/.password-store/pass -type f -iname '*.gpg' \

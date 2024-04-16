@@ -18,6 +18,8 @@
       - grim
       - grimshot
       - wdisplays
+      - mako-notifier
+      - waybar
     state: present
   become: true
 
