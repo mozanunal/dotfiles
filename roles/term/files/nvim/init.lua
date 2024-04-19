@@ -63,6 +63,7 @@ require('mini.basics').setup({
   }
 })
 
+require('mini.ai').setup()
 require('mini.trailspace').setup()
 require('mini.misc').setup()
 require('mini.notify').setup()
@@ -78,7 +79,7 @@ require('mini.splitjoin').setup()
 require('mini.move').setup()
 require('mini.jump2d').setup({
   mappings = {
-    start_jumping = 's',
+    start_jumping = 'gs',
   },
 })
 
