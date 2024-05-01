@@ -29,11 +29,10 @@ alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
 # alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
 alias v='source .venv/bin/activate'
+alias n='cd ~/.password-store/notes && $EDITOR .'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
-alias moz_notes='cd ~/.password-store/ && $EDITOR .'
-alias moz_git_sync="git add . && git commit -m 'sync' && git push"
 alias moz_sync="cd ~/dotfiles/ && git pull && make"
 alias moz_py='source ~/.moz_py/bin/activate'
 alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
@@ -44,34 +43,33 @@ fzf_cmd="fzf --reverse"
 
 # --- functions
 fzef() {
-  fd -t f -d 7 | $fzf_cmd | xargs -r $EDITOR
+  fd -t f -d 7 --hidden -E .git| $fzf_cmd | xargs -r $EDITOR
 }
 
 fzcd() {
-  cd $(fd -t d -d 5 | $fzf_cmd)
+  READLINE_LINE="cd $(fd -t d -d 5 | $fzf_cmd)"
+  READLINE_POINT=${#READLINE_LINE}
 }
 
 fzed() {
-  cd $HOME
   cd $(fd -t d -d 5 | $fzf_cmd )
   source .venv/bin/activate 2>/dev/null || true
   $EDITOR .
 }
 
 fzh() {
-  sel=$(cat ~/.bash_history | sort | uniq | $fzf_cmd)
-  echo "> $sel"
-  $sel
+  READLINE_LINE=$(cat ~/.bash_history | sort | uniq | $fzf_cmd)
+  READLINE_POINT=${#READLINE_LINE}
 }
 
-bind -x '"\ec":"fzcd"'
-bind -x '"\ed":"fzed"'
-bind -x '"\ee":"fzef"'
-bind -x '"\C-r":"fzh"'
-
-moz_conf() {
-	fdfind . ~/dotfiles/ -t f --hidden -E .git | fzf | xargs -r $EDITOR
-}
+# Alt+c cd to directory
+bind -x '"\ec":fzcd'
+# Alt+d edit directory
+bind -x '"\ed":fzed'
+# Alt+e edit file
+bind -x '"\ee":fzef'
+# Ctrl+r history search
+bind -x '"\C-r":fzh'
 
 moz_fd_large_files() {
 	du -h -x -s -- * | sort -r -h | head -20
