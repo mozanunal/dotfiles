@@ -19,7 +19,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
   { 'echasnovski/mini.nvim' },
-  { 'lewis6991/gitsigns.nvim', opts = {} },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -63,6 +62,7 @@ require('mini.basics').setup({
   }
 })
 
+require('mini.diff').setup()
 require('mini.ai').setup()
 require('mini.trailspace').setup()
 require('mini.misc').setup()
@@ -188,7 +188,7 @@ vim.defer_fn(function()
       'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -371,7 +371,7 @@ kmap({ 'n', 'v' }, 'H', ':bp<CR>', { noremap = true, silent = true, })
 kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true, silent = true, })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
 kmap('t', '<Esc><Esc>', "<C-\\><C-n>", { noremap = true })
-kmap('n', '<leader>gd', ":Gitsigns diffthis<CR>", { desc = 'Git Diff' })
+kmap('n', '<leader>gd', ":lua MiniDiff.toogle_overlay()<CR>", { desc = 'Git Diff' })
 kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
 kmap("n", "<leader>ff", function() mini_pick.builtin.files({ tool = 'git' }) end,
   { noremap = true, silent = true, desc = 'Find File' })
