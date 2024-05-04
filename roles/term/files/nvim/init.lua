@@ -252,7 +252,7 @@ require('neodev').setup()
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
@@ -260,6 +260,7 @@ local on_attach = function(_, bufnr)
     end
     kmap('n', keys, func, { buffer = bufnr, desc = desc })
   end
+  client.server_capabilities.semanticTokensProvider = nil
 
   nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
