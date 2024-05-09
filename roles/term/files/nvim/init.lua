@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 local kmap = vim.keymap.set
 
+
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -34,24 +35,24 @@ require('lazy').setup {
     },
     build = ":TSUpdate",
   },
-  { 'SWiegandt/python-utils.nvim' },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-  "jamessan/vim-gnupg"
-
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end
+  },
+  "jamessan/vim-gnupg",
+  'SWiegandt/python-utils.nvim',
 }
 
 ---- Plugins Configs
-require('mini.completion').setup({
-  -- window = {
-  --   info = { height = 25, width = 80, border = 'none' },
-  --   signature = { height = 25, width = 80, border = 'none' },
-  -- },
-})
 require('mini.basics').setup({
   options = {
     extra_ui = true,
@@ -62,24 +63,30 @@ require('mini.basics').setup({
   }
 })
 
-require('mini.diff').setup()
+require('mini.files').setup()
+require('neodev').setup()
 require('mini.ai').setup()
-require('mini.trailspace').setup()
-require('mini.misc').setup()
-require('mini.notify').setup()
-require('mini.statusline').setup()
-require('mini.tabline').setup()
-require('mini.comment').setup()
-require('mini.surround').setup()
-require('mini.pairs').setup()
 require('mini.bracketed').setup()
-require('mini.indentscope').setup()
+require('mini.completion').setup()
+require('mini.comment').setup()
 require('mini.cursorword').setup()
-require('mini.splitjoin').setup()
+require('mini.diff').setup()
+require('mini.indentscope').setup()
+require('mini.misc').setup()
 require('mini.move').setup()
+require('mini.notify').setup()
+require('mini.operators').setup()
+require('mini.pairs').setup()
+require('mini.splitjoin').setup()
+require('mini.statusline').setup()
+require('mini.surround').setup()
+require('mini.tabline').setup()
+require('mini.trailspace').setup()
+require('mini.extra').setup()
+require('mini.fuzzy').setup()
 require('mini.jump2d').setup({
   mappings = {
-    start_jumping = 'gs',
+    start_jumping = 'S',
   },
 })
 
@@ -107,12 +114,8 @@ require('mini.base16').setup({
 require('mini.jump').setup({
   delay = { highlight = 0, idle_stop = 0, },
 })
-local mini_files = require('mini.files')
-mini_files.setup()
 
-require('mini.fuzzy').setup()
-local mini_pick = require('mini.pick')
-mini_pick.setup({
+require('mini.pick').setup({
   mappings = {
     choose_in_vsplit = '<C-CR>',
   },
@@ -121,8 +124,6 @@ mini_pick.setup({
   },
 })
 
-local mini_extra = require('mini.extra')
-mini_extra.setup()
 
 require('mini.clue').setup({
   triggers = {
@@ -248,7 +249,6 @@ vim.defer_fn(function()
   })
 end, 0)
 
-require('neodev').setup()
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -265,7 +265,7 @@ local on_attach = function(client, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>la', vim.lsp.buf.code_action, 'Code Action')
   nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
-  nmap('gr', function() mini_extra.pickers.lsp({ scope = "references" }) end, 'Goto References')
+  nmap('gr', function() MiniExtra.pickers.lsp({ scope = "references" }) end, 'Goto References')
   nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
   nmap('gt', vim.lsp.buf.type_definition, 'Goto Type Definition')
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -362,8 +362,6 @@ vim.wo.signcolumn = 'yes'            -- Keep signcolumn on by default
 -- keymap('t', '<Esc>', '<C-\\><C-n>')
 kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
-kmap({ 'n', 'v' }, '}', '}zz', { noremap = true })
-kmap({ 'n', 'v' }, '{', '{zz', { noremap = true })
 kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, silent = true, desc = 'Window Split' })
 kmap({ 'n', 'v' }, '<leader>|', ':vsplit<CR>', { noremap = true, silent = true, desc = 'Window VSplit' })
 kmap({ 'n', 'v' }, '<leader>q', ':q<CR>', { noremap = true, desc = 'Window Quit' })
@@ -373,21 +371,21 @@ kmap({ 'n', 'v' }, 'L', ':bn<CR>', { noremap = true, silent = true, })
 kmap('n', '<leader>t', ":terminal<CR>i", { desc = 'Terminal' })
 kmap('t', '<Esc><Esc>', "<C-\\><C-n>", { noremap = true })
 kmap('n', '<leader>gd', ":lua MiniDiff.toogle_overlay()<CR>", { desc = 'Git Diff' })
-kmap("n", "<leader>fl", mini_extra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
-kmap("n", "<leader>ff", function() mini_pick.builtin.files({ tool = 'git' }) end,
+kmap("n", "<leader>fl", MiniExtra.pickers.buf_lines, { noremap = true, silent = true, desc = 'Find Lines' })
+kmap("n", "<leader>ff", function() MiniPick.builtin.files({ tool = 'git' }) end,
   { noremap = true, silent = true, desc = 'Find File' })
-kmap("n", "<leader><Space>", mini_pick.builtin.files,
+kmap("n", "<leader><Space>", MiniPick.builtin.files,
   { noremap = true, silent = true, desc = 'Find File' })
-kmap("n", "<C-p>", mini_pick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
-kmap("n", "<leader>fs", function() mini_extra.pickers.lsp({ scope = 'document_symbol' }) end,
+kmap("n", "<C-p>", MiniPick.builtin.files, { noremap = true, silent = true, desc = 'Find File' })
+kmap("n", "<leader>fs", function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end,
   { noremap = true, silent = true, desc = 'Find Symbols' })
-kmap("n", "<leader>e", mini_files.open, { noremap = true, silent = true, desc = 'File Explorer' })
-kmap("n", "<leader>fb", mini_pick.builtin.buffers, { noremap = true, silent = true, desc = 'Find Buffer' })
-kmap("n", "<leader>fg", mini_pick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
-kmap("n", "<leader>/", mini_pick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
-kmap("n", "<leader>fh", mini_pick.builtin.help, { noremap = true, silent = true, desc = 'Find Help' })
-kmap("n", "<leader>fk", mini_extra.pickers.keymaps, { noremap = true, silent = true, desc = 'Find Keymaps' })
-kmap("n", "<leader>`", mini_pick.builtin.resume, { noremap = true, silent = true, desc = 'Find Resume' })
+kmap("n", "<leader>e", MiniFiles.open, { noremap = true, silent = true, desc = 'File Explorer' })
+kmap("n", "<leader>fb", MiniPick.builtin.buffers, { noremap = true, silent = true, desc = 'Find Buffer' })
+kmap("n", "<leader>fg", MiniPick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
+kmap("n", "<leader>/", MiniPick.builtin.grep_live, { noremap = true, silent = true, desc = 'Find String' })
+kmap("n", "<leader>fh", MiniPick.builtin.help, { noremap = true, silent = true, desc = 'Find Help' })
+kmap("n", "<leader>fk", MiniExtra.pickers.keymaps, { noremap = true, silent = true, desc = 'Find Keymaps' })
+kmap("n", "<leader>`", MiniPick.builtin.resume, { noremap = true, silent = true, desc = 'Find Resume' })
 kmap("n", "<leader>bd", "<cmd>bd<cr>", { noremap = true, silent = true, desc = 'Close Buffer' })
 kmap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = true, desc = 'Lazygit' })
 kmap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
@@ -395,7 +393,7 @@ kmap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent =
 kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
 kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from nvim"<cr>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
-kmap('n', '<leader>fd', mini_extra.pickers.diagnostic, { desc = "Find Diagnostic" })
+kmap('n', '<leader>fd', MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
 kmap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
 kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
@@ -430,6 +428,75 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end
 })
 
+local keys = {
+  ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
+  ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
+  ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
+}
+
+_G.cr_action = function()
+  if vim.fn.pumvisible() ~= 0 then
+    -- If popup is visible, confirm selected item or add new line otherwise
+    local item_selected = vim.fn.complete_info()['selected'] ~= -1
+    return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
+  else
+    -- If popup is not visible, use plain `<CR>`. You might want to customize
+    -- according to other plugins. For example, to use 'mini.pairs', replace
+    -- next line with `return require('mini.pairs').cr()`
+    return keys['cr']
+  end
+end
+
+vim.keymap.set('i', '<CR>', 'v:lua._G.cr_action()', { expr = true })
+
+-- local luasnip = require("luasnip")
+-- luasnip.config.set_config({ history = true })
+--
+-- -- Load available snippets
+-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
+--
+-- -- Make snippet keymaps
+-- Luasnip_go_right = function()
+--   if luasnip.expand_or_jumpable() then
+--     luasnip.expand_or_jump()
+--   end
+-- end
+--
+-- Luasnip_go_left = function()
+--   if luasnip.jumpable() then
+--     luasnip.jump(-1)
+--   end
+-- end
+--
+-- vim.api.nvim_set_keymap("i", "<C-l>", [[<Cmd>lua Luasnip_go_right()<CR>]], {})
+-- vim.api.nvim_set_keymap("s", "<C-l>", [[<Cmd>lua Luasnip_go_right()<CR>]], {})
+--
+-- vim.api.nvim_set_keymap("i", "<C-h>", [[<Cmd>lua Luasnip_go_left()<CR>]], {})
+-- vim.api.nvim_set_keymap("s", "<C-h>", [[<Cmd>lua Luasnip_go_left()<CR>]], {})
+--
+-- -- Notify about presence of snippet. This is my attempt to try to live without
+-- -- snippet autocompletion. At least for the time being to get used to new
+-- -- snippets. NOTE: this code is run *very* frequently, but it seems to be fast
+-- -- enough (~0.1ms during normal typing).
+-- local luasnip_ns = vim.api.nvim_create_namespace("luasnip")
+--
+-- local luasnip_notify_clear = function()
+--   vim.api.nvim_buf_clear_namespace(0, luasnip_ns, 0, -1)
+-- end
+--
+-- local luasnip_notify = function()
+--   if not luasnip.expandable() then
+--     luasnip_notify_clear()
+--     return
+--   end
+--
+--   local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+--   vim.api.nvim_buf_set_virtual_text(0, luasnip_ns, line, { { "!", "Special" } }, {})
+-- end
+--
+-- vim.cmd([[au InsertEnter,CursorMovedI,TextChangedI,TextChangedP * lua pcall(luasnip_notify)]])
+-- vim.cmd([[au InsertLeave * lua pcall(luasnip_notify_clear)]])
+--
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

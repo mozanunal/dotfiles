@@ -21,6 +21,12 @@
       - tqdm
       - polars
       - bpython
+      - black
+      - isort
+      - jupyterlab
+      - jupyterlab-lsp
+      - jupyterlab-git
+      - jupyterlab_code_formatter
     virtualenv: "~/.moz_py/"
     virtualenv_command: "python3 -m venv"
 
