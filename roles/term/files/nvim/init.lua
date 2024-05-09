@@ -63,14 +63,15 @@ require('mini.basics').setup({
   }
 })
 
-require('mini.files').setup()
-require('neodev').setup()
 require('mini.ai').setup()
 require('mini.bracketed').setup()
-require('mini.completion').setup()
 require('mini.comment').setup()
+require('mini.completion').setup()
 require('mini.cursorword').setup()
 require('mini.diff').setup()
+require('mini.extra').setup()
+require('mini.files').setup()
+require('mini.fuzzy').setup()
 require('mini.indentscope').setup()
 require('mini.misc').setup()
 require('mini.move').setup()
@@ -82,8 +83,7 @@ require('mini.statusline').setup()
 require('mini.surround').setup()
 require('mini.tabline').setup()
 require('mini.trailspace').setup()
-require('mini.extra').setup()
-require('mini.fuzzy').setup()
+require('neodev').setup()
 require('mini.jump2d').setup({
   mappings = {
     start_jumping = 'S',
