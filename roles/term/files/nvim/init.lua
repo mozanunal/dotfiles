@@ -3,7 +3,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 local kmap = vim.keymap.set
 
-
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -63,15 +62,14 @@ require('mini.basics').setup({
   }
 })
 
+require('mini.files').setup()
+require('neodev').setup()
 require('mini.ai').setup()
 require('mini.bracketed').setup()
-require('mini.comment').setup()
 require('mini.completion').setup()
+require('mini.comment').setup()
 require('mini.cursorword').setup()
 require('mini.diff').setup()
-require('mini.extra').setup()
-require('mini.files').setup()
-require('mini.fuzzy').setup()
 require('mini.indentscope').setup()
 require('mini.misc').setup()
 require('mini.move').setup()
@@ -83,7 +81,8 @@ require('mini.statusline').setup()
 require('mini.surround').setup()
 require('mini.tabline').setup()
 require('mini.trailspace').setup()
-require('neodev').setup()
+require('mini.extra').setup()
+require('mini.fuzzy').setup()
 require('mini.jump2d').setup({
   mappings = {
     start_jumping = 'S',
@@ -359,7 +358,6 @@ vim.wo.relativenumber = false        --
 vim.wo.signcolumn = 'yes'            -- Keep signcolumn on by default
 
 ---- Keymaps
--- keymap('t', '<Esc>', '<C-\\><C-n>')
 kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, 'N', 'Nzzzv', { noremap = true })
 kmap({ 'n', 'v' }, '<leader>_', ':split<CR>', { noremap = true, silent = true, desc = 'Window Split' })
@@ -394,10 +392,49 @@ kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent 
 kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from nvim"<cr>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
-kmap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
-kmap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
 kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
 
+-- customized key mappings
+local keys = {
+  ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
+  ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
+  ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
+  ['ctrl-n']    = vim.api.nvim_replace_termcodes('<C-n>', true, true, true),
+  ['ctrl-p']    = vim.api.nvim_replace_termcodes('<C-p>', true, true, true),
+  ['tab']       = vim.api.nvim_replace_termcodes('<Tab>', true, true, true),
+  ['s-tab']     = vim.api.nvim_replace_termcodes('<S-Tab>', true, true, true),
+}
+
+F_tab_i = function()
+  if vim.fn.pumvisible() ~= 0 then
+    return keys['ctrl-n']
+  else
+    return keys['tab']
+  end
+end
+
+F_stab_i = function()
+  if vim.fn.pumvisible() ~= 0 then
+    return keys['ctrl-p']
+  else
+    return keys['s-tab']
+  end
+end
+
+F_cr_i = function()
+  if vim.fn.pumvisible() ~= 0 then
+    local item_selected = vim.fn.complete_info()['selected'] ~= -1
+    return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
+  else
+    return MiniPairs.cr()
+  end
+end
+
+kmap('i', '<CR>', F_cr_i, { expr = true })
+kmap('i', '<Tab>', F_tab_i, { noremap = true, expr = true })
+kmap('i', '<S-Tab>', F_stab_i, { noremap = true, expr = true })
+
+-- autocommands
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function()
     vim.cmd("bdelete")
@@ -427,27 +464,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     end, {})
   end
 })
-
-local keys = {
-  ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
-  ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
-  ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
-}
-
-_G.cr_action = function()
-  if vim.fn.pumvisible() ~= 0 then
-    -- If popup is visible, confirm selected item or add new line otherwise
-    local item_selected = vim.fn.complete_info()['selected'] ~= -1
-    return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
-  else
-    -- If popup is not visible, use plain `<CR>`. You might want to customize
-    -- according to other plugins. For example, to use 'mini.pairs', replace
-    -- next line with `return require('mini.pairs').cr()`
-    return keys['cr']
-  end
-end
-
-vim.keymap.set('i', '<CR>', 'v:lua._G.cr_action()', { expr = true })
 
 -- local luasnip = require("luasnip")
 -- luasnip.config.set_config({ history = true })
