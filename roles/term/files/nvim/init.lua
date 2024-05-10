@@ -51,11 +51,13 @@ require('lazy').setup {
   'SWiegandt/python-utils.nvim',
 }
 
+LuaSnip = require("luasnip")
+
 ---- Plugins Configs
 require('mini.basics').setup({
   options = {
     extra_ui = true,
-    win_borders = 'single',
+    win_borders = 'solid',
   },
   mappings = {
     windows = true,
@@ -297,12 +299,7 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
@@ -319,43 +316,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-
--- vim.cmd.colorscheme "catppuccin-macchiato"
--- vim.o.autoindent = true              -- Auto-indent new lines
--- vim.o.breakindent = true             -- Enable break indent
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
-vim.o.completeopt = "menuone,noinsert,noselect"
-vim.o.conceallevel = 0          -- Hide * markup for bold and italic
-vim.o.confirm = true            -- Confirm to save changes before exiting modified buffer
--- vim.o.cursorline = true              -- Enable highlighting of the current line
-vim.o.expandtab = true          -- Use spaces instead of tabs
--- vim.o.formatoptions = "jcroqlnt"     -- tcqj
-vim.o.hlsearch = false          -- Set highlight on search
-vim.o.ignorecase = true         -- Case insensitive searching UNLESS /C or capital in search
-vim.o.inccommand = "nosplit"    -- preview incremental substitute
-vim.o.laststatus = 3            -- global statusline
-vim.o.list = true               -- Show some invisible characters (tabs...
-vim.o.mouse = 'a'               -- Enable mouse mode
-vim.o.scrolloff = 4             -- Lines of context
-vim.o.shiftround = true         -- Round indent
-vim.o.shiftwidth = 2            -- Size of an indent
-vim.o.sidescrolloff = 8         -- Columns of context
-vim.o.signcolumn = "yes"        -- Always show the signcolumn, otherwise it would shift the text each time
-vim.o.smartcase = true          --
--- vim.o.smartindent = true             -- Enable smart-indent
--- vim.o.smarttab = true                -- Enable smart-tabs
-vim.o.softtabstop = 2                -- Number of spaces per Tab
-vim.o.swapfile = false               -- Remove swapfile
-vim.o.tabstop = 2                    -- Number of spaces tabs count for
-vim.o.termguicolors = true           -- True color support
-vim.o.undofile = true                -- Save undo history
-vim.o.virtualedit = "block"          -- Allow cursor to move where there is no text in visual block mode
-vim.o.wildmode = "longest:full,full" -- Command-line completion mode
-vim.o.winminwidth = 5                -- Minimum window width
-vim.o.wrap = false                   -- Disable line wrap
-vim.wo.number = true                 -- Make line numbers default
-vim.wo.relativenumber = false        --
-vim.wo.signcolumn = 'yes'            -- Keep signcolumn on by default
 
 ---- Keymaps
 kmap({ 'n', 'v' }, 'n', 'nzzzv', { noremap = true })
@@ -395,7 +356,7 @@ kmap('n', '<leader>fd', MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic"
 kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
 
 -- customized key mappings
-local keys = {
+local k = {
   ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
   ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
   ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
@@ -407,24 +368,28 @@ local keys = {
 
 F_tab_i = function()
   if vim.fn.pumvisible() ~= 0 then
-    return keys['ctrl-n']
+    return k['ctrl-n']
+  end
+  if LuaSnip.expand_or_jumpable() then
+    LuaSnip.expand_or_jump()
+    return
   else
-    return keys['tab']
+    return k['tab']
   end
 end
 
 F_stab_i = function()
   if vim.fn.pumvisible() ~= 0 then
-    return keys['ctrl-p']
+    return k['ctrl-p']
   else
-    return keys['s-tab']
+    return k['s-tab']
   end
 end
 
 F_cr_i = function()
   if vim.fn.pumvisible() ~= 0 then
     local item_selected = vim.fn.complete_info()['selected'] ~= -1
-    return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
+    return item_selected and k['ctrl-y'] or k['ctrl-y_cr']
   else
     return MiniPairs.cr()
   end
@@ -465,11 +430,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end
 })
 
--- local luasnip = require("luasnip")
--- luasnip.config.set_config({ history = true })
---
--- -- Load available snippets
--- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
 --
 -- -- Make snippet keymaps
 -- Luasnip_go_right = function()
