@@ -345,59 +345,74 @@ kmap("n", "<leader>/", MiniPick.builtin.grep_live, { noremap = true, silent = tr
 kmap("n", "<leader>fh", MiniPick.builtin.help, { noremap = true, silent = true, desc = 'Find Help' })
 kmap("n", "<leader>fk", MiniExtra.pickers.keymaps, { noremap = true, silent = true, desc = 'Find Keymaps' })
 kmap("n", "<leader>`", MiniPick.builtin.resume, { noremap = true, silent = true, desc = 'Find Resume' })
-kmap("n", "<leader>bd", "<cmd>bd<cr>", { noremap = true, silent = true, desc = 'Close Buffer' })
-kmap("n", "<leader>gg", "<cmd>terminal lazygit<cr>", { noremap = true, silent = true, desc = 'Lazygit' })
-kmap("n", "<leader>gp", "<cmd>terminal git pull<cr>", { noremap = true, silent = true, desc = 'Git Push' })
-kmap("n", "<leader>gP", "<cmd>terminal git push<cr>", { noremap = true, silent = true, desc = 'Git Pull' })
-kmap("n", "<leader>ga", "<cmd>terminal git add .<cr>", { noremap = true, silent = true, desc = 'Git Add All' })
-kmap("n", "<leader>gc", '<cmd>terminal git commit -m "Autocommit from nvim"<cr>',
+kmap("n", "<leader>bd", "<CMD>bd<CR>", { noremap = true, silent = true, desc = 'Close Buffer' })
+kmap("n", "<leader>gg", "<CMD>terminal lazygit<CR>", { noremap = true, silent = true, desc = 'Lazygit' })
+kmap("n", "<leader>gp", "<CMD>terminal git pull<CR>", { noremap = true, silent = true, desc = 'Git Push' })
+kmap("n", "<leader>gP", "<CMD>terminal git push<CR>", { noremap = true, silent = true, desc = 'Git Pull' })
+kmap("n", "<leader>ga", "<CMD>terminal git add .<CR>", { noremap = true, silent = true, desc = 'Git Add All' })
+kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>',
   { noremap = true, silent = true, desc = 'Git Autocommit' })
 kmap('n', '<leader>fd', MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
-kmap('n', '<leader>o', "<cmd>silent !open %<cr>", { noremap = true, silent = true, desc = 'Open File' })
+kmap('n', '<leader>o', "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = 'Open File' })
 
 -- customized key mappings
-local k = {
-  ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
-  ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
-  ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
-  ['ctrl-n']    = vim.api.nvim_replace_termcodes('<C-n>', true, true, true),
-  ['ctrl-p']    = vim.api.nvim_replace_termcodes('<C-p>', true, true, true),
-  ['tab']       = vim.api.nvim_replace_termcodes('<Tab>', true, true, true),
-  ['s-tab']     = vim.api.nvim_replace_termcodes('<S-Tab>', true, true, true),
+K = {
+  ['cr']     = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
+  ['ctrl-y'] = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
+  ['ctrl-n'] = vim.api.nvim_replace_termcodes('<C-n>', true, true, true),
+  ['ctrl-p'] = vim.api.nvim_replace_termcodes('<C-p>', true, true, true),
+  ['ctrl-h'] = vim.api.nvim_replace_termcodes('<C-h>', true, true, true),
+  ['ctrl-l'] = vim.api.nvim_replace_termcodes('<C-l>', true, true, true),
+  ['tab']    = vim.api.nvim_replace_termcodes('<Tab>', true, true, true),
+  ['s-tab']  = vim.api.nvim_replace_termcodes('<S-Tab>', true, true, true),
 }
 
 F_tab_i = function()
   if vim.fn.pumvisible() ~= 0 then
-    return k['ctrl-n']
-  end
-  if LuaSnip.expand_or_jumpable() then
-    LuaSnip.expand_or_jump()
-    return
+    return K['ctrl-n']
   else
-    return k['tab']
+    return K['tab']
   end
 end
 
 F_stab_i = function()
   if vim.fn.pumvisible() ~= 0 then
-    return k['ctrl-p']
+    return K['ctrl-h']
   else
-    return k['s-tab']
+    return K['s-tab']
   end
 end
 
 F_cr_i = function()
   if vim.fn.pumvisible() ~= 0 then
     local item_selected = vim.fn.complete_info()['selected'] ~= -1
-    return item_selected and k['ctrl-y'] or k['ctrl-y_cr']
+    return item_selected and K['ctrl-y'] or K['ctrl-y_cr']
   else
     return MiniPairs.cr()
   end
 end
 
+Luasnip_go_right = function()
+  if LuaSnip.expand_or_jumpable() then
+    LuaSnip.expand_or_jump()
+  end
+end
+
+Luasnip_go_left = function()
+  if LuaSnip.jumpable() then
+    LuaSnip.jump(-1)
+  end
+end
+
+
+
 kmap('i', '<CR>', F_cr_i, { expr = true })
 kmap('i', '<Tab>', F_tab_i, { noremap = true, expr = true })
 kmap('i', '<S-Tab>', F_stab_i, { noremap = true, expr = true })
+kmap("i", "<C-l>", [[<CMD>lua Luasnip_go_right()<CR>]], {})
+kmap("s", "<C-l>", [[<CMD>lua Luasnip_go_right()<CR>]], {})
+kmap("i", "<C-h>", [[<CMD>lua Luasnip_go_left()<CR>]], {})
+kmap("s", "<C-h>", [[<CMD>lua Luasnip_go_left()<CR>]], {})
 
 -- autocommands
 vim.api.nvim_create_autocmd("TermClose", {
@@ -430,49 +445,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end
 })
 
---
--- -- Make snippet keymaps
--- Luasnip_go_right = function()
---   if luasnip.expand_or_jumpable() then
---     luasnip.expand_or_jump()
---   end
--- end
---
--- Luasnip_go_left = function()
---   if luasnip.jumpable() then
---     luasnip.jump(-1)
---   end
--- end
---
--- vim.api.nvim_set_keymap("i", "<C-l>", [[<Cmd>lua Luasnip_go_right()<CR>]], {})
--- vim.api.nvim_set_keymap("s", "<C-l>", [[<Cmd>lua Luasnip_go_right()<CR>]], {})
---
--- vim.api.nvim_set_keymap("i", "<C-h>", [[<Cmd>lua Luasnip_go_left()<CR>]], {})
--- vim.api.nvim_set_keymap("s", "<C-h>", [[<Cmd>lua Luasnip_go_left()<CR>]], {})
---
--- -- Notify about presence of snippet. This is my attempt to try to live without
--- -- snippet autocompletion. At least for the time being to get used to new
--- -- snippets. NOTE: this code is run *very* frequently, but it seems to be fast
--- -- enough (~0.1ms during normal typing).
--- local luasnip_ns = vim.api.nvim_create_namespace("luasnip")
---
--- local luasnip_notify_clear = function()
---   vim.api.nvim_buf_clear_namespace(0, luasnip_ns, 0, -1)
--- end
---
--- local luasnip_notify = function()
---   if not luasnip.expandable() then
---     luasnip_notify_clear()
---     return
---   end
---
---   local line = vim.api.nvim_win_get_cursor(0)[1] - 1
---   vim.api.nvim_buf_set_virtual_text(0, luasnip_ns, line, { { "!", "Special" } }, {})
--- end
---
--- vim.cmd([[au InsertEnter,CursorMovedI,TextChangedI,TextChangedP * lua pcall(luasnip_notify)]])
--- vim.cmd([[au InsertLeave * lua pcall(luasnip_notify_clear)]])
---
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
