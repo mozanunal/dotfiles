@@ -27,6 +27,7 @@
       - jupyterlab-lsp
       - jupyterlab-git
       - jupyterlab_code_formatter
+      - jupyter-collaboration
       - catppuccin-jupyterlab
     virtualenv: "~/.moz_py/"
     virtualenv_command: "python3 -m venv"
