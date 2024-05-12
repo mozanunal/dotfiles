@@ -35,6 +35,7 @@ alias zm='zellij a||zellij'
 alias lg='lazygit'
 alias moz_sync="cd ~/dotfiles/ && git pull && make"
 alias moz_py='source ~/.moz_py/bin/activate'
+alias moz_jpy="tmux new-session -d -s jupyter 'source ./.moz_py/bin/activate;jupyter-lab --ip 0.0.0.0 --no-browser --port 8000'"
 alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
 alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
 alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
