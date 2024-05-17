@@ -30,7 +30,6 @@
       - jupyter-collaboration
       - jupyter_scheduler
       - catppuccin-jupyterlab
-      - jedi-language-server
     virtualenv: "~/.moz_py/"
     virtualenv_command: "python3 -m venv"
 
