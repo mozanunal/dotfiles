@@ -27,9 +27,10 @@
       - jupyterlab-lsp
       - jupyterlab-git
       - jupyterlab_code_formatter
-      - jupyter-collaboration
+      # - jupyter-collaboration
       - jupyter_scheduler
       - catppuccin-jupyterlab
+      - ipywidgets
     virtualenv: "~/.moz_py/"
     virtualenv_command: "python3 -m venv"
 
