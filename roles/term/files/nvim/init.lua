@@ -91,25 +91,27 @@ require('mini.jump2d').setup({
   },
 })
 
+local cattpuccin_machiatto = {
+  base00 = "#24273a",
+  base01 = "#1e2030",
+  base02 = "#363a4f",
+  base03 = "#494d64",
+  base04 = "#5b6078",
+  base05 = "#cad3f5",
+  base06 = "#f4dbd6",
+  base07 = "#b7bdf8",
+  base08 = "#ed8796",
+  base09 = "#f5a97f",
+  base0A = "#eed49f",
+  base0B = "#a6da95",
+  base0C = "#8bd5ca",
+  base0D = "#8aadf4",
+  base0E = "#c6a0f6",
+  base0F = "#f0c6c6"
+}
+
 require('mini.base16').setup({
-  palette = {
-    base00 = "#24273a",
-    base01 = "#1e2030",
-    base02 = "#363a4f",
-    base03 = "#494d64",
-    base04 = "#5b6078",
-    base05 = "#cad3f5",
-    base06 = "#f4dbd6",
-    base07 = "#b7bdf8",
-    base08 = "#ed8796",
-    base09 = "#f5a97f",
-    base0A = "#eed49f",
-    base0B = "#a6da95",
-    base0C = "#8bd5ca",
-    base0D = "#8aadf4",
-    base0E = "#c6a0f6",
-    base0F = "#f0c6c6"
-  }
+  palette = cattpuccin_machiatto
 })
 
 require('mini.jump').setup({
@@ -445,6 +447,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end
 })
 
-
+vim.o.termguicolors = true
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
