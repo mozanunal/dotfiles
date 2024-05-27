@@ -29,7 +29,7 @@ alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
 # alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
 alias v='source .venv/bin/activate'
-alias n='cd ~/.password-store/notes && $EDITOR .'
+alias n='cd ~/.password-store && $EDITOR .'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
