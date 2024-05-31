@@ -286,7 +286,7 @@ local on_attach = function(client, bufnr)
     end
     kmap("n", keys, func, { buffer = bufnr, desc = desc })
   end
-  client.server_capabilities.semanticTokensProvider = nil
+  -- client.server_capabilities.semanticTokensProvider = nil
 
   nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
   nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
@@ -464,6 +464,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
