@@ -22,7 +22,7 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim", config = true },
+      { "williamboman/mason.nvim",          config = true },
       { "williamboman/mason-lspconfig.nvim" },
       { "folke/neodev.nvim" },
     },
@@ -73,7 +73,15 @@ require("mini.bracketed").setup()
 require("mini.completion").setup()
 require("mini.comment").setup()
 require("mini.cursorword").setup()
-require("mini.diff").setup()
+require("mini.diff").setup(
+  {
+    view = {
+      style = 'sign',
+      signs = { add = '+', change = '~', delete = '-' },
+
+    }
+  }
+)
 require("mini.indentscope").setup()
 require("mini.misc").setup()
 require("mini.move").setup()
@@ -111,6 +119,37 @@ local cattpuccin_machiatto = {
   base0E = "#c6a0f6",
   base0F = "#f0c6c6",
 }
+
+local cattpuccin_latte = {
+  base00 = "#eff1f5",
+  base01 = "#e6e9ef",
+  base02 = "#ccd0da",
+  base03 = "#bcc0cc",
+  base04 = "#acb0be",
+  base05 = "#4c4f69",
+  base06 = "#dc8a78",
+  base07 = "#7287fd",
+  base08 = "#d20f39",
+  base09 = "#fe640b",
+  base0A = "#df8e1d",
+  base0B = "#40a02b",
+  base0C = "#179299",
+  base0D = "#1e66f5",
+  base0E = "#8839ef",
+  base0F = "#dd7878",
+}
+
+Dark = function()
+  require("mini.base16").setup({
+    palette = cattpuccin_machiatto,
+  })
+end
+
+Light = function()
+  require("mini.base16").setup({
+    palette = cattpuccin_latte,
+  })
+end
 
 require("mini.base16").setup({
   palette = cattpuccin_machiatto,
@@ -352,9 +391,11 @@ kmap({ "n", "v" }, "<leader>q", ":q<CR>", { noremap = true, desc = "Window Quit"
 kmap({ "n", "v" }, "<leader>bd", ":bd<CR>", { noremap = true, desc = "Buffer Delete" })
 kmap({ "n", "v" }, "H", ":bp<CR>", { noremap = true, silent = true })
 kmap({ "n", "v" }, "L", ":bn<CR>", { noremap = true, silent = true })
-kmap("n", "<leader>t", ":terminal<CR>i", { desc = "Terminal" })
+kmap("n", "<leader>tt", ":term<CR>", { desc = "Terminal" })
+kmap("n", "<leader>t_", ":split | term<CR>", { desc = "Terminal Vsplit" })
+kmap("n", "<leader>t|", ":vsplit | term<CR>", { desc = "Terminal Hsplit" })
 kmap("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true })
-kmap("n", "<leader>gd", ":lua MiniDiff.toogle_overlay()<CR>", { desc = "Git Diff" })
+kmap("n", "<leader>gd", MiniDiff.toggle_overlay, { desc = "Git Diff" })
 kmap("n", "<leader>fl", MiniExtra.pickers.buf_lines, { noremap = true, silent = true, desc = "Find Lines" })
 kmap("n", "<leader>ff", function()
   MiniPick.builtin.files({ tool = "git" })
@@ -367,6 +408,8 @@ end, { noremap = true, silent = true, desc = "Find Symbols" })
 kmap("n", "<leader>e", MiniFiles.open, { noremap = true, silent = true, desc = "File Explorer" })
 kmap("n", "<leader>fb", MiniPick.builtin.buffers, { noremap = true, silent = true, desc = "Find Buffer" })
 kmap("n", "<leader>fg", MiniPick.builtin.grep_live, { noremap = true, silent = true, desc = "Find String" })
+kmap("n", "<leader>fo", MiniExtra.pickers.options, { noremap = true, silent = true, desc = "Find Options" })
+kmap("n", "<leader>fe", MiniExtra.pickers.explorer, { noremap = true, silent = true, desc = "Find Explorer" })
 kmap("n", "<leader>/", MiniPick.builtin.grep_live, { noremap = true, silent = true, desc = "Find String" })
 kmap("n", "<leader>fh", MiniPick.builtin.help, { noremap = true, silent = true, desc = "Find Help" })
 kmap("n", "<leader>fk", MiniExtra.pickers.keymaps, { noremap = true, silent = true, desc = "Find Keymaps" })
@@ -376,9 +419,12 @@ kmap("n", "<leader>gg", "<CMD>terminal lazygit<CR>", { noremap = true, silent = 
 kmap("n", "<leader>gp", "<CMD>terminal git pull<CR>", { noremap = true, silent = true, desc = "Git Push" })
 kmap("n", "<leader>gP", "<CMD>terminal git push<CR>", { noremap = true, silent = true, desc = "Git Pull" })
 kmap("n", "<leader>ga", "<CMD>terminal git add .<CR>", { noremap = true, silent = true, desc = "Git Add All" })
-kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>', { noremap = true, silent = true, desc = "Git Autocommit" })
+kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>',
+  { noremap = true, silent = true, desc = "Git Autocommit" })
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
+kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme"})
+kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme"})
 
 -- customized key mappings
 K = {
@@ -451,7 +497,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
       require("python-utils.python").get_class_module(function(symbol_path)
         local _, _, module, class = string.find(symbol_path, "(.*)%.(%w+)$")
 
-        vim.cmd(string.format("silent !python -c 'from %s import %s; print(%s().target().path)' | xargs open", module, class, class))
+        vim.cmd(string.format("silent !python -c 'from %s import %s; print(%s().target().path)' | xargs open", module,
+          class, class))
 
         if vim.v.shell_error ~= 0 then
           vim.notify("Couldn't find dataset directory for " .. class, "ERROR")
@@ -467,5 +514,4 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 
--- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
