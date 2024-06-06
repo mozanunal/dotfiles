@@ -22,6 +22,7 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
 	PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 fi
 
+fzf_cmd="fzf --reverse"
 # --- aliases
 alias la='ls -la'
 alias ll='ls -ll'
@@ -35,42 +36,40 @@ alias zm='zellij a||zellij'
 alias lg='lazygit'
 alias moz_sync="cd ~/dotfiles/ && git pull && make"
 alias moz_py='source ~/.moz_py/bin/activate'
-alias moz_jpy="tmux new-session -d -s jupyter 'source ./.moz_py/bin/activate;jupyter-lab --ip 0.0.0.0 --no-browser --port 8000'"
-alias moz_ipy='source ~/.moz_py/bin/activate;ipython'
-alias moz_bpy='source ~/.moz_py/bin/activate;bpython'
-alias moz_sql='source ~/.moz_py/bin/activate;litecli ~/.moz_py/dev.sqlite'
-
-fzf_cmd="fzf --reverse"
+alias moz_jpy="tmux new-session -d -s jupyter 'source ./.moz_py/bin/activate && jupyter-lab --ip 0.0.0.0 --no-browser --port 8000'"
+alias moz_ipy='moz_py && ipython'
+alias moz_bpy='moz_py && bpython'
+alias moz_sql='moz_py && litecli ~/.moz_py/dev.sqlite'
 
 # --- functions
-fzef() {
+moz_fzef() {
   fd -t f -d 7 --hidden -E .git| $fzf_cmd | xargs -r $EDITOR
 }
 
-fzcd() {
-  READLINE_LINE="cd $(fd -t d -d 5 | $fzf_cmd)"
-  READLINE_POINT=${#READLINE_LINE}
-}
-
-fzed() {
+moz_fzed() {
   cd $(fd -t d -d 5 | $fzf_cmd )
   source .venv/bin/activate 2>/dev/null || true
   $EDITOR .
 }
+# -- readline functions
+__moz_fzcd() {
+  READLINE_LINE="cd $(fd -t d -d 5 | $fzf_cmd)"
+  READLINE_POINT=${#READLINE_LINE}
+}
 
-fzh() {
+__moz_fzh() {
   READLINE_LINE=$(cat ~/.bash_history | sort | uniq | $fzf_cmd)
   READLINE_POINT=${#READLINE_LINE}
 }
 
 # Alt+c cd to directory
-bind -x '"\ec":fzcd'
-# Alt+d edit directory
-bind -x '"\ed":fzed'
-# Alt+e edit file
-bind -x '"\ee":fzef'
+bind -x '"\ec":__moz_fzcd'
 # Ctrl+r history search
-bind -x '"\C-r":fzh'
+bind -x '"\C-r":__moz_fzh'
+# Alt+d edit directory
+bind -x '"\ed":moz_fzed'
+# Alt+e edit file
+bind -x '"\ee":moz_fzef'
 
 moz_fd_large_files() {
 	du -h -x -s -- * | sort -r -h | head -20
