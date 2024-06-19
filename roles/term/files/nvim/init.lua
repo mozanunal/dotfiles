@@ -59,7 +59,7 @@ LuaSnip = require("luasnip")
 require("mini.basics").setup({
   options = {
     extra_ui = true,
-    win_borders = "solid",
+    win_borders = "double",
   },
   mappings = {
     windows = true,
@@ -513,5 +513,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
+vim.o.laststatus = 3
+vim.api.nvim_set_hl(0, 'WinSeparator', {bg = 'None'})
 
 -- vim: ts=2 sts=2 sw=2 et
