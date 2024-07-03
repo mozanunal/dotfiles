@@ -69,6 +69,7 @@ require("mini.basics").setup({
 require("mini.files").setup()
 require("neodev").setup()
 require("mini.ai").setup()
+require("mini.icons").setup()
 require("mini.bracketed").setup()
 require("mini.completion").setup()
 require("mini.comment").setup()
