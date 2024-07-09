@@ -424,9 +424,7 @@ iron.setup {
   config = {
     scratch_repl = true,
     repl_definition = {
-      python = {
-        command = { "ipython" }
-      }
+      python = require("iron.fts.python").ipython,
     },
     repl_open_cmd = require('iron.view').split.vertical.botright(0.5),
   },
