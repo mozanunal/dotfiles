@@ -49,6 +49,8 @@ require("lazy").setup({
       require("luasnip.loaders.from_vscode").lazy_load()
     end,
   },
+  { "GCBallesteros/jupytext.nvim", config = true, },
+  { 'Vigemus/iron.nvim' },
   "jamessan/vim-gnupg",
   "SWiegandt/python-utils.nvim",
 })
@@ -59,7 +61,7 @@ LuaSnip = require("luasnip")
 require("mini.basics").setup({
   options = {
     extra_ui = true,
-    win_borders = "double",
+    win_borders = "single",
   },
   mappings = {
     windows = true,
@@ -169,7 +171,8 @@ require("mini.pick").setup({
   },
 })
 
-require("mini.clue").setup({
+local miniclue = require('mini.clue')
+miniclue.setup({
   triggers = {
     -- Leader triggers
     { mode = "n", keys = "<Leader>" },
@@ -208,24 +211,12 @@ require("mini.clue").setup({
     { mode = "n", keys = "<Leader>w", desc = "Workspace" },
     { mode = "n", keys = "<Leader>l", desc = "LSP" },
     { mode = "n", keys = "<Leader>t", desc = "Treesitter" },
-    function()
-      MiniClue.gen_clues.g()
-    end,
-    function()
-      MiniClue.gen_clues.builtin_completion()
-    end,
-    function()
-      MiniClue.gen_clues.marks()
-    end,
-    function()
-      MiniClue.gen_clues.registers()
-    end,
-    function()
-      MiniClue.gen_clues.windows()
-    end,
-    function()
-      MiniClue.gen_clues.z()
-    end,
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.builtin_completion(),
+    miniclue.gen_clues.marks(),
+    miniclue.gen_clues.registers(),
+    miniclue.gen_clues.windows(),
+    miniclue.gen_clues.z(),
   },
   window = {
     delay = 50,
@@ -424,8 +415,61 @@ kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>'
   { noremap = true, silent = true, desc = "Git Autocommit" })
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
-kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme"})
-kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme"})
+kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme" })
+kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme" })
+
+local iron = require("iron.core")
+
+iron.setup {
+  config = {
+    -- Whether a repl should be discarded or not
+    scratch_repl = true,
+    -- Your repl definitions come here
+    repl_definition = {
+      sh = {
+        -- Can be a table or a function that
+        -- returns a table (see below)
+        command = {"zsh"}
+      },
+      python = {
+        command = {"ipython"}
+      }
+    },
+    -- How the repl window will be displayed
+    -- See below for more information
+    repl_open_cmd = require('iron.view').right(40),
+  },
+  -- Iron doesn't set keymaps by default anymore.
+  -- You can set them here or manually add keymaps to the functions in iron.core
+  keymaps = {
+    send_motion = "<space>sc",
+    visual_send = "<space>sc",
+    send_file = "<space>sf",
+    send_line = "<space>sl",
+    send_paragraph = "<space>sp",
+    send_until_cursor = "<space>su",
+    send_mark = "<space>sm",
+    mark_motion = "<space>mc",
+    mark_visual = "<space>mc",
+    remove_mark = "<space>md",
+    cr = "<space>s<cr>",
+    interrupt = "<space>s<space>",
+    exit = "<space>sq",
+    clear = "<space>cl",
+  },
+  -- If the highlight is on, you can change how it looks
+  -- For the available options, check nvim_set_hl
+  highlight = {
+    italic = true
+  },
+  ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
+}
+
+-- iron also has a list of commands, see :h iron-commands for all available commands
+vim.keymap.set('n', '<space>rs', '<cmd>IronRepl<cr>')
+vim.keymap.set('n', '<space>rr', '<cmd>IronRestart<cr>')
+vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
+vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
 
 -- customized key mappings
 K = {
@@ -515,6 +559,6 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
-vim.api.nvim_set_hl(0, 'WinSeparator', {bg = 'None'})
+vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
 
 -- vim: ts=2 sts=2 sw=2 et
