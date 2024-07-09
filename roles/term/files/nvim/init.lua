@@ -1,4 +1,42 @@
--- Set <space> as the leader key
+-- variables
+local cattpuccin_machiatto = {
+  base00 = "#24273a",
+  base01 = "#1e2030",
+  base02 = "#363a4f",
+  base03 = "#494d64",
+  base04 = "#5b6078",
+  base05 = "#cad3f5",
+  base06 = "#f4dbd6",
+  base07 = "#b7bdf8",
+  base08 = "#ed8796",
+  base09 = "#f5a97f",
+  base0A = "#eed49f",
+  base0B = "#a6da95",
+  base0C = "#8bd5ca",
+  base0D = "#8aadf4",
+  base0E = "#c6a0f6",
+  base0F = "#f0c6c6",
+}
+
+local cattpuccin_latte = {
+  base00 = "#eff1f5",
+  base01 = "#e6e9ef",
+  base02 = "#ccd0da",
+  base03 = "#bcc0cc",
+  base04 = "#acb0be",
+  base05 = "#4c4f69",
+  base06 = "#dc8a78",
+  base07 = "#7287fd",
+  base08 = "#d20f39",
+  base09 = "#fe640b",
+  base0A = "#df8e1d",
+  base0B = "#40a02b",
+  base0C = "#179299",
+  base0D = "#1e66f5",
+  base0E = "#8839ef",
+  base0F = "#dd7878",
+}
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local kmap = vim.keymap.set
@@ -57,7 +95,7 @@ require("lazy").setup({
 
 LuaSnip = require("luasnip")
 
----- Plugins Configs
+-- Plugin Configs
 require("mini.basics").setup({
   options = {
     extra_ui = true,
@@ -103,44 +141,6 @@ require("mini.jump2d").setup({
     start_jumping = "S",
   },
 })
-
-local cattpuccin_machiatto = {
-  base00 = "#24273a",
-  base01 = "#1e2030",
-  base02 = "#363a4f",
-  base03 = "#494d64",
-  base04 = "#5b6078",
-  base05 = "#cad3f5",
-  base06 = "#f4dbd6",
-  base07 = "#b7bdf8",
-  base08 = "#ed8796",
-  base09 = "#f5a97f",
-  base0A = "#eed49f",
-  base0B = "#a6da95",
-  base0C = "#8bd5ca",
-  base0D = "#8aadf4",
-  base0E = "#c6a0f6",
-  base0F = "#f0c6c6",
-}
-
-local cattpuccin_latte = {
-  base00 = "#eff1f5",
-  base01 = "#e6e9ef",
-  base02 = "#ccd0da",
-  base03 = "#bcc0cc",
-  base04 = "#acb0be",
-  base05 = "#4c4f69",
-  base06 = "#dc8a78",
-  base07 = "#7287fd",
-  base08 = "#d20f39",
-  base09 = "#fe640b",
-  base0A = "#df8e1d",
-  base0B = "#40a02b",
-  base0C = "#179299",
-  base0D = "#1e66f5",
-  base0E = "#8839ef",
-  base0F = "#dd7878",
-}
 
 Dark = function()
   require("mini.base16").setup({
@@ -211,6 +211,8 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>w", desc = "Workspace" },
     { mode = "n", keys = "<Leader>l", desc = "LSP" },
     { mode = "n", keys = "<Leader>t", desc = "Treesitter" },
+    { mode = "n", keys = "<Leader>r", desc = "Repl" },
+    { mode = "n", keys = "<Leader>s", desc = "Send to Repl" },
     miniclue.gen_clues.g(),
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.marks(),
@@ -227,6 +229,7 @@ vim.defer_fn(function()
   require("nvim-treesitter.configs").setup({
     modules = {},
     sync_install = true,
+    auto_install = true,
     ignore_install = {},
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = {
@@ -245,9 +248,6 @@ vim.defer_fn(function()
       "vim",
       "bash",
     },
-
-    -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = true,
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -422,36 +422,22 @@ local iron = require("iron.core")
 
 iron.setup {
   config = {
-    -- Whether a repl should be discarded or not
     scratch_repl = true,
-    -- Your repl definitions come here
     repl_definition = {
-      sh = {
-        -- Can be a table or a function that
-        -- returns a table (see below)
-        command = {"zsh"}
-      },
       python = {
-        command = {"ipython"}
+        command = { "ipython" }
       }
     },
-    -- How the repl window will be displayed
-    -- See below for more information
-    repl_open_cmd = require('iron.view').right(40),
+    repl_open_cmd = require('iron.view').split.vertical.botright(0.5),
   },
-  -- Iron doesn't set keymaps by default anymore.
-  -- You can set them here or manually add keymaps to the functions in iron.core
   keymaps = {
     send_motion = "<space>sc",
     visual_send = "<space>sc",
     send_file = "<space>sf",
     send_line = "<space>sl",
-    send_paragraph = "<space>sp",
+    send_paragraph = "<S-CR>",
     send_until_cursor = "<space>su",
     send_mark = "<space>sm",
-    mark_motion = "<space>mc",
-    mark_visual = "<space>mc",
-    remove_mark = "<space>md",
     cr = "<space>s<cr>",
     interrupt = "<space>s<space>",
     exit = "<space>sq",
@@ -460,16 +446,17 @@ iron.setup {
   -- If the highlight is on, you can change how it looks
   -- For the available options, check nvim_set_hl
   highlight = {
-    italic = true
+    italic = true,
+    bg = "#000000"
   },
   ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
 }
 
 -- iron also has a list of commands, see :h iron-commands for all available commands
-vim.keymap.set('n', '<space>rs', '<cmd>IronRepl<cr>')
-vim.keymap.set('n', '<space>rr', '<cmd>IronRestart<cr>')
-vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
-vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
+kmap('n', '<space>rs', '<cmd>IronRepl<cr>', { noremap = true, silent = true, desc = "Repl Open" })
+kmap('n', '<space>rr', '<cmd>IronRestart<cr>', { noremap = true, silent = true, desc = "Repl Restart" })
+kmap('n', '<space>rf', '<cmd>IronFocus<cr>', { noremap = true, silent = true, desc = "Repl Focus" })
+kmap('n', '<space>rh', '<cmd>IronHide<cr>', { noremap = true, silent = true, desc = "Repl Hide" })
 
 -- customized key mappings
 K = {
@@ -553,6 +540,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   end,
 })
 
+-- options
 vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
