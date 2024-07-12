@@ -1,5 +1,5 @@
 -- variables
-local SET_ICONS = false
+local SET_ICONS = true
 local SET_CTERM = false
 
 local cattpuccin_machiatto = {
@@ -546,7 +546,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 -- options
 if SET_CTERM then
   vim.o.termguicolors = false
-  vim.o.windblend = 0
+  vim.o.winblend = 0
 else
   vim.o.termguicolors = true
 end
