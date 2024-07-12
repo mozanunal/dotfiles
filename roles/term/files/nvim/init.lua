@@ -1,4 +1,7 @@
 -- variables
+local SET_ICONS = false
+local SET_CTERM = false
+
 local cattpuccin_machiatto = {
   base00 = "#24273a",
   base01 = "#1e2030",
@@ -109,7 +112,9 @@ require("mini.basics").setup({
 require("mini.files").setup()
 require("neodev").setup()
 require("mini.ai").setup()
-require("mini.icons").setup()
+if SET_ICONS then
+  require("mini.icons").setup()
+end
 require("mini.bracketed").setup()
 require("mini.completion").setup()
 require("mini.comment").setup()
@@ -130,9 +135,9 @@ require("mini.notify").setup()
 require("mini.operators").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
-require("mini.statusline").setup()
+require("mini.statusline").setup({use_icons=SET_ICONS})
 require("mini.surround").setup()
-require("mini.tabline").setup()
+require("mini.tabline").setup({use_icons=SET_ICONS})
 require("mini.trailspace").setup()
 require("mini.extra").setup()
 require("mini.fuzzy").setup()
@@ -145,18 +150,18 @@ require("mini.jump2d").setup({
 Dark = function()
   require("mini.base16").setup({
     palette = cattpuccin_machiatto,
+    use_cterm = SET_CTERM
   })
 end
 
 Light = function()
   require("mini.base16").setup({
     palette = cattpuccin_latte,
+    use_cterm = SET_CTERM
   })
 end
 
-require("mini.base16").setup({
-  palette = cattpuccin_machiatto,
-})
+Dark()
 
 require("mini.jump").setup({
   delay = { highlight = 0, idle_stop = 0 },
@@ -539,7 +544,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 
 -- options
-vim.o.termguicolors = true
+if SET_CTERM then
+  vim.o.termguicolors = false
+  vim.o.windblend = 0
+else
+  vim.o.termguicolors = true
+end
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
