@@ -128,6 +128,8 @@ bindsym $mod+Left resize grow width 5 px or 5 ppt
 bindsym $mod+Down resize shrink height 5 px or 5 ppt
 bindsym $mod+Up resize grow height 5 px or 5 ppt
 bindsym $mod+Right resize shrink width 5 px or 5 ppt
+bindsym Mod1+tab workspace next_on_output
+bindsym Mod1+Shift+tab workspace prev_on_output
 
 # move focused window
 bindsym $mod+Shift+h move left
