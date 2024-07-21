@@ -114,6 +114,8 @@ require("neodev").setup()
 require("mini.ai").setup()
 if SET_ICONS then
   require("mini.icons").setup()
+else
+  require("mini.icons").setup({style="ascii"})
 end
 require("mini.bracketed").setup()
 require("mini.completion").setup()
