@@ -2,7 +2,7 @@
 USER := $(shell whoami)
 PWD := $(shell pwd)
 
-all: update add_user_to_groups install_apt_pkgs install_brew_pkgs
+all: update add_user_to_groups stow install_apt_pkgs install_brew_pkgs
 
 update:
 	@sudo apt update && \
@@ -12,6 +12,9 @@ update:
 
 add_user_to_groups:
 	@sudo usermod -aG video $(USER)
+
+stow:
+	stow conf
 
 install_apt_pkgs:
 	@sudo apt install \
@@ -74,7 +77,7 @@ install_apt_pkgs:
 		foot-themes \
 
 install_brew_pkgs:
-	brew install \
+	@brew install \
 		neovim \
 		zellij \
 		helix \
