@@ -35,6 +35,7 @@ python3-pip
 python3-venv
 ripgrep
 rofi
+stow
 sudo
 sway
 swaybg
@@ -54,4 +55,3 @@ xclip
 xdg-desktop-portal-wlr
 xss-lock
 xwayland
-zim-tools

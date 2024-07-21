@@ -1,9 +1,7 @@
 awscli
-awscli
 duckdb
 helix
 kubectl
-lazygit
 lazygit
 lf
 marksman
