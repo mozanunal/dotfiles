@@ -1,10 +1,6 @@
 - name: Install required packages on Ubuntu
   apt:
     name:
-      - python-is-python3
-      - python3-pip
-      - python3-venv
-      - lua5.1
     state: present
   become: true
 
@@ -43,14 +39,4 @@
       - awscli
       - kubectl
     state: present
-
-- name: Copy example development files for python
-  ansible.builtin.copy:
-    src: "dev.py"
-    dest: "~/.moz_py/dev.py"
-
-- name: Copy example development files for sqlite
-  ansible.builtin.copy:
-    src: "dev.sqlite"
-    dest: "~/.moz_py/dev.sqlite"
 
