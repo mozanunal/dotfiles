@@ -91,10 +91,10 @@ bindsym $mod+Return exec foot
 bindsym $mod+Shift+Return exec google-chrome
 bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+space exec "wofi --show drun -IG"
-bindsym $mod+c exec moz_passmenu
-bindsym $mod+u exec moz_emoji
-bindsym $mod+a exec moz_snipmenu
-bindsym $mod+Shift+p exec moz_power
+bindsym $mod+c exec ~/.local/bin/moz_passmenu
+bindsym $mod+u exec ~/.local/bin/moz_emoji
+bindsym $mod+a exec ~/.local/bin/moz_snipmenu
+bindsym $mod+Shift+p exec ~/.local/bin/moz_power
 
 ########## Keybinds Special Keys
 # volumes
