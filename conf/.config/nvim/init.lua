@@ -2,44 +2,6 @@
 local SET_ICONS = true
 local SET_CTERM = false
 
-local cattpuccin_machiatto = {
-  base00 = "#24273a",
-  base01 = "#1e2030",
-  base02 = "#363a4f",
-  base03 = "#494d64",
-  base04 = "#5b6078",
-  base05 = "#cad3f5",
-  base06 = "#f4dbd6",
-  base07 = "#b7bdf8",
-  base08 = "#ed8796",
-  base09 = "#f5a97f",
-  base0A = "#eed49f",
-  base0B = "#a6da95",
-  base0C = "#8bd5ca",
-  base0D = "#8aadf4",
-  base0E = "#c6a0f6",
-  base0F = "#f0c6c6",
-}
-
-local cattpuccin_latte = {
-  base00 = "#eff1f5",
-  base01 = "#e6e9ef",
-  base02 = "#ccd0da",
-  base03 = "#bcc0cc",
-  base04 = "#acb0be",
-  base05 = "#4c4f69",
-  base06 = "#dc8a78",
-  base07 = "#7287fd",
-  base08 = "#d20f39",
-  base09 = "#fe640b",
-  base0A = "#df8e1d",
-  base0B = "#40a02b",
-  base0C = "#179299",
-  base0D = "#1e66f5",
-  base0E = "#8839ef",
-  base0F = "#dd7878",
-}
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local kmap = vim.keymap.set
@@ -92,6 +54,7 @@ require("lazy").setup({
   },
   { "GCBallesteros/jupytext.nvim", config = true, },
   { 'Vigemus/iron.nvim' },
+  'norcalli/nvim-colorizer.lua',
   "jamessan/vim-gnupg",
   "SWiegandt/python-utils.nvim",
 })
@@ -99,6 +62,7 @@ require("lazy").setup({
 LuaSnip = require("luasnip")
 
 -- Plugin Configs
+local th = require("moz.themes")
 require("mini.basics").setup({
   options = {
     extra_ui = true,
@@ -115,7 +79,7 @@ require("mini.ai").setup()
 if SET_ICONS then
   require("mini.icons").setup()
 else
-  require("mini.icons").setup({style="ascii"})
+  require("mini.icons").setup({ style = "ascii" })
 end
 require("mini.bracketed").setup()
 require("mini.completion").setup()
@@ -137,9 +101,9 @@ require("mini.notify").setup()
 require("mini.operators").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
-require("mini.statusline").setup({use_icons=SET_ICONS})
+require("mini.statusline").setup({ use_icons = SET_ICONS })
 require("mini.surround").setup()
-require("mini.tabline").setup({use_icons=SET_ICONS})
+require("mini.tabline").setup({ use_icons = SET_ICONS })
 require("mini.trailspace").setup()
 require("mini.extra").setup()
 require("mini.fuzzy").setup()
@@ -151,14 +115,14 @@ require("mini.jump2d").setup({
 
 Dark = function()
   require("mini.base16").setup({
-    palette = cattpuccin_machiatto,
+    palette = th.cattpuccin_machiatto,
     use_cterm = SET_CTERM
   })
 end
 
 Light = function()
   require("mini.base16").setup({
-    palette = cattpuccin_latte,
+    palette = th.cattpuccin_latte,
     use_cterm = SET_CTERM
   })
 end
@@ -558,5 +522,5 @@ vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
-
+require('colorizer').setup()
 -- vim: ts=2 sts=2 sw=2 et
