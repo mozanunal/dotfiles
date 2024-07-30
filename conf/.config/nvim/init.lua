@@ -54,7 +54,6 @@ require("lazy").setup({
 
 
 -- Plugin Configs
-local th = require("moz.themes")
 require("mini.basics").setup({
   options = {
     extra_ui = true,
@@ -482,5 +481,6 @@ vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
+vim.cmd([[colorscheme cattpuccin]])
 require('colorizer').setup()
 -- vim: ts=2 sts=2 sw=2 et
