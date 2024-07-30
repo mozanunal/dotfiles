@@ -45,13 +45,6 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
-  },
   { "GCBallesteros/jupytext.nvim", config = true, },
   { 'Vigemus/iron.nvim' },
   'norcalli/nvim-colorizer.lua',
@@ -59,7 +52,6 @@ require("lazy").setup({
   "SWiegandt/python-utils.nvim",
 })
 
-LuaSnip = require("luasnip")
 
 -- Plugin Configs
 local th = require("moz.themes")
@@ -112,22 +104,6 @@ require("mini.jump2d").setup({
     start_jumping = "S",
   },
 })
-
-Dark = function()
-  require("mini.base16").setup({
-    palette = th.cattpuccin_machiatto,
-    use_cterm = SET_CTERM
-  })
-end
-
-Light = function()
-  require("mini.base16").setup({
-    palette = th.cattpuccin_latte,
-    use_cterm = SET_CTERM
-  })
-end
-
-Dark()
 
 require("mini.jump").setup({
   delay = { highlight = 0, idle_stop = 0 },
@@ -386,8 +362,8 @@ kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>'
   { noremap = true, silent = true, desc = "Git Autocommit" })
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
-kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme" })
-kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme" })
+-- kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme" })
+-- kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme" })
 
 local iron = require("iron.core")
 
@@ -464,25 +440,9 @@ F_cr_i = function()
   end
 end
 
-Luasnip_go_right = function()
-  if LuaSnip.expand_or_jumpable() then
-    LuaSnip.expand_or_jump()
-  end
-end
-
-Luasnip_go_left = function()
-  if LuaSnip.jumpable() then
-    LuaSnip.jump(-1)
-  end
-end
-
 kmap("i", "<CR>", F_cr_i, { expr = true })
 kmap("i", "<Tab>", F_tab_i, { noremap = true, expr = true })
 kmap("i", "<S-Tab>", F_stab_i, { noremap = true, expr = true })
-kmap("i", "<C-l>", [[<CMD>lua Luasnip_go_right()<CR>]], {})
-kmap("s", "<C-l>", [[<CMD>lua Luasnip_go_right()<CR>]], {})
-kmap("i", "<C-h>", [[<CMD>lua Luasnip_go_left()<CR>]], {})
-kmap("s", "<C-h>", [[<CMD>lua Luasnip_go_left()<CR>]], {})
 
 -- autocommands
 vim.api.nvim_create_autocmd("TermClose", {
