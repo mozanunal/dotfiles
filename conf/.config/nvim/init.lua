@@ -50,7 +50,10 @@ require("lazy").setup({
 })
 
 
+
 -- Plugin Configs
+vim.o.termguicolors = true
+require('colorizer').setup()
 require("neodev").setup()
 require("mini.ai").setup()
 require("mini.bracketed").setup()
@@ -464,7 +467,6 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
-vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
 vim.cmd([[colorscheme cattpuccin]])
-require('colorizer').setup()
+vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
 -- vim: ts=2 sts=2 sw=2 et

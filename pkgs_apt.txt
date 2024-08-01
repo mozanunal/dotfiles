@@ -17,8 +17,6 @@ htop
 i3
 i3blocks
 i3lock-fancy
-kiwix
-kiwix-tools
 light
 lm-sensors
 lua5.1
