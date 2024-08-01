@@ -1,7 +1,4 @@
 -- variables
-local SET_ICONS = true
-local SET_CTERM = false
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local kmap = vim.keymap.set
@@ -47,13 +44,34 @@ require("lazy").setup({
   },
   { "GCBallesteros/jupytext.nvim", config = true, },
   { 'Vigemus/iron.nvim' },
-  'norcalli/nvim-colorizer.lua',
-  "jamessan/vim-gnupg",
-  "SWiegandt/python-utils.nvim",
+  { 'norcalli/nvim-colorizer.lua' },
+  { "jamessan/vim-gnupg" },
+  { "SWiegandt/python-utils.nvim" },
 })
 
 
 -- Plugin Configs
+require("neodev").setup()
+require("mini.ai").setup()
+require("mini.bracketed").setup()
+require("mini.comment").setup()
+require("mini.completion").setup()
+require("mini.cursorword").setup()
+require("mini.extra").setup()
+require("mini.files").setup()
+require("mini.fuzzy").setup()
+require("mini.icons").setup()
+require("mini.indentscope").setup()
+require("mini.misc").setup()
+require("mini.move").setup()
+require("mini.notify").setup()
+require("mini.operators").setup()
+require("mini.pairs").setup()
+require("mini.splitjoin").setup()
+require("mini.statusline").setup()
+require("mini.surround").setup()
+require("mini.tabline").setup()
+require("mini.trailspace").setup()
 require("mini.basics").setup({
   options = {
     extra_ui = true,
@@ -63,41 +81,12 @@ require("mini.basics").setup({
     windows = true,
   },
 })
-
-require("mini.files").setup()
-require("neodev").setup()
-require("mini.ai").setup()
-if SET_ICONS then
-  require("mini.icons").setup()
-else
-  require("mini.icons").setup({ style = "ascii" })
-end
-require("mini.bracketed").setup()
-require("mini.completion").setup()
-require("mini.comment").setup()
-require("mini.cursorword").setup()
-require("mini.diff").setup(
-  {
-    view = {
-      style = 'sign',
-      signs = { add = '+', change = '~', delete = '-' },
-
-    }
+require("mini.diff").setup({
+  view = {
+    style = 'sign',
+    signs = { add = '+', change = '~', delete = '-' },
   }
-)
-require("mini.indentscope").setup()
-require("mini.misc").setup()
-require("mini.move").setup()
-require("mini.notify").setup()
-require("mini.operators").setup()
-require("mini.pairs").setup()
-require("mini.splitjoin").setup()
-require("mini.statusline").setup({ use_icons = SET_ICONS })
-require("mini.surround").setup()
-require("mini.tabline").setup({ use_icons = SET_ICONS })
-require("mini.trailspace").setup()
-require("mini.extra").setup()
-require("mini.fuzzy").setup()
+})
 require("mini.jump2d").setup({
   mappings = {
     start_jumping = "S",
@@ -257,7 +246,7 @@ end, 0)
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
   -- for LSP related items. It sets the mode, buffer and description for us each time.
-  local nmap = function(keys, func, desc)
+  local lsp_map = function(keys, func, desc)
     if desc then
       desc = "LSP: " .. desc
     end
@@ -265,21 +254,21 @@ local on_attach = function(client, bufnr)
   end
   -- client.server_capabilities.semanticTokensProvider = nil
 
-  nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
-  nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
-  nmap("gd", vim.lsp.buf.definition, "Goto Definition")
-  nmap("gr", function()
+  lsp_map("<leader>lr", vim.lsp.buf.rename, "Rename")
+  lsp_map("<leader>la", vim.lsp.buf.code_action, "Code Action")
+  lsp_map("gd", vim.lsp.buf.definition, "Goto Definition")
+  lsp_map("gr", function()
     MiniExtra.pickers.lsp({ scope = "references" })
   end, "Goto References")
-  nmap("gI", vim.lsp.buf.implementation, "Goto Implementation")
-  nmap("gt", vim.lsp.buf.type_definition, "Goto Type Definition")
-  nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-  nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
-  nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
-  nmap("<leader>lf", vim.lsp.buf.format, "Format")
-  nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace")
-  nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace")
-  nmap("<leader>wl", function()
+  lsp_map("gI", vim.lsp.buf.implementation, "Goto Implementation")
+  lsp_map("gt", vim.lsp.buf.type_definition, "Goto Type Definition")
+  lsp_map("K", vim.lsp.buf.hover, "Hover Documentation")
+  lsp_map("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+  lsp_map("gD", vim.lsp.buf.declaration, "Goto Declaration")
+  lsp_map("<leader>lf", vim.lsp.buf.format, "Format")
+  lsp_map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace")
+  lsp_map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace")
+  lsp_map("<leader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "List Workspace")
 
@@ -366,7 +355,7 @@ kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = tru
 
 local iron = require("iron.core")
 
-iron.setup {
+iron.setup({
   config = {
     scratch_repl = true,
     repl_definition = {
@@ -394,7 +383,7 @@ iron.setup {
     bg = "#000000"
   },
   ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
-}
+})
 
 -- iron also has a list of commands, see :h iron-commands for all available commands
 kmap('n', '<space>rs', '<cmd>IronRepl<cr>', { noremap = true, silent = true, desc = "Repl Open" })
@@ -469,12 +458,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 
 -- options
-if SET_CTERM then
-  vim.o.termguicolors = false
-  vim.o.winblend = 0
-else
-  vim.o.termguicolors = true
-end
+vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
