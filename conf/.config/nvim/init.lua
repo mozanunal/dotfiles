@@ -22,7 +22,7 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim",          config = true },
+      { "williamboman/mason.nvim", config = true },
       { "williamboman/mason-lspconfig.nvim" },
       { "folke/neodev.nvim" },
     },
@@ -42,12 +42,11 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
-  { "GCBallesteros/jupytext.nvim", config = true, },
-  { 'Vigemus/iron.nvim' },
+  { "GCBallesteros/jupytext.nvim", config = true },
+  { "Vigemus/iron.nvim" },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
 })
-
 
 -- Plugin Configs
 require("neodev").setup()
@@ -81,14 +80,14 @@ require("mini.basics").setup({
   },
 })
 
-local hipatterns = require('mini.hipatterns')
+local hipatterns = require("mini.hipatterns")
 hipatterns.setup({
   highlighters = {
     -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-    fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-    hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-    todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-    note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+    fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+    hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+    todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+    note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
     -- Highlight hex color strings (`#rrggbb`) using that color
     hex_color = hipatterns.gen_highlighter.hex_color(),
@@ -102,21 +101,19 @@ require("mini.files").setup({
     width_focus = 50,
     width_nofocus = 20,
     width_preview = 20,
-  }
+  },
 })
 
-require("mini.diff").setup(
-  {
-    view = {
-      style = "sign",
-      signs = {
-        add = "▎",
-        change = "▎",
-        delete = "",
-      },
+require("mini.diff").setup({
+  view = {
+    style = "sign",
+    signs = {
+      add = "▎",
+      change = "▎",
+      delete = "",
     },
-  }
-)
+  },
+})
 
 require("mini.jump2d").setup({
   mappings = {
@@ -137,7 +134,7 @@ require("mini.pick").setup({
   },
 })
 
-local miniclue = require('mini.clue')
+local miniclue = require("mini.clue")
 miniclue.setup({
   triggers = {
     -- Leader triggers
@@ -191,7 +188,9 @@ miniclue.setup({
   },
 })
 
-local file_picker = function() MiniPick.builtin.cli({command={"rg", "--files", "--hidden", "--glob=!.git/"}}) end
+local file_picker = function()
+  MiniPick.builtin.cli({ command = { "rg", "--files", "--hidden", "--glob=!.git/" } })
+end
 
 vim.defer_fn(function()
   require("nvim-treesitter.configs").setup({
@@ -360,7 +359,7 @@ kmap("n", "<leader>fl", MiniExtra.pickers.buf_lines, { noremap = true, silent = 
 kmap("n", "<leader>ff", function()
   MiniPick.builtin.files({ tool = "git" })
 end, { noremap = true, silent = true, desc = "Find File" })
-kmap("n", "<leader><Space>", file_picker, {   noremap = true, silent = true, desc = "Find File" })
+kmap("n", "<leader><Space>", file_picker, { noremap = true, silent = true, desc = "Find File" })
 kmap("n", "<C-p>", MiniPick.builtin.files, { noremap = true, silent = true, desc = "Find File" })
 kmap("n", "<leader>fs", function()
   MiniExtra.pickers.lsp({ scope = "document_symbol" })
@@ -379,14 +378,20 @@ kmap("n", "<leader>gg", "<CMD>terminal lazygit<CR>", { noremap = true, silent = 
 kmap("n", "<leader>gp", "<CMD>terminal git pull<CR>", { noremap = true, silent = true, desc = "Git Push" })
 kmap("n", "<leader>gP", "<CMD>terminal git push<CR>", { noremap = true, silent = true, desc = "Git Pull" })
 kmap("n", "<leader>ga", "<CMD>terminal git add .<CR>", { noremap = true, silent = true, desc = "Git Add All" })
-kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>',
-  { noremap = true, silent = true, desc = "Git Autocommit" })
+kmap(
+  "n",
+  "<leader>gc",
+  '<CMD>terminal git commit -m "Autocommit from nvim"<CR>',
+  { noremap = true, silent = true, desc = "Git Autocommit" }
+)
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
-kmap("n", "<leader>td", function() vim.o.background = 'dark' end,
-  { noremap = true, silent = true, desc = "Dark Theme" })
-kmap("n", "<leader>tl", function() vim.o.background = 'light' end,
-  { noremap = true, silent = true, desc = "Light Theme" })
+kmap("n", "<leader>td", function()
+  vim.o.background = "dark"
+end, { noremap = true, silent = true, desc = "Dark Theme" })
+kmap("n", "<leader>tl", function()
+  vim.o.background = "light"
+end, { noremap = true, silent = true, desc = "Light Theme" })
 
 local iron = require("iron.core")
 
@@ -396,7 +401,7 @@ iron.setup({
     repl_definition = {
       python = require("iron.fts.python").ipython,
     },
-    repl_open_cmd = require('iron.view').split.vertical.botright(0.5),
+    repl_open_cmd = require("iron.view").split.vertical.botright(0.5),
   },
   keymaps = {
     send_motion = "<space>sc",
@@ -415,16 +420,16 @@ iron.setup({
   -- For the available options, check nvim_set_hl
   highlight = {
     italic = true,
-    bg = "#000000"
+    bg = "#000000",
   },
   ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
 })
 
 -- iron also has a list of commands, see :h iron-commands for all available commands
-kmap('n', '<space>rs', '<cmd>IronRepl<cr>', { noremap = true, silent = true, desc = "Repl Open" })
-kmap('n', '<space>rr', '<cmd>IronRestart<cr>', { noremap = true, silent = true, desc = "Repl Restart" })
-kmap('n', '<space>rf', '<cmd>IronFocus<cr>', { noremap = true, silent = true, desc = "Repl Focus" })
-kmap('n', '<space>rh', '<cmd>IronHide<cr>', { noremap = true, silent = true, desc = "Repl Hide" })
+kmap("n", "<space>rs", "<cmd>IronRepl<cr>", { noremap = true, silent = true, desc = "Repl Open" })
+kmap("n", "<space>rr", "<cmd>IronRestart<cr>", { noremap = true, silent = true, desc = "Repl Restart" })
+kmap("n", "<space>rf", "<cmd>IronFocus<cr>", { noremap = true, silent = true, desc = "Repl Focus" })
+kmap("n", "<space>rh", "<cmd>IronHide<cr>", { noremap = true, silent = true, desc = "Repl Hide" })
 
 -- customized key mappings
 K = {
@@ -471,24 +476,6 @@ kmap("i", "<S-Tab>", F_stab_i, { noremap = true, expr = true })
 vim.api.nvim_create_autocmd("TermClose", {
   callback = function()
     vim.cmd("bdelete")
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.py" },
-  callback = function()
-    vim.api.nvim_buf_create_user_command(0, "OpenDataset", function()
-      require("python-utils.python").get_class_module(function(symbol_path)
-        local _, _, module, class = string.find(symbol_path, "(.*)%.(%w+)$")
-
-        vim.cmd(string.format("silent !python -c 'from %s import %s; print(%s().target().path)' | xargs open", module,
-          class, class))
-
-        if vim.v.shell_error ~= 0 then
-          vim.notify("Couldn't find dataset directory for " .. class, "ERROR")
-        end
-      end)
-    end, {})
   end,
 })
 
