@@ -40,7 +40,7 @@ alias moz_jpy="tmux new-session -d -s jupyter 'source ./.moz_py/bin/activate && 
 alias moz_ipy='moz_py && ipython'
 alias moz_bpy='moz_py && bpython'
 alias moz_sql='moz_py && litecli ~/.moz_py/dev.sqlite'
-
+alias lvim='NVIM_APPNAME="lvim" nvim'
 # --- functions
 moz_fzef() {
   fd -t f -d 7 --hidden -E .git| $fzf_cmd | xargs -r $EDITOR

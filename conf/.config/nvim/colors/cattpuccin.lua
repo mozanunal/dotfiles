@@ -41,4 +41,5 @@ else
 	palette = light
 end
 require('mini.base16').setup({ palette = palette, use_cterm = use_cterm })
+vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
 vim.g.colors_name = 'catppuccin'

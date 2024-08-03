@@ -44,16 +44,12 @@ require("lazy").setup({
   },
   { "GCBallesteros/jupytext.nvim", config = true, },
   { 'Vigemus/iron.nvim' },
-  { 'norcalli/nvim-colorizer.lua' },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
 })
 
 
-
 -- Plugin Configs
-vim.o.termguicolors = true
-require('colorizer').setup()
 require("neodev").setup()
 require("mini.ai").setup()
 require("mini.bracketed").setup()
@@ -61,7 +57,6 @@ require("mini.comment").setup()
 require("mini.completion").setup()
 require("mini.cursorword").setup()
 require("mini.extra").setup()
-require("mini.files").setup()
 require("mini.fuzzy").setup()
 require("mini.icons").setup()
 require("mini.indentscope").setup()
@@ -75,6 +70,7 @@ require("mini.statusline").setup()
 require("mini.surround").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
+
 require("mini.basics").setup({
   options = {
     extra_ui = true,
@@ -84,12 +80,44 @@ require("mini.basics").setup({
     windows = true,
   },
 })
-require("mini.diff").setup({
-  view = {
-    style = 'sign',
-    signs = { add = '+', change = '~', delete = '-' },
+
+local hipatterns = require('mini.hipatterns')
+hipatterns.setup({
+  highlighters = {
+    -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+    fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+    hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+    todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+    note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+
+    -- Highlight hex color strings (`#rrggbb`) using that color
+    hex_color = hipatterns.gen_highlighter.hex_color(),
+  },
+})
+
+require("mini.files").setup({
+  windows = {
+    max_number = 10,
+    preview = false,
+    width_focus = 50,
+    width_nofocus = 20,
+    width_preview = 20,
   }
 })
+
+require("mini.diff").setup(
+  {
+    view = {
+      style = "sign",
+      signs = {
+        add = "▎",
+        change = "▎",
+        delete = "",
+      },
+    },
+  }
+)
+
 require("mini.jump2d").setup({
   mappings = {
     start_jumping = "S",
@@ -162,6 +190,8 @@ miniclue.setup({
     delay = 50,
   },
 })
+
+local file_picker = function() MiniPick.builtin.cli({command={"rg", "--files", "--hidden", "--glob=!.git/"}}) end
 
 vim.defer_fn(function()
   require("nvim-treesitter.configs").setup({
@@ -330,7 +360,7 @@ kmap("n", "<leader>fl", MiniExtra.pickers.buf_lines, { noremap = true, silent = 
 kmap("n", "<leader>ff", function()
   MiniPick.builtin.files({ tool = "git" })
 end, { noremap = true, silent = true, desc = "Find File" })
-kmap("n", "<leader><Space>", MiniPick.builtin.files, { noremap = true, silent = true, desc = "Find File" })
+kmap("n", "<leader><Space>", file_picker, {   noremap = true, silent = true, desc = "Find File" })
 kmap("n", "<C-p>", MiniPick.builtin.files, { noremap = true, silent = true, desc = "Find File" })
 kmap("n", "<leader>fs", function()
   MiniExtra.pickers.lsp({ scope = "document_symbol" })
@@ -353,8 +383,10 @@ kmap("n", "<leader>gc", '<CMD>terminal git commit -m "Autocommit from nvim"<CR>'
   { noremap = true, silent = true, desc = "Git Autocommit" })
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
--- kmap("n", "<leader>td", Dark, { noremap = true, silent = true, desc = "Dark Theme" })
--- kmap("n", "<leader>tl", Light, { noremap = true, silent = true, desc = "Light Theme" })
+kmap("n", "<leader>td", function() vim.o.background = 'dark' end,
+  { noremap = true, silent = true, desc = "Dark Theme" })
+kmap("n", "<leader>tl", function() vim.o.background = 'light' end,
+  { noremap = true, silent = true, desc = "Light Theme" })
 
 local iron = require("iron.core")
 
@@ -468,5 +500,5 @@ vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.cmd([[colorscheme cattpuccin]])
-vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
+MiniMisc.setup_termbg_sync()
 -- vim: ts=2 sts=2 sw=2 et
