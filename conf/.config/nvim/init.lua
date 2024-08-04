@@ -472,13 +472,6 @@ kmap("i", "<CR>", F_cr_i, { expr = true })
 kmap("i", "<Tab>", F_tab_i, { noremap = true, expr = true })
 kmap("i", "<S-Tab>", F_stab_i, { noremap = true, expr = true })
 
--- autocommands
-vim.api.nvim_create_autocmd("TermClose", {
-  callback = function()
-    vim.cmd("bdelete")
-  end,
-})
-
 -- options
 vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
