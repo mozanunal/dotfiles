@@ -17,4 +17,4 @@ base0E: "8839ef" # mauve
 base0F: "dd7878" # flamingo
 ]]
 
-Set_b16_colors(pallette )
+Set_b16_colors(pallette)

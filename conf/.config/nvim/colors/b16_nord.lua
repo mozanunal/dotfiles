@@ -17,4 +17,4 @@ base0E: "A3BE8C"
 base0F: "B48EAD"
 ]]
 
-Set_b16_colors(pallette )
+Set_b16_colors(pallette)

@@ -17,5 +17,4 @@ base0E: "f6c177"
 base0F: "56526e"
 ]]
 
-Set_b16_colors(pallette )
-
+Set_b16_colors(pallette)
