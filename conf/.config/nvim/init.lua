@@ -22,7 +22,7 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim", config = true },
+      { "williamboman/mason.nvim",          config = true },
       { "williamboman/mason-lspconfig.nvim" },
       { "folke/neodev.nvim" },
     },
@@ -482,18 +482,18 @@ vim.o.laststatus = 3
 
 
 local parse_b16 = function(str_in)
-	local colors = {}
-	for line in str_in:gmatch("[^\r\n]+") do
-		local key, value = line:match('(%w+):%s+"(.-)"')
-		if key and value then
-			colors[key] = "#" .. value
-		end
-	end
-	return colors
+  local colors = {}
+  for line in str_in:gmatch("[^\r\n]+") do
+    local key, value = line:match('(%w+):%s+"(.-)"')
+    if key and value then
+      colors[key] = "#" .. value
+    end
+  end
+  return colors
 end
 
-Set_b16_colors = function (str_in)
-  require('mini.base16').setup({ palette = parse_b16(str_in)})
+Set_b16_colors = function(str_in)
+  require('mini.base16').setup({ palette = parse_b16(str_in) })
   vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
 end
 vim.cmd([[colorscheme b16_catppuccin_macchiato]])
