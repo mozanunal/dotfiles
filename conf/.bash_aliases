@@ -22,7 +22,7 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
 	PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 fi
 
-fzf_cmd="fzf --reverse"
+FZF_CMD="fzf --reverse"
 # --- aliases
 alias la='ls -la'
 alias ll='ls -ll'
@@ -42,23 +42,25 @@ alias moz_bpy='moz_py && bpython'
 alias moz_sql='moz_py && litecli ~/.moz_py/dev.sqlite'
 alias lvim='NVIM_APPNAME="lvim" nvim'
 # --- functions
+FD_OPTS="--follow --hidden -E .git -E node_modules -E .venv -E .cache"
+
 moz_fzef() {
-  fd -t f -d 7 --hidden -E .git| $fzf_cmd | xargs -r $EDITOR
+  fd -t f -d 7 $FD_OPTS | $FZF_CMD | xargs -r $EDITOR
 }
 
 moz_fzed() {
-  cd $(fd -t d -d 5 | $fzf_cmd )
+  cd $(fd -t d -d 5 $FD_OPTS | $FZF_CMD )
   source .venv/bin/activate 2>/dev/null || true
   $EDITOR .
 }
 # -- readline functions
 __moz_fzcd() {
-  READLINE_LINE="cd $(fd -t d -d 5 | $fzf_cmd)"
+  READLINE_LINE="cd $(fd -t d -d 5 $FD_OPTS | $FZF_CMD)"
   READLINE_POINT=${#READLINE_LINE}
 }
 
 __moz_fzh() {
-  READLINE_LINE=$(cat ~/.bash_history | sort | uniq | $fzf_cmd)
+  READLINE_LINE=$(cat ~/.bash_history | sort | uniq | $FZF_CMD)
   READLINE_POINT=${#READLINE_LINE}
 }
 
@@ -73,17 +75,6 @@ bind -x '"\ee":moz_fzef'
 
 moz_fd_large_files() {
 	du -h -x -s -- * | sort -r -h | head -20
-}
-
-moz_smoke_test() {
-	smoke_tests="Normal
-\033[1mBold\033[22m
-\033[3mItalic\033[23m
-\033[3;1mBold Italic\033[0m
-\033[4mUnderline\033[24m
-== === !== >= <= =>
-契          勒 鈴 \n"
-	printf "%b" "${smoke_tests}"
 }
 
 moz_update() {
