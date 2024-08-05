@@ -1,10 +1,13 @@
 awscli
 duckdb
+glow
+gopls
 helix
+hugo
 kubectl
 lazygit
-lf
 marksman
 neovim
 pyright
+yazi
 zellij
