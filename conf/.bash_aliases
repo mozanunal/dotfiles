@@ -30,6 +30,8 @@ alias fd='fdfind'
 alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
 # alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
 alias v='source .venv/bin/activate'
+alias vp='source playground/.envrc'
+alias e='source .venv/bin/activate; && $EDITOR .'
 alias n='cd ~/.password-store && $EDITOR .'
 alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'

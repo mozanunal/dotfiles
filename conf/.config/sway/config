@@ -52,7 +52,7 @@ client.background        $base
 # font pango:monospace 10
 floating_modifier $mod
 font pango:Cousine Nerd Font 12
-default_border pixel 2
+default_border pixel 4
 focus_follows_mouse no
 
 ########## Autostart
