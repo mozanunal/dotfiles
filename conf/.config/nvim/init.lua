@@ -49,7 +49,6 @@ require("lazy").setup({
 })
 
 -- Plugin Configs
-require("neodev").setup()
 require("mini.ai").setup()
 require("mini.bracketed").setup()
 require("mini.comment").setup()
@@ -57,6 +56,7 @@ require("mini.completion").setup()
 require("mini.cursorword").setup()
 require("mini.extra").setup()
 require("mini.fuzzy").setup()
+require("mini.git").setup()
 require("mini.icons").setup()
 require("mini.indentscope").setup()
 require("mini.misc").setup()
@@ -64,11 +64,14 @@ require("mini.move").setup()
 require("mini.notify").setup()
 require("mini.operators").setup()
 require("mini.pairs").setup()
+require("mini.sessions").setup()
 require("mini.splitjoin").setup()
 require("mini.statusline").setup()
 require("mini.surround").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
+require("mini.visits").setup()
+require("neodev").setup()
 
 require("mini.basics").setup({
   options = {
@@ -498,4 +501,6 @@ Set_b16_colors = function(str_in)
 end
 vim.cmd([[colorscheme b16_catppuccin_macchiato]])
 MiniMisc.setup_termbg_sync()
+MiniMisc.setup_restore_cursor()
+MiniMisc.setup_auto_root()
 -- vim: ts=2 sts=2 sw=2 et
