@@ -46,6 +46,11 @@ require("lazy").setup({
   { "Vigemus/iron.nvim" },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp"
+  }
 })
 
 -- Plugin Configs
@@ -429,7 +434,7 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
-
+vim.o.exrc = true
 
 local parse_b16 = function(str_in)
   local colors = {}
