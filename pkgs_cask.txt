@@ -12,3 +12,4 @@ raycast
 visual-studio-code
 wezterm
 zed
+kitty

@@ -50,6 +50,34 @@ require("lazy").setup({
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     build = "make install_jsregexp"
+  },
+  {
+    'saghen/blink.cmp',
+    dependencies = 'rafamadriz/friendly-snippets',
+    version = 'v0.*',
+    opts = {
+      keymap = { preset = 'enter' },
+      appearance = {
+        use_nvim_cmp_as_default = true,
+        nerd_font_variant = 'mono'
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+      },
+      signature = { enabled = true }
+    },
+    opts_extend = { "sources.default" }
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   }
 })
 
@@ -57,7 +85,7 @@ require("lazy").setup({
 require("mini.ai").setup()
 require("mini.bracketed").setup()
 require("mini.comment").setup()
-require("mini.completion").setup()
+-- require("mini.completion").setup()
 require("mini.cursorword").setup()
 require("mini.extra").setup()
 require("mini.fuzzy").setup()
@@ -239,8 +267,7 @@ local on_attach = function(client, bufnr)
     end
     kmap("n", keys, func, { buffer = bufnr, desc = desc })
   end
-  -- client.server_capabilities.semanticTokensProvider = nil
-
+  require('blink.cmp').get_lsp_capabilities(client.server_capabilities)
   lsp_map("<leader>lr", vim.lsp.buf.rename, "Rename")
   lsp_map("<leader>la", vim.lsp.buf.code_action, "Code Action")
   lsp_map("gd", vim.lsp.buf.definition, "Goto Definition")
@@ -385,47 +412,6 @@ kmap("n", "<space>rs", "<cmd>IronRepl<cr>", { noremap = true, silent = true, des
 kmap("n", "<space>rr", "<cmd>IronRestart<cr>", { noremap = true, silent = true, desc = "Repl Restart" })
 kmap("n", "<space>rf", "<cmd>IronFocus<cr>", { noremap = true, silent = true, desc = "Repl Focus" })
 kmap("n", "<space>rh", "<cmd>IronHide<cr>", { noremap = true, silent = true, desc = "Repl Hide" })
-
--- customized key mappings
-K = {
-  ["cr"] = vim.api.nvim_replace_termcodes("<CR>", true, true, true),
-  ["ctrl-y"] = vim.api.nvim_replace_termcodes("<C-y>", true, true, true),
-  ["ctrl-n"] = vim.api.nvim_replace_termcodes("<C-n>", true, true, true),
-  ["ctrl-p"] = vim.api.nvim_replace_termcodes("<C-p>", true, true, true),
-  ["ctrl-h"] = vim.api.nvim_replace_termcodes("<C-h>", true, true, true),
-  ["ctrl-l"] = vim.api.nvim_replace_termcodes("<C-l>", true, true, true),
-  ["tab"] = vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
-  ["s-tab"] = vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true),
-}
-
-F_tab_i = function()
-  if vim.fn.pumvisible() ~= 0 then
-    return K["ctrl-n"]
-  else
-    return K["tab"]
-  end
-end
-
-F_stab_i = function()
-  if vim.fn.pumvisible() ~= 0 then
-    return K["ctrl-h"]
-  else
-    return K["s-tab"]
-  end
-end
-
-F_cr_i = function()
-  if vim.fn.pumvisible() ~= 0 then
-    local item_selected = vim.fn.complete_info()["selected"] ~= -1
-    return item_selected and K["ctrl-y"] or K["ctrl-y_cr"]
-  else
-    return MiniPairs.cr()
-  end
-end
-
-kmap("i", "<CR>", F_cr_i, { expr = true })
-kmap("i", "<Tab>", F_tab_i, { noremap = true, expr = true })
-kmap("i", "<S-Tab>", F_stab_i, { noremap = true, expr = true })
 
 -- options
 vim.o.termguicolors = true
