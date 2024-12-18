@@ -1,0 +1,14 @@
+alacritty
+font-cousine
+font-cousine-nerd-font
+font-fira-code
+font-fira-code-nerd-font
+font-jetbrains-mono
+font-jetbrains-mono-nerd-font
+neovide
+obs
+obsidian
+raycast
+visual-studio-code
+wezterm
+zed

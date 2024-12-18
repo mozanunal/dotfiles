@@ -1,15 +1,12 @@
 acpi
 alacritty
 arandr
-bat
-fd-find
 feh
 fonts-croscore
 fonts-noto-color-emoji
 fonts-symbola
 foot
 foot-themes
-fzf
 git
 grim
 grimshot
@@ -31,9 +28,7 @@ pcmanfm
 python-is-python3
 python3-pip
 python3-venv
-ripgrep
 rofi
-stow
 sudo
 sway
 swaybg
@@ -42,7 +37,6 @@ swaylock
 sxiv
 tmux
 unzip
-vim
 volumeicon-alsa
 waybar
 wdisplays
