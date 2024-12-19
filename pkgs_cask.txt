@@ -5,11 +5,12 @@ font-fira-code
 font-fira-code-nerd-font
 font-jetbrains-mono
 font-jetbrains-mono-nerd-font
+kitty
 neovide
 obs
 obsidian
 raycast
+sublime-text
 visual-studio-code
 wezterm
 zed
-kitty
