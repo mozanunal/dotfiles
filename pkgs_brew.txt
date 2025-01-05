@@ -26,3 +26,5 @@ zsh
 zsh-async
 zsh-autocomplete
 zsh-autosuggestions
+zsh-completions
+zsh-syntax-highlighting

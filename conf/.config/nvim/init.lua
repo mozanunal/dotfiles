@@ -43,42 +43,31 @@ require("lazy").setup({
     end,
   },
   { "GCBallesteros/jupytext.nvim", config = true },
-  { "Vigemus/iron.nvim" },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
-    build = "make install_jsregexp"
+    build = "make install_jsregexp",
   },
   {
-    'saghen/blink.cmp',
-    dependencies = 'rafamadriz/friendly-snippets',
-    version = 'v0.*',
+    "saghen/blink.cmp",
+    dependencies = "rafamadriz/friendly-snippets",
+    version = "*",
     opts = {
-      keymap = { preset = 'enter' },
+      keymap = { preset = "super-tab" },
       appearance = {
         use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono'
+        nerd_font_variant = "mono",
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { "lsp", "path", "snippets", "buffer" },
+        cmdline = {},
       },
-      signature = { enabled = true }
+      signature = { enabled = true },
     },
-    opts_extend = { "sources.default" }
+    opts_extend = { "sources.default" },
   },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  }
 })
 
 -- Plugin Configs
@@ -267,7 +256,7 @@ local on_attach = function(client, bufnr)
     end
     kmap("n", keys, func, { buffer = bufnr, desc = desc })
   end
-  require('blink.cmp').get_lsp_capabilities(client.server_capabilities)
+  require("blink.cmp").get_lsp_capabilities(client.server_capabilities)
   lsp_map("<leader>lr", vim.lsp.buf.rename, "Rename")
   lsp_map("<leader>la", vim.lsp.buf.code_action, "Code Action")
   lsp_map("gd", vim.lsp.buf.definition, "Goto Definition")
@@ -375,44 +364,6 @@ kmap("n", "<leader>tl", function()
   vim.o.background = "light"
 end, { noremap = true, silent = true, desc = "Light Theme" })
 
-local iron = require("iron.core")
-
-iron.setup({
-  config = {
-    scratch_repl = true,
-    repl_definition = {
-      python = require("iron.fts.python").ipython,
-    },
-    repl_open_cmd = require("iron.view").split.vertical.botright(0.5),
-  },
-  keymaps = {
-    send_motion = "<space>sc",
-    visual_send = "<space>sc",
-    send_file = "<space>sf",
-    send_line = "<space>sl",
-    send_paragraph = "<S-CR>",
-    send_until_cursor = "<space>su",
-    send_mark = "<space>sm",
-    cr = "<space>s<cr>",
-    interrupt = "<space>s<space>",
-    exit = "<space>sq",
-    clear = "<space>cl",
-  },
-  -- If the highlight is on, you can change how it looks
-  -- For the available options, check nvim_set_hl
-  highlight = {
-    italic = true,
-    bg = "#000000",
-  },
-  ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
-})
-
--- iron also has a list of commands, see :h iron-commands for all available commands
-kmap("n", "<space>rs", "<cmd>IronRepl<cr>", { noremap = true, silent = true, desc = "Repl Open" })
-kmap("n", "<space>rr", "<cmd>IronRestart<cr>", { noremap = true, silent = true, desc = "Repl Restart" })
-kmap("n", "<space>rf", "<cmd>IronFocus<cr>", { noremap = true, silent = true, desc = "Repl Focus" })
-kmap("n", "<space>rh", "<cmd>IronHide<cr>", { noremap = true, silent = true, desc = "Repl Hide" })
-
 -- options
 vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
@@ -434,8 +385,8 @@ local parse_b16 = function(str_in)
 end
 
 Set_b16_colors = function(str_in)
-  require('mini.base16').setup({ palette = parse_b16(str_in) })
-  vim.api.nvim_set_hl(0, 'WinSeparator', { bg = 'None' })
+  require("mini.base16").setup({ palette = parse_b16(str_in) })
+  vim.api.nvim_set_hl(0, "WinSeparator", { bg = "None" })
 end
 vim.cmd([[colorscheme b16_catppuccin_macchiato]])
 MiniMisc.setup_termbg_sync()
