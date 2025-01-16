@@ -8,10 +8,8 @@ BREW_PKGS := $(shell cat pkgs_brew.txt)
 CASK_PKGS := $(shell cat pkgs_cask.txt)
 
 linux_se: update_linux stow_se install_apt_se install_brew_se
-linux_de: update_linux add_user_to_groups install_apt_se install_apt_de install_brew_se
-mac_de: update_mac stow_se install_brew_se install_brew_de
-all: update add_user_to_groups stow install_apt_pkgs install_brew_pkgs install_py_pkgs
-mac: stow install_brew_pkgs install_cask_pkgs
+linux_de: update_linux stow_se stow_de_linux add_user_to_groups install_apt_se install_apt_de install_brew_se
+mac_de: update_mac stow_se stow_de_mac install_brew_se install_brew_de
 
 update_linux:
 	sudo apt update && \
@@ -28,8 +26,11 @@ add_user_to_groups:
 stow_se:
 	stow conf_se
 
-stow_de:
-	stow conf_de
+stow_de_linux:
+	stow conf_de_linux
+
+stow_de_mac:
+	stow conf_de_mac
 
 install_apt_de:
 	sudo apt install $(APT_PKGS_DE)
