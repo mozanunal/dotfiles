@@ -1,4 +1,5 @@
 alacritty
+alt-tab
 font-cousine
 font-cousine-nerd-font
 font-fira-code
