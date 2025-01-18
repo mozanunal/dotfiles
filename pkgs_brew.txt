@@ -15,16 +15,9 @@ make
 marksman
 neovim
 pass
-powerlevel10k
 pyright
 ripgrep
 stow
 tmux
 yazi
 zellij
-zsh
-zsh-async
-zsh-autocomplete
-zsh-autosuggestions
-zsh-completions
-zsh-syntax-highlighting
