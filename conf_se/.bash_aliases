@@ -22,13 +22,10 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
 	PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 fi
 
-FZF_CMD="fzf --reverse"
 # --- aliases
 alias la='ls -la'
 alias ll='ls -ll'
-alias fd='fdfind'
-alias bat='batcat --theme=base16 --style=numbers --color=always --line-range :500'
-# alias fzf="fzf --preview 'batcat --theme=base16 --style=numbers --color=always --line-range :500 {}'"
+alias bat='bat --theme=base16 --style=numbers --color=always --line-range :500'
 alias v='source .venv/bin/activate'
 alias vp='source playground/.envrc'
 alias e='source .venv/bin/activate; && $EDITOR .'
@@ -37,14 +34,10 @@ alias tm='tmux a||tmux'
 alias zm='zellij a||zellij'
 alias lg='lazygit'
 alias moz_sync="cd ~/dotfiles/ && git pull && make"
-alias moz_py='source ~/.moz_py/bin/activate'
-alias moz_jpy="tmux new-session -d -s jupyter 'source ./.moz_py/bin/activate && jupyter-lab --ip 0.0.0.0 --no-browser --port 8000'"
-alias moz_ipy='moz_py && ipython'
-alias moz_bpy='moz_py && bpython'
-alias moz_sql='moz_py && litecli ~/.moz_py/dev.sqlite'
 alias lvim='NVIM_APPNAME="lvim" nvim'
 # --- functions
 FD_OPTS="--follow --hidden -E .git -E node_modules -E .venv -E .cache"
+FZF_CMD="fzf --reverse"
 
 moz_fzef() {
   fd -t f -d 7 $FD_OPTS | $FZF_CMD | xargs -r $EDITOR
@@ -66,8 +59,8 @@ __moz_fzh() {
   READLINE_POINT=${#READLINE_LINE}
 }
 
-# Alt+c cd to directory
-bind -x '"\ec":__moz_fzcd'
+# Ctrl+t cd to directory
+bind -x '"\C-t":__moz_fzcd'
 # Ctrl+r history search
 bind -x '"\C-r":__moz_fzh'
 # Alt+d edit directory
@@ -85,46 +78,4 @@ moz_update() {
 	sudo apt -q -y autoclean
 	sudo apt -q -y autoremove
 }
-
-moz_update_check () {
-  echo "moz_os checking for updates, please wait..."
-  DIRECTORY="$HOME/dotfiles"
-
-  # Check if it's a Git repository
-  if ! git -C "$DIRECTORY" rev-parse --is-inside-work-tree &>/dev/null; then
-      echo "Directory $DIRECTORY is not a Git repository."
-      exit 1
-  fi
-
-  # Fetch latest changes from remote repository
-  git -C "$DIRECTORY" fetch &>/dev/null
-
-  # Check if there are changes to pull
-  AHEAD=$(git -C "$DIRECTORY" rev-list --count HEAD..origin/master)
-
-  if [ $AHEAD -gt 0 ]; then
-      echo -e "\n[Dotfiles is $AHEAD versions behind the remote repository.]"
-      echo -e "[You should run moz_sync to be up-to-date.]"
-  else
-      echo -e "\n[Dotfiles are up-to-date]"
-  fi
-}
-
-moz_update_ts_check () {
-  last_run_file="$HOME/.last_run_timestamp"
-  if [ -f "$last_run_file" ]; then
-      last_run_timestamp=$(cat "$last_run_file")
-      time_since_last_run=$(( $(date +%s) - last_run_timestamp ))
-      if [ $time_since_last_run -gt 86399 ]; then
-          moz_update_check
-          date +%s > "$last_run_file"
-      fi
-  else
-      moz_update_check
-      date +%s > "$last_run_file"
-  fi
-}
-
-moz_update_ts_check
-
 
