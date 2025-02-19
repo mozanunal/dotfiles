@@ -57,12 +57,12 @@ require("lazy").setup({
     opts = {
       keymap = { preset = "enter" },
       appearance = {
-        use_nvim_cmp_as_default = true,
+        use_nvim_cmp_as_default = false,
         nerd_font_variant = "mono",
       },
+      cmdline = { enabled = false, },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
-        cmdline = {},
       },
       signature = { enabled = true },
     },
