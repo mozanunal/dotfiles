@@ -288,9 +288,27 @@ local servers = {
   texlab = {},
   lua_ls = {
     Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (LuaJIT for Neovim).
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        -- Recognize the `vim` global
+        globals = { "vim" },
+      },
+      workspace = {
+        -- Disable third-party checks
+        checkThirdParty = false,
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.stdpath("config") .. "/lua"] = true,
+        },
+      },
+      telemetry = {
+        enable = false,
+      },
+    }
   },
 }
 
