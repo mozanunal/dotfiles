@@ -22,9 +22,8 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "williamboman/mason.nvim",          config = true },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "folke/neodev.nvim" },
+      { "mason-org/mason.nvim",          config = true },
+      { "mason-org/mason-lspconfig.nvim" },
     },
   },
   {
@@ -46,11 +45,6 @@ require("lazy").setup({
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
   {
-    "L3MON4D3/LuaSnip",
-    version = "v2.*",
-    build = "make install_jsregexp",
-  },
-  {
     "saghen/blink.cmp",
     dependencies = "rafamadriz/friendly-snippets",
     version = "*",
@@ -60,7 +54,7 @@ require("lazy").setup({
         use_nvim_cmp_as_default = false,
         nerd_font_variant = "mono",
       },
-      cmdline = { enabled = false, },
+      cmdline = { enabled = false },
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
@@ -93,7 +87,6 @@ require("mini.surround").setup()
 require("mini.tabline").setup()
 require("mini.trailspace").setup()
 require("mini.visits").setup()
-require("neodev").setup()
 
 require("mini.basics").setup({
   options = {
@@ -247,39 +240,6 @@ vim.defer_fn(function()
 end, 0)
 
 -- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(client, bufnr)
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
-  local lsp_map = function(keys, func, desc)
-    if desc then
-      desc = "LSP: " .. desc
-    end
-    kmap("n", keys, func, { buffer = bufnr, desc = desc })
-  end
-  require("blink.cmp").get_lsp_capabilities(client.server_capabilities)
-  lsp_map("<leader>lr", vim.lsp.buf.rename, "Rename")
-  lsp_map("<leader>la", vim.lsp.buf.code_action, "Code Action")
-  lsp_map("gd", vim.lsp.buf.definition, "Goto Definition")
-  lsp_map("gr", function()
-    MiniExtra.pickers.lsp({ scope = "references" })
-  end, "Goto References")
-  lsp_map("gI", vim.lsp.buf.implementation, "Goto Implementation")
-  lsp_map("gt", vim.lsp.buf.type_definition, "Goto Type Definition")
-  lsp_map("K", vim.lsp.buf.hover, "Hover Documentation")
-  lsp_map("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
-  lsp_map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-  lsp_map("<leader>lf", vim.lsp.buf.format, "Format")
-  lsp_map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace")
-  lsp_map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace")
-  lsp_map("<leader>wl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, "List Workspace")
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-    vim.lsp.buf.format()
-  end, { desc = "Format current buffer with LSP" })
-end
 
 local servers = {
   gopls = {},
@@ -308,29 +268,41 @@ local servers = {
       telemetry = {
         enable = false,
       },
-    }
+    },
   },
 }
 
 -- Setup neovim lua configuration
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-local mason_lspconfig = require("mason-lspconfig")
-
-mason_lspconfig.setup({
+require("mason-lspconfig").setup({
   ensure_installed = vim.tbl_keys(servers),
 })
 
-mason_lspconfig.setup_handlers({
-  function(server_name)
-    require("lspconfig")[server_name].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    })
-  end,
-})
-
 ---- Keymaps
+local lmap = function(keys, func, desc)
+  if desc then
+    desc = "lsp: " .. desc
+  end
+  kmap("n", keys, func, { buffer = bufnr, desc = desc })
+end
+lmap("<leader>lr", vim.lsp.buf.rename, "Rename")
+lmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
+lmap("gd", vim.lsp.buf.definition, "Goto Definition")
+lmap("gr", function()
+  MiniExtra.pickers.lsp({ scope = "references" })
+end, "Goto References")
+lmap("gI", vim.lsp.buf.implementation, "Goto Implementation")
+lmap("gt", vim.lsp.buf.type_definition, "Goto Type Definition")
+lmap("K", vim.lsp.buf.hover, "Hover Documentation")
+lmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+lmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
+lmap("<leader>lf", vim.lsp.buf.format, "Format")
+lmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add Workspace")
+lmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove Workspace")
+lmap("<leader>wl", function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, "List Workspace")
+
+
 kmap({ "n", "v" }, "n", "nzzzv", { noremap = true })
 kmap({ "n", "v" }, "N", "Nzzzv", { noremap = true })
 kmap({ "n", "v" }, "<leader>_", ":split<CR>", { noremap = true, silent = true, desc = "Window Split" })
@@ -364,15 +336,6 @@ kmap("n", "<leader>fk", MiniExtra.pickers.keymaps, { noremap = true, silent = tr
 kmap("n", "<leader>`", MiniPick.builtin.resume, { noremap = true, silent = true, desc = "Find Resume" })
 kmap("n", "<leader>bd", "<CMD>bd<CR>", { noremap = true, silent = true, desc = "Close Buffer" })
 kmap("n", "<leader>gg", "<CMD>terminal lazygit<CR>", { noremap = true, silent = true, desc = "Lazygit" })
-kmap("n", "<leader>gp", "<CMD>terminal git pull<CR>", { noremap = true, silent = true, desc = "Git Push" })
-kmap("n", "<leader>gP", "<CMD>terminal git push<CR>", { noremap = true, silent = true, desc = "Git Pull" })
-kmap("n", "<leader>ga", "<CMD>terminal git add .<CR>", { noremap = true, silent = true, desc = "Git Add All" })
-kmap(
-  "n",
-  "<leader>gc",
-  '<CMD>terminal git commit -m "Autocommit from nvim"<CR>',
-  { noremap = true, silent = true, desc = "Git Autocommit" }
-)
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
 kmap("n", "<leader>td", function()
