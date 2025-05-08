@@ -18,6 +18,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
+  { "EdenEast/nightfox.nvim" },
   { "echasnovski/mini.nvim" },
   {
     "neovim/nvim-lspconfig",
@@ -33,15 +35,6 @@ require("lazy").setup({
     },
     build = ":TSUpdate",
   },
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-  },
-  { "GCBallesteros/jupytext.nvim", config = true },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
   {
@@ -61,6 +54,17 @@ require("lazy").setup({
       signature = { enabled = true },
     },
     opts_extend = { "sources.default" },
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 })
 
@@ -246,30 +250,7 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   texlab = {},
-  lua_ls = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (LuaJIT for Neovim).
-        version = "LuaJIT",
-      },
-      diagnostics = {
-        -- Recognize the `vim` global
-        globals = { "vim" },
-      },
-      workspace = {
-        -- Disable third-party checks
-        checkThirdParty = false,
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.stdpath("config") .. "/lua"] = true,
-        },
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+  lua_ls = {},
 }
 
 -- Setup neovim lua configuration
@@ -338,12 +319,6 @@ kmap("n", "<leader>bd", "<CMD>bd<CR>", { noremap = true, silent = true, desc = "
 kmap("n", "<leader>gg", "<CMD>terminal lazygit<CR>", { noremap = true, silent = true, desc = "Lazygit" })
 kmap("n", "<leader>fd", MiniExtra.pickers.diagnostic, { desc = "Find Diagnostic" })
 kmap("n", "<leader>o", "<CMD>silent !open %<CR>", { noremap = true, silent = true, desc = "Open File" })
-kmap("n", "<leader>td", function()
-  vim.o.background = "dark"
-end, { noremap = true, silent = true, desc = "Dark Theme" })
-kmap("n", "<leader>tl", function()
-  vim.o.background = "light"
-end, { noremap = true, silent = true, desc = "Light Theme" })
 
 -- options
 vim.o.termguicolors = true
@@ -354,22 +329,7 @@ vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.o.exrc = true
 
-local parse_b16 = function(str_in)
-  local colors = {}
-  for line in str_in:gmatch("[^\r\n]+") do
-    local key, value = line:match('(%w+):%s+"(.-)"')
-    if key and value then
-      colors[key] = "#" .. value
-    end
-  end
-  return colors
-end
-
-Set_b16_colors = function(str_in)
-  require("mini.base16").setup({ palette = parse_b16(str_in) })
-  vim.api.nvim_set_hl(0, "WinSeparator", { bg = "None" })
-end
-vim.cmd([[colorscheme b16_catppuccin_macchiato]])
+vim.cmd.colorscheme "catppuccin-macchiato"
 MiniMisc.setup_termbg_sync()
 MiniMisc.setup_restore_cursor()
 MiniMisc.setup_auto_root()
