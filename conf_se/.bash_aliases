@@ -1,4 +1,5 @@
 export EDITOR=nvim
+export MANPAGER="nvim +Man!"
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
