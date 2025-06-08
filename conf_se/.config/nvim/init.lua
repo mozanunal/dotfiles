@@ -66,8 +66,11 @@ require("lazy").setup({
       },
     },
   },
+  { "folke/snacks.nvim" },
+  -- { "mozanunal/sllm.nvim" }
 })
 
+-- require("sllm").setup()
 -- Plugin Configs
 require("mini.ai").setup()
 require("mini.bracketed").setup()
@@ -328,9 +331,21 @@ vim.o.tabstop = 2
 vim.o.formatoptions = "tcqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.o.exrc = true
+vim.o.swapfile = false
 
 vim.cmd.colorscheme "catppuccin-macchiato"
 MiniMisc.setup_termbg_sync()
 MiniMisc.setup_restore_cursor()
 MiniMisc.setup_auto_root()
+
+-- autocmds
+vim.api.nvim_create_augroup("OpenTerminalOnStart", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = "OpenTerminalOnStart",
+  callback = function()
+    vim.cmd("terminal")
+    vim.cmd("setlocal nonumber norelativenumber")
+  end,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
