@@ -23,6 +23,7 @@ pyright
 ripgrep
 ruff
 stow
+vscode-langservers-extracted
 tmux
 uv
 yazi

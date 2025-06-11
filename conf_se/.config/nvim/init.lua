@@ -18,7 +18,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
   { "EdenEast/nightfox.nvim" },
   { "echasnovski/mini.nvim" },
   { "neovim/nvim-lspconfig" },
@@ -313,16 +313,16 @@ vim.o.swapfile = false
 vim.o.winborder = "single"
 
 vim.diagnostic.config({
-  virtual_text = false, -- completely off (will use virtual_lines instead)
-  virtual_lines = { -- new handler
+  virtual_text = false,       -- completely off (will use virtual_lines instead)
+  virtual_lines = {           -- new handler
     only_current_line = true, -- show virtual lines only under cursor
   },
-  severity_sort = true, -- most severe first
+  severity_sort = true,       -- most severe first
   signs = true,
   underline = true,
   update_in_insert = false,
 })
-vim.lsp.enable({ "lua_ls", "gopls", "pyright", "ruff", "rust_analyzer" })
+vim.lsp.enable({ "lua_ls", "gopls", "pyright", "ruff", "rust_analyzer", "html" })
 
 vim.cmd.colorscheme("catppuccin-macchiato")
 MiniMisc.setup_termbg_sync()
