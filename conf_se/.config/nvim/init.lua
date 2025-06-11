@@ -24,10 +24,21 @@ require("lazy").setup({
   { "neovim/nvim-lspconfig" },
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
     build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
+    opts = {
+      ensure_installed = {
+        "sql", "scala", "c", "cpp", "go", "lua", "python", "rust",
+        "tsx", "javascript", "typescript", "vimdoc", "vim", "bash",
+        "jinja", "jinja_inline"
+      },
+      highlight        = { enable = true },
+      indent           = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
   { "jamessan/vim-gnupg" },
   { "SWiegandt/python-utils.nvim" },
@@ -91,7 +102,7 @@ require("mini.visits").setup()
 require("mini.basics").setup({
   options = {
     extra_ui = true,
-    win_borders = "single",
+    win_borders = "bold",
   },
   mappings = {
     windows = true,
@@ -154,92 +165,49 @@ require("mini.pick").setup({
   },
 })
 
-local miniclue = require("mini.clue")
-miniclue.setup({
+
+require('mini.clue').setup({
+  window   = { delay = 50 },  -- faster pop-up
   triggers = {
-    -- Leader triggers
-    { mode = "n", keys = "<Leader>" },
-    { mode = "x", keys = "<Leader>" },
-    -- Built-in completion
-    { mode = "i", keys = "<C-space>" },
-
-    -- `g` key
-    { mode = "n", keys = "g" },
-    { mode = "x", keys = "g" },
-
-    -- Marks
-    { mode = "n", keys = "'" },
-    { mode = "n", keys = "`" },
-    { mode = "x", keys = "'" },
-    { mode = "x", keys = "`" },
-
-    -- Registers
-    { mode = "n", keys = '"' },
-    { mode = "x", keys = '"' },
-    { mode = "i", keys = "<C-r>" },
-    { mode = "c", keys = "<C-r>" },
-
-    -- Window commands
-    { mode = "n", keys = "<C-w>" },
-
-    -- `z` key
-    { mode = "n", keys = "z" },
-    { mode = "x", keys = "z" },
+    -- leader
+    { mode = 'n', keys = '<Leader>' }, { mode = 'x', keys = '<Leader>' },
+    -- common prefixes
+    { mode = 'n', keys = 'g' }, { mode = 'x', keys = 'g' },
+    { mode = 'n', keys = 'z' }, { mode = 'x', keys = 'z' },
+    -- marks / registers
+    { mode = 'n', keys = "'" }, { mode = 'n', keys = '`' },
+    { mode = 'x', keys = "'" }, { mode = 'x', keys = '`' },
+    { mode = 'n', keys = '"' }, { mode = 'x', keys = '"' },
+    { mode = 'i', keys = '<C-r>' }, { mode = 'c', keys = '<C-r>' },
+    -- window commands
+    { mode = 'n', keys = '<C-w>' },
+    -- built-in completion
+    { mode = 'i', keys = '<C-space>' },
   },
 
   clues = {
-    { mode = "n", keys = "<Leader>f", desc = "Find" },
-    { mode = "n", keys = "<Leader>b", desc = "Buffer" },
-    { mode = "n", keys = "<Leader>g", desc = "Git" },
-    { mode = "n", keys = "<Leader>w", desc = "Workspace" },
-    { mode = "n", keys = "<Leader>l", desc = "LSP" },
-    { mode = "n", keys = "<Leader>t", desc = "Treesitter" },
-    { mode = "n", keys = "<Leader>r", desc = "Repl" },
-    { mode = "n", keys = "<Leader>s", desc = "Send to Repl" },
-    miniclue.gen_clues.g(),
-    miniclue.gen_clues.builtin_completion(),
-    miniclue.gen_clues.marks(),
-    miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
-    miniclue.gen_clues.z(),
-  },
-  window = {
-    delay = 50,
+    -- your top-level groups
+    { mode = 'n', keys = '<Leader>f', desc = 'Find'      },
+    { mode = 'n', keys = '<Leader>g', desc = 'Git'       },
+    { mode = 'n', keys = '<Leader>l', desc = 'LSP'       },
+
+    -- auto-generated packs
+    require('mini.clue').gen_clues.builtin_completion(),
+    require('mini.clue').gen_clues.g(),        -- `g` motions
+    require('mini.clue').gen_clues.z(),        -- `z` folds/etc.
+    require('mini.clue').gen_clues.marks(),
+    require('mini.clue').gen_clues.registers(),
+    require('mini.clue').gen_clues.windows({
+      submode_move     = true,
+      submode_navigate = true,
+      submode_resize   = true,
+    }),
   },
 })
 
 local file_picker = function()
   MiniPick.builtin.cli({ command = { "rg", "--files", "--hidden", "--glob=!.git/" } })
 end
-
-vim.defer_fn(function()
-  require("nvim-treesitter.configs").setup({
-    modules = {},
-    sync_install = true,
-    auto_install = true,
-    ignore_install = {},
-    -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = {
-      "sql",
-      "scala",
-      "c",
-      "cpp",
-      "go",
-      "lua",
-      "python",
-      "rust",
-      "tsx",
-      "javascript",
-      "typescript",
-      "vimdoc",
-      "vim",
-      "bash",
-    },
-
-    highlight = { enable = true },
-    indent = { enable = true },
-  })
-end, 0)
 
 ---- Keymaps
 local lmap = function(keys, func, desc)
@@ -306,11 +274,14 @@ vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
-vim.o.formatoptions = "tqj" -- j1croql or tcqj
+vim.o.formatoptions = "j1croql"
 vim.o.laststatus = 3
 vim.o.exrc = true
 vim.o.swapfile = false
-vim.o.winborder = "single"
+vim.o.winborder = "rounded"
+vim.o.smoothscroll = true
+vim.o.mousescroll = "ver:1,hor:1"
+
 
 vim.diagnostic.config({
   virtual_text = false,       -- completely off (will use virtual_lines instead)
