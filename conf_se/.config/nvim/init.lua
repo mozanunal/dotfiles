@@ -18,16 +18,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "EdenEast/nightfox.nvim" },
   { "echasnovski/mini.nvim" },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      { "mason-org/mason.nvim",          config = true },
-      { "mason-org/mason-lspconfig.nvim" },
-    },
-  },
+  { "neovim/nvim-lspconfig" },
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -67,10 +61,10 @@ require("lazy").setup({
     },
   },
   { "folke/snacks.nvim" },
-  -- { "mozanunal/sllm.nvim" }
+  { "mozanunal/sllm.nvim" },
 })
 
--- require("sllm").setup()
+require("sllm").setup()
 -- Plugin Configs
 require("mini.ai").setup()
 require("mini.bracketed").setup()
@@ -87,7 +81,6 @@ require("mini.move").setup()
 require("mini.notify").setup()
 require("mini.operators").setup()
 require("mini.pairs").setup()
-require("mini.sessions").setup()
 require("mini.splitjoin").setup()
 require("mini.statusline").setup()
 require("mini.surround").setup()
@@ -104,6 +97,8 @@ require("mini.basics").setup({
     windows = true,
   },
 })
+
+require("mini.sessions").setup({ autoread = true, autowrite = true })
 
 local hipatterns = require("mini.hipatterns")
 hipatterns.setup({
@@ -246,21 +241,6 @@ vim.defer_fn(function()
   })
 end, 0)
 
--- LSP settings.
-
-local servers = {
-  gopls = {},
-  pyright = {},
-  rust_analyzer = {},
-  texlab = {},
-  lua_ls = {},
-}
-
--- Setup neovim lua configuration
-require("mason-lspconfig").setup({
-  ensure_installed = vim.tbl_keys(servers),
-})
-
 ---- Keymaps
 local lmap = function(keys, func, desc)
   if desc then
@@ -286,13 +266,11 @@ lmap("<leader>wl", function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, "List Workspace")
 
-
 kmap({ "n", "v" }, "n", "nzzzv", { noremap = true })
 kmap({ "n", "v" }, "N", "Nzzzv", { noremap = true })
 kmap({ "n", "v" }, "<leader>_", ":split<CR>", { noremap = true, silent = true, desc = "Window Split" })
 kmap({ "n", "v" }, "<leader>|", ":vsplit<CR>", { noremap = true, silent = true, desc = "Window VSplit" })
 kmap({ "n", "v" }, "<leader>q", ":q<CR>", { noremap = true, desc = "Window Quit" })
-kmap({ "n", "v" }, "<leader>bd", ":bd<CR>", { noremap = true, desc = "Buffer Delete" })
 kmap({ "n", "v" }, "H", ":bp<CR>", { noremap = true, silent = true })
 kmap({ "n", "v" }, "L", ":bn<CR>", { noremap = true, silent = true })
 kmap("n", "<leader>tt", ":term<CR>", { desc = "Terminal" })
@@ -328,23 +306,40 @@ vim.o.termguicolors = true
 vim.o.clipboard = "unnamedplus"
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
-vim.o.formatoptions = "tcqj" -- j1croql or tcqj
+vim.o.formatoptions = "tqj" -- j1croql or tcqj
 vim.o.laststatus = 3
 vim.o.exrc = true
 vim.o.swapfile = false
+vim.o.winborder = "single"
 
-vim.cmd.colorscheme "catppuccin-macchiato"
+vim.diagnostic.config({
+  virtual_text = false, -- completely off (will use virtual_lines instead)
+  virtual_lines = { -- new handler
+    only_current_line = true, -- show virtual lines only under cursor
+  },
+  severity_sort = true, -- most severe first
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+})
+vim.lsp.enable({ "lua_ls", "gopls", "pyright", "ruff", "rust_analyzer" })
+
+vim.cmd.colorscheme("catppuccin-macchiato")
 MiniMisc.setup_termbg_sync()
 MiniMisc.setup_restore_cursor()
 MiniMisc.setup_auto_root()
 
 -- autocmds
-vim.api.nvim_create_augroup("OpenTerminalOnStart", { clear = true })
+-- Open a terminal automatically only on `nvim` or `nvim .`
+local term_on_start = vim.api.nvim_create_augroup("OpenTerminalOnStart", { clear = true })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = "OpenTerminalOnStart",
+  group = term_on_start,
   callback = function()
-    vim.cmd("terminal")
-    vim.cmd("setlocal nonumber norelativenumber")
+    local argc = vim.fn.argc() -- number of file args
+    if argc == 0 or (argc == 1 and vim.fn.argv(0) == ".") then
+      vim.cmd("terminal")
+      vim.cmd("setlocal nonumber norelativenumber")
+    end
   end,
 })
 

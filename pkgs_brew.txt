@@ -1,5 +1,6 @@
 awscli
 bat
+deno
 duckdb
 fastfetch
 fd
@@ -11,13 +12,18 @@ htop
 hugo
 kubectl
 lazygit
+llm
+lua-language-server
 make
 marksman
 neovim
+ollama
 pass
 pyright
 ripgrep
+ruff
 stow
 tmux
+uv
 yazi
 zellij
