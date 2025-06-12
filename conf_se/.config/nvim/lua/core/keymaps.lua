@@ -1,7 +1,15 @@
 local kmap = vim.keymap.set
 
 -- custom pickers
-local file_picker = function() MiniPick.builtin.cli({ command = { 'rg', '--files', '--hidden', '--glob=!.git/' } }) end
+local function grep_word()
+  local word = vim.fn.expand('<cword>')
+  if word == '' then return end
+
+  MiniPick.builtin.grep({
+    pattern = word,
+    tool = 'git',
+  })
+end
 
 -- search & navigation
 kmap({ 'n', 'v' }, 'n', 'nzzzv')
@@ -26,8 +34,8 @@ kmap('n', '<leader>gg', '<CMD>terminal lazygit<CR>', { silent = true, desc = 'La
 
 -- file pickers
 kmap('n', '<leader>ff', function() MiniPick.builtin.files({ tool = 'git' }) end, { desc = 'Find File' })
-kmap('n', '<leader><Space>', file_picker, { desc = 'Find File' })
-kmap('n', '<C-p>', file_picker, { desc = 'Find File' })
+kmap('n', '<leader><Space>', function() MiniPick.builtin.files({ tool = 'git' }) end, { desc = 'Find File' })
+kmap('n', '<C-p>', function() MiniPick.builtin.files({ tool = 'git' }) end, { desc = 'Find File' })
 kmap('n', '<leader>fl', MiniExtra.pickers.buf_lines, { silent = true, desc = 'Find Lines' })
 kmap('n', '<leader>fs', function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end, { desc = 'Find Symbols' })
 kmap('n', '<leader>e', MiniFiles.open, { desc = 'File Explorer' })
@@ -40,10 +48,18 @@ kmap('n', '<leader>fh', MiniPick.builtin.help, { desc = 'Find Help' })
 kmap('n', '<leader>fk', MiniExtra.pickers.keymaps, { desc = 'Find Keymaps' })
 kmap('n', '<leader>`', MiniPick.builtin.resume, { desc = 'Resume Picker' })
 kmap('n', '<leader>fd', MiniExtra.pickers.diagnostic, { desc = 'Find Diagnostics' })
+kmap('n', '<leader>*', grep_word, { desc = 'Grep current word' })
 
 -- buffers & misc
 kmap('n', '<leader>bd', '<CMD>bd<CR>', { silent = true, desc = 'Close Buffer' })
 kmap('n', '<leader>o', '<CMD>silent !open %<CR>', { silent = true, desc = 'Open File Externally' })
+kmap('n', '<leader>O', '<CMD>silent !open -R %<CR>', { silent = true, desc = 'Reveal File' })
+kmap('n', '<leader>yp', function()
+  local path = vim.fn.expand('%:.') -- “%:.” → path relative to cwd
+  if path == '' then return end -- Ignore [No Name] buffers
+  vim.fn.setreg('+', path) -- Copy to system clipboard
+  vim.notify('Copied (cwd-relative): ' .. path, vim.log.levels.INFO, { title = 'Path' })
+end, { desc = 'Yank Relative Path' })
 
 -- lsp actions
 kmap('n', '<leader>k', vim.lsp.buf.signature_help, { desc = 'LSP: Signature Help' })

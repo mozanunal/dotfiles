@@ -9,4 +9,4 @@ vim.diagnostic.config({
   update_in_insert = false,
 })
 
-vim.lsp.enable({ 'gopls', 'pyright', 'ruff', 'rust_analyzer', 'html' })
+vim.lsp.enable({ 'lua_ls', 'gopls', 'pyright', 'ruff', 'rust_analyzer', 'html' })
