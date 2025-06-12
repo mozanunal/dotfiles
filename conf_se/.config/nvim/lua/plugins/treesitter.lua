@@ -1,4 +1,3 @@
-return {}
 return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
@@ -17,13 +16,11 @@ return {
       'javascript',
       'jinja',
       'jinja_inline',
-      'jsx',
       'lua',
       'python',
       'rust',
       'scala',
       'sql',
-      'tsx',
       'typescript',
       'vim',
       'vimdoc',
