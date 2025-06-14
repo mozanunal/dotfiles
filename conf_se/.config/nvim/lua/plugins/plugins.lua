@@ -33,5 +33,8 @@ return {
     },
   },
   { 'neovim/nvim-lspconfig' },
-  { 'mozanunal/sllm.nvim', config = function() require('sllm').setup() end },
+  {
+    'mozanunal/sllm.nvim',
+    config = function() require('sllm').setup({ default_model = 'openrouter/google/gemini-2.5-pro-preview' }) end,
+  },
 }
