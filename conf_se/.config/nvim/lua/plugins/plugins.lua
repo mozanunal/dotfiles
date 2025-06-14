@@ -33,5 +33,5 @@ return {
     },
   },
   { 'neovim/nvim-lspconfig' },
-  { 'mozanunal/sllm.nvim' },
+  { 'mozanunal/sllm.nvim', config = function() require('sllm').setup() end },
 }

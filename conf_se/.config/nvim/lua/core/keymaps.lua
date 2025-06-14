@@ -11,6 +11,12 @@ local function grep_word()
   })
 end
 
+local function grep_live()
+  MiniPick.builtin.grep_live({
+    tool = 'git',
+  })
+end
+
 -- search & navigation
 kmap({ 'n', 'v' }, 'n', 'nzzzv')
 kmap({ 'n', 'v' }, 'N', 'Nzzzv')
@@ -40,7 +46,7 @@ kmap('n', '<leader>fl', MiniExtra.pickers.buf_lines, { silent = true, desc = 'Fi
 kmap('n', '<leader>fs', function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end, { desc = 'Find Symbols' })
 kmap('n', '<leader>e', MiniFiles.open, { desc = 'File Explorer' })
 kmap('n', '<leader>fb', MiniPick.builtin.buffers, { desc = 'Find Buffer' })
-kmap('n', '<leader>fg', MiniPick.builtin.grep_live, { desc = 'Live Grep' })
+kmap('n', '<leader>fg', grep_live, { desc = 'Live Grep' })
 kmap('n', '<leader>fo', MiniExtra.pickers.options, { desc = 'Find Options' })
 kmap('n', '<leader>fe', MiniExtra.pickers.explorer, { desc = 'Find Explorer' })
 kmap('n', '<leader>/', MiniPick.builtin.grep_live, { desc = 'Live Grep' })
