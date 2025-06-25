@@ -4,8 +4,8 @@ vim.b.lsp_lua_cfgd = true
 
 -- Set buffer-local indentation options (Lua community standard is often 2 spaces)
 vim.bo.expandtab = true -- use spaces for tabs
-vim.bo.shiftwidth = 2   -- number of spaces for an indent
-vim.bo.tabstop = 2      -- number of spaces a <Tab> in the file counts for
+vim.bo.shiftwidth = 2 -- number of spaces for an indent
+vim.bo.tabstop = 2 -- number of spaces a <Tab> in the file counts for
 
 -- Format the current buffer using an attached LSP server that supports formatting.
 -- This is typically handled by lua_ls, which has a built-in formatter.

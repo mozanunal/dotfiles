@@ -25,6 +25,8 @@ ruff
 stow
 vscode-langservers-extracted
 tmux
+terraform
+terraform-ls
 uv
 yazi
 zellij
