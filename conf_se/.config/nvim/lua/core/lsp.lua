@@ -14,4 +14,4 @@ vim.diagnostic.config({
   severity_sort = { reverse = false },
 })
 
-vim.lsp.enable({ 'terraformls', 'lua_ls', 'gopls', 'pyright', 'ruff', 'rust_analyzer', 'html', 'deno' })
+vim.lsp.enable({ 'terraformls', 'lua_ls', 'gopls', 'pyright', 'ruff', 'rust_analyzer', 'html', 'denols', 'zk' })

@@ -10,6 +10,9 @@ vim.bo.tabstop = 2      -- number of spaces a <Tab> in the file counts for
 -- Format the current buffer using the attached deno lsp server
 -- NOTE: Requires the deno lsp server to be attached for markdown files.
 local function format_buffer()
+  -- First, save the buffer to ensure the formatter runs on the latest content.
+  vim.cmd('write')
+
   -- Using 'deno fmt' will format all files deno supports (js, ts, json, md) in the current directory.
   vim.fn.jobstart('deno fmt '.. vim.fn.shellescape(vim.fn.expand('%:.')), {
     on_exit = function(_, code)
