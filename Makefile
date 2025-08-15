@@ -38,7 +38,7 @@ sync_x11: update_linux stow user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
 
-sync_headless: update_linux stow user_conf
+sync_wayland: update_linux stow user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
 
