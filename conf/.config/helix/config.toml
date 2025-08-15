@@ -13,7 +13,7 @@ hidden = false
 left = [ "mode", "file-name", "separator", "spacer", "diagnostics", ]
 center = []
 right = [
-  "position", "separator",  "spacer", "position-percentage", "spacer", "separator", 
+  "position", "separator",  "spacer", "position-percentage", "spacer", "separator",
   "total-line-numbers", "separator",  "file-line-ending", "separator",  "file-type", ]
 separator = "\uE0B3"
 mode.normal = "NORMAL"
