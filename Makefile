@@ -26,6 +26,11 @@ stow:
 user_conf:
 	sudo usermod -aG video $(USER)
 
+font_conf:
+	wget -qO /tmp/NF-Symbols.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip
+	mkdir -p ~/.local/share/fonts/NF-Symbols && unzip -o /tmp/NF-Symbols.zip -d ~/.local/share/fonts/NF-Symbols
+	fc-cache -f
+
 ## sync
 sync_headless: update_linux stow
 	$(APT_SERVER)
