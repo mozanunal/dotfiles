@@ -1,0 +1,203 @@
+
+########## Variables
+set $mod Mod4
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $refresh_bar pkill -SIGRTMIN+11 i3blocks
+
+set $rosewater #f4dbd6
+set $flamingo #f0c6c6
+set $pink #f5bde6
+set $mauve #c6a0f6
+set $red #ed8796
+set $maroon #ee99a0
+set $peach #f5a97f
+set $yellow #eed49f
+set $green #a6da95
+set $teal #8bd5ca
+set $sky #91d7e3
+set $sapphire #7dc4e4
+set $blue #8aadf4
+set $lavender #b7bdf8
+set $text #cad3f5
+set $subtext1 #b8c0e0
+set $subtext0 #a5adcb
+set $overlay2 #939ab7
+set $overlay1 #8087a2
+set $overlay0 #6e738d
+set $surface2 #5b6078
+set $surface1 #494d64
+set $surface0 #363a4f
+set $base #24273a
+set $mantle #1e2030
+set $crust #181926
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+########## Visual
+# font pango:monospace 10
+floating_modifier $mod
+font pango:Cousine Nerd Font 12
+default_border pixel 4
+focus_follows_mouse no
+
+########## Autostart
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+# exec --no-startup-id nm-applet
+# exec --no-startup-id volumeicon
+# exec --no-startup-id nitrogen --restore
+# exec "setxkbmap -layout gb,tr"
+# exec "setxkbmap -option 'grp:alt_shift_toggle'"
+
+########## Keybinds OS
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+d exec swaylock -c "303030" -e
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' \
+                -B 'PowerOff' 'systemctl poweroff' \
+                -B 'Suspend' 'systemctl suspend' \
+                -B 'Logout' 'pkill sway'
+
+########## Keybinds Layouts
+bindsym $mod+m move workspace to output right
+bindsym $mod+e split toggle
+bindsym $mod+v split v
+bindsym $mod+z fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+o layout toggle split
+bindsym $mod+f floating toggle
+bindsym $mod+Shift+f focus mode_toggle
+bindsym $mod+p focus parent
+#bindsym $mod+d focus child
+
+########## Keybinds Launcher
+bindsym $mod+Return exec foot
+bindsym $mod+Shift+Return exec google-chrome
+bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+space exec "wofi --show drun -IG"
+bindsym $mod+c exec ~/.local/bin/moz_passmenu
+bindsym $mod+u exec ~/.local/bin/moz_emoji
+bindsym $mod+a exec ~/.local/bin/moz_snipmenu
+bindsym $mod+Shift+p exec ~/.local/bin/moz_power
+
+########## Keybinds Special Keys
+# volumes
+bindsym XF86AudioRaiseVolume exec --no-startup-id \
+        pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_bar
+bindsym XF86AudioLowerVolume exec --no-startup-id \
+        pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_bar
+bindsym XF86AudioMute exec --no-startup-id \
+        pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_bar
+bindsym XF86AudioMicMute exec --no-startup-id \
+        pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_bar
+# brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id \
+        light -A 5 && $refresh_bar
+bindsym XF86MonBrightnessDown exec --no-startup-id \
+        light -U 5 && $refresh_bar
+
+# screenshot
+bindsym Print exec --no-startup-id grimshot copy output
+bindsym $mod+Print exec --no-startup-id grimshot copy window
+bindsym Shift+Print exec --no-startup-id grimshot copy area
+bindsym $mod+Shift+s exec --no-startup-id grimshot copy area
+
+########## Keybinds Windows and Workspaces
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left resize grow width 5 px or 5 ppt
+bindsym $mod+Down resize shrink height 5 px or 5 ppt
+bindsym $mod+Up resize grow height 5 px or 5 ppt
+bindsym $mod+Right resize shrink width 5 px or 5 ppt
+# bindsym Mod1+tab workspace next_on_output
+# bindsym Mod1+Shift+tab workspace prev_on_output
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Scratchpad:
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+x scratchpad show
+
+bindsym $mod+equal resize grow width 5 px or 5 ppt
+bindsym $mod+minus resize shrink width 5 px or 5 ppt
+
+bar { 
+     swaybar_command waybar
+}
+
+# # Status Bar:
+# bar {
+#     position top
+#
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command i3blocks
+#     # status_command while date +'%Y-%m-%d %H:%M:%S'; do sleep 1; done
+#
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+
+output * bg ~/.wallpapers/tetris.png fill
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_CURRENT_DESKTOP=sway
+
+input type:keyboard {
+    xkb_layout gb,tr
+    xkb_options grp:rctrl_toggle
+}
+
