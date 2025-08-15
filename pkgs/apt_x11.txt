@@ -1,8 +1,11 @@
 acpi
 alacritty
 arandr
+fastfetch
 feh
 fonts-croscore
+fonts-hack
+fonts-jetbrains-mono
 fonts-noto-color-emoji
 fonts-symbola
 light

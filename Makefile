@@ -37,10 +37,12 @@ sync_headless_dev: update_linux stow
 sync_x11: update_linux stow user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
+	$(APT_X11)
 
 sync_wayland: update_linux stow user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
+	$(APT_WAYLAND)
 
 sync_mac: stow
 	$(MAC_BREW)

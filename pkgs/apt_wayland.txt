@@ -1,9 +1,12 @@
 alacritty
-foot
-foot-themes
+fastfetch
 fonts-croscore
+fonts-hack
+fonts-jetbrains-mono
 fonts-noto-color-emoji
 fonts-symbola
+foot
+foot-themes
 grim
 grimshot
 mako-notifier
