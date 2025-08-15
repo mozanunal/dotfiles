@@ -1,6 +1,4 @@
 alacritty
-font-cousine
-font-cousine-nerd-font
 font-fira-code
 font-fira-code-nerd-font
 font-jetbrains-mono

@@ -42,6 +42,6 @@ sync_wayland: update_linux stow user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
 
-sync_mac:
+sync_mac: stow
 	$(MAC_BREW)
 	$(MAC_CASK)
