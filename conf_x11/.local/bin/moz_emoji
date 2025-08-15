@@ -1,6 +1,0 @@
-#!/bin/sh
-cat ~/.icons \
-    | wofi --dmenu -i -p 'Emoji:' \
-    | awk '{print $1}' \
-    | tr -d '\n' \
-    | wl-copy
