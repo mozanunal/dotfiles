@@ -15,7 +15,6 @@ lazygit
 llm
 lua-language-server
 make
-marksman
 neovim
 ollama
 pass
@@ -23,9 +22,8 @@ pyright
 ripgrep
 ruff
 stow
-vscode-langservers-extracted
 tmux
-terraform-ls
 uv
+vscode-langservers-extracted
 yazi
 zellij

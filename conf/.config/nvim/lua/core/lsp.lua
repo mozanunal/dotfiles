@@ -1,6 +1,7 @@
 vim.diagnostic.config({
-  virtual_text = { current_line = true, virt_text_pos = 'right_align' },
-  virtual_lines = false,
+  -- virtual_text = { current_line = true, virt_text_pos = 'right_align' },
+  virtual_text = false,
+  virtual_lines = { current_line = true },
   underline = true,
   signs = {
     priority = 20,

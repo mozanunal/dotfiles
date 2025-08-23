@@ -1,6 +1,6 @@
 return {
   {
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
     config = function()
       local ai = require('mini.ai')
       ai.setup({

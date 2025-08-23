@@ -1,6 +1,6 @@
 return {
   {
-    'echasnovski/mini.clue',
+    'nvim-mini/mini.clue',
     config = function()
       require('mini.clue').setup({
         window = { delay = 50 }, -- faster pop-up
