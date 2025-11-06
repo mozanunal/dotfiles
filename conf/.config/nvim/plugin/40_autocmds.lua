@@ -17,3 +17,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     trailspace.trim_last_lines()
   end,
 })
+
+vim.api.nvim_create_autocmd('BufReadPre', {
+  pattern = { '*.gpg', '*.asc', '*.pgp' },
+  callback = function() vim.cmd.packadd('vim-gnupg') end,
+})

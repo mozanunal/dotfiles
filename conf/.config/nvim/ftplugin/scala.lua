@@ -1,4 +1,3 @@
-
 -- Guard so this file runs once per buffer
 if vim.b.lsp_scala_cfgd then return end
 vim.b.lsp_scala_cfgd = true

@@ -25,6 +25,12 @@ local function format_project()
   })
 end
 
+require('lazydev').setup({
+  library = {
+    { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+  },
+})
+
 -- Set buffer-local keymaps
 vim.keymap.set('n', '<leader>lf', format_buffer, {
   buffer = true,

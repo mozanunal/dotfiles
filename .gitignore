@@ -7,3 +7,4 @@ confs/nvim/lazyvim.json
 confs/nvim/spell/en.utf-8.add
 confs/nvim/spell/en.utf-8.add.spl
 .DS_Store
+conf/.config/nvim/nvim-pack-lock.json
