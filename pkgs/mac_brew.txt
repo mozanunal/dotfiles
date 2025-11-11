@@ -2,12 +2,12 @@ awscli
 bat
 deno
 duckdb
+evil-helix
 fastfetch
 fd
 fzf
 glow
 gopls
-helix
 htop
 hugo
 kubectl
