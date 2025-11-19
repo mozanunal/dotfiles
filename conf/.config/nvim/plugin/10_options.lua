@@ -55,7 +55,9 @@ vim.lsp.enable({
   'ruff',
   'rust_analyzer',
   'html',
-  'denols',
+  -- 'denols',
   'zk',
   'metals',
+  'tailwindcss',
+  'ts_ls'
 })
