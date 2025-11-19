@@ -34,7 +34,7 @@ add({
 })
 add({ source = 'nvim-treesitter/nvim-treesitter-textobjects', checkout = 'master' })
 
-require('sllm').setup({ default_model = 'openrouter/openai/gpt5' })
+require('sllm').setup({ default_model = 'openrouter/openai/gpt-5' })
 
 require('catppuccin').setup({
   flavour = 'auto', -- latte, frappe, macchiato, mocha
