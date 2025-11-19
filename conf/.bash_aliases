@@ -49,7 +49,8 @@ fi
 alias v='source .venv/bin/activate'
 alias vp='source playground/.envrc'
 alias e='source .venv/bin/activate; $EDITOR .'
-alias n='cd ~/.password-store && $EDITOR .'
+alias p='cd ~/.password-store && $EDITOR .'
+alias n='cd ~/.notes && $EDITOR .'
 alias tm='tmux a || tmux'
 alias zm='zellij a || zellij'
 alias lg='lazygit'
@@ -119,5 +120,3 @@ bind -x '"\C-r":__moz_fzh'
 bind -x '"\ed":moz_fzed'
 # Alt+e edit file
 bind -x '"\ee":moz_fzef'
-
-
