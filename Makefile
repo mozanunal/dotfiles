@@ -9,46 +9,50 @@ APT_X11 = sudo apt install -y $(shell cat pkgs/apt_x11.txt)
 MAC_BREW = brew install $(shell cat pkgs/mac_brew.txt)
 MAC_CASK = brew install --cask $(shell cat pkgs/mac_cask.txt)
 
-## update
-update_linux:
+.PHONY: help
+help:
+	@echo "Available targets:"
+	@awk 'BEGIN {FS = ":.*## "}; /^[a-zA-Z0-9_.-]+:.*##/ {printf "  %-24s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+stow:
+	stow conf
+
+############ Linux ##############
+linux_update:
 	sudo apt update && \
 		sudo apt upgrade -y && \
 		sudo apt autoclean -y && \
 		sudo apt autoremove -y
 
-update_mac:
-	brew upgrade
-
-## conf
-stow:
-	stow conf
-
-user_conf:
+linux_user_conf:
 	sudo usermod -aG video $(USER)
 
-font_conf:
+linux_font_conf:
 	wget -qO /tmp/NF-Symbols.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip
 	mkdir -p ~/.local/share/fonts/NF-Symbols && unzip -o /tmp/NF-Symbols.zip -d ~/.local/share/fonts/NF-Symbols
 	fc-cache -f
 
-## sync
-sync_headless: update_linux stow
+linux_sync_headless: linux_update stow
 	$(APT_SERVER)
 
-sync_headless_dev: update_linux stow
+linux_sync_dev: linux_update stow
 	$(APT_SERVER)
 	$(APT_DEV)
 
-sync_x11: update_linux stow user_conf
+linux_sync_x11: linux_update stow linux_user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
 	$(APT_X11)
 
-sync_wayland: update_linux stow user_conf
+linux_sync_wayland: linux_update stow linux_user_conf
 	$(APT_SERVER)
 	$(APT_DEV)
 	$(APT_WAYLAND)
 
-sync_mac: stow
+############ Mac ##############
+mac_update:
+	brew upgrade
+
+mac_sync: stow
 	$(MAC_BREW)
 	$(MAC_CASK)
