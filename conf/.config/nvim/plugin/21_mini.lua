@@ -78,7 +78,8 @@ require('mini.pick').setup({
 local ai = require('mini.ai')
 ai.setup({
   custom_textobjects = {
-    ['B'] = extra.gen_ai_spec.buffer(),
+    B = extra.gen_ai_spec.buffer(),
+    F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
     -- inline-code         `code`
     ['`'] = ai.gen_spec.pair('`', '`', { type = 'greedy' }),
     -- fenced code block  ```lang … ```
