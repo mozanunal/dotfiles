@@ -112,11 +112,13 @@ __moz_fzh() {
   READLINE_POINT=${#READLINE_LINE}
 }
 
-# Ctrl+t cd to directory
-bind -x '"\C-t":__moz_fzcd'
-# Ctrl+r history search (custom)
-bind -x '"\C-r":__moz_fzh'
-# Alt+d edit directory
-bind -x '"\ed":moz_fzed'
-# Alt+e edit file
-bind -x '"\ee":moz_fzef'
+if [[ $- == *i* ]]; then
+  # Ctrl+t cd to directory
+  bind -x '"\C-t":__moz_fzcd'
+  # Ctrl+r history search (custom)
+  bind -x '"\C-r":__moz_fzh'
+  # Alt+d edit directory
+  bind -x '"\ed":moz_fzed'
+  # Alt+e edit file
+  bind -x '"\ee":moz_fzef'
+fi
