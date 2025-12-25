@@ -27,3 +27,5 @@ uv
 vscode-langservers-extracted
 yazi
 zellij
+zsh-autosuggestions
+zsh-syntax-highlighting

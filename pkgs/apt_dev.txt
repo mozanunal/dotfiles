@@ -1,9 +1,7 @@
-awscli
 bat
 fd-find
 fzf
 hugo
-kubectl
 lazygit
 neovim
 pass

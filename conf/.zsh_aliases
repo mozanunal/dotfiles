@@ -1,0 +1,51 @@
+# === Completions ===
+autoload -Uz compinit && compinit
+
+# === Prompt ===
+autoload -U colors && colors
+PROMPT='%F{cyan}%n%f %F{blue}%~%f %F{cyan}❯%f '
+
+# === Plugins ===
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# === Tools ===
+eval "$(fzf --zsh)"
+
+# === Environment ===
+export EDITOR=nvim
+export MANPAGER="nvim +Man!"
+
+# === History ===
+HISTSIZE=1000000
+SAVEHIST=10000000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
+# === Options ===
+setopt AUTO_CD
+setopt CORRECT
+setopt EXTENDED_GLOB
+setopt NOMATCH
+
+# === Path ===
+[[ -d "$HOME/go/bin" ]] && PATH="$HOME/go/bin:$PATH"
+[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
+[[ -d "/home/linuxbrew/.linuxbrew/bin" ]] && PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+# === Aliases ===
+alias la='ls -la'
+alias ll='ls -ll'
+alias v='source .venv/bin/activate'
+alias e='source .venv/bin/activate; $EDITOR .'
+alias p='cd ~/.password-store && $EDITOR .'
+alias n='cd ~/.notes && $EDITOR .'
+alias tm='tmux a || tmux'
+alias zm='zellij a || zellij'
+alias lg='lazygit'
