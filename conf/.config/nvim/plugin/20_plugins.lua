@@ -34,7 +34,7 @@ add({
 })
 add({ source = 'nvim-treesitter/nvim-treesitter-textobjects', checkout = 'master' })
 
-require('sllm').setup({ default_model = 'openrouter/anthropic/claude-sonnet-4.5' })
+require('sllm').setup()
 
 require('catppuccin').setup({
   flavour = 'auto', -- latte, frappe, macchiato, mocha
